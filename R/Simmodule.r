@@ -285,7 +285,7 @@ map_outcomes_to_run_results <- function(run, moduleName, simframe, outcomes, cat
   no99fage_years.mx <- outcomes_wtotals["fage_years"][[1]]
   no99fage_years.mx[no99fage_years.mx==99] <- NA
   
-  run_results$summaries <- sfLapply(outcomes_wtotals[convars], summary_mx_cols)    
+  #run_results$summaries <- sfLapply(outcomes_wtotals[convars], summary_mx_cols)    
   run_results$quantiles <- sfLapply(outcomes_wtotals[convars], quantile_mx_cols, new.names=c("Min", "10th", "25th", "50th", "75th","90th","Max"), probs=c(0,.1,.25,.5,.75,.9,1), na.rm = TRUE)
   
   
@@ -324,9 +324,6 @@ collate_all_run_results <- function(Simmodule, all_run_results, cat.adjustments=
   
   collated_results$confreqs <- lapply(all_run_results_zipped$confreqs, 
                                       collator_freqs, dict=dict, CI=FALSE) 
-  #usually keep as FALSE (though TRUE works)
-  collated_results$histogram <- lapply(all_run_results_zipped$confreqs, 
-                                       collator_histogram, dict=dict)
   
   
   collated_results$freqs <- lapply(all_run_results_zipped$freqs, 
@@ -339,25 +336,11 @@ collate_all_run_results <- function(Simmodule, all_run_results, cat.adjustments=
   #CIs are the default for means
   collated_results$means <- lapply(all_run_results_zipped$means, 
                                    collator_means, dict = dict, NA.as.zero=F, CI=TRUE)
-  collated_results$means[[15]] <- collated_results$means[[15]][6,]
-  collated_results$means[[15]] <- structure(collated_results$means[[15]], meta=c(varname="NPRESCH"))
-  collated_results$means[[16]] <- collated_results$means[[16]][6,]
-  collated_results$means[[16]] <- structure(collated_results$means[[16]], meta=c(varname="INTERACT"))
-  collated_results$means[[17]] <- collated_results$means[[17]][6,]
-  collated_results$means[[17]] <- structure(collated_results$means[[17]], meta=c(varname="PUNISH"))
   
-  collated_results$summaries <- lapply(all_run_results_zipped$summaries, collator_list_mx)
   collated_results$quantiles <- lapply(all_run_results_zipped$quantiles, 
                                        collator_list_mx, NA.as.zero=FALSE, CI=FALSE)
-  collated_results$quantiles[[15]] <- collated_results$quantiles[[15]][6,]
-  collated_results$quantiles[[15]] <- structure(collated_results$quantiles[[15]], 
-                                                meta=c(varname="NPRESCH"))
-  collated_results$quantiles[[16]] <- collated_results$quantiles[[16]][6,]
-  collated_results$quantiles[[16]] <- structure(collated_results$quantiles[[16]], 
-                                                meta=c(varname="INTERACT"))
-  collated_results$quantiles[[17]] <- collated_results$quantiles[[17]][6,]
-  collated_results$quantiles[[17]] <- structure(collated_results$quantiles[[17]], meta=c(varname="PUNISH"))
-  
+ 
+ 
   #Add normal theory CIs for year 1
   #browser()
   if (length(all_run_results)>1) {
@@ -416,8 +399,7 @@ collate_all_run_results <- function(Simmodule, all_run_results, cat.adjustments=
 #'  the operation applied to an outcome variable (ie: an element in outcomes). 
 map_outcomes_to_run_resultsP <- function(run, simframe, outcomes, cat.adjustments) {
   
-  dict <- as.list(dict)
-  
+
   outcomes <- outcomes[[run]]
   
   #cat(gettextf("Generating run results for %s\n", .$name))
@@ -428,7 +410,6 @@ map_outcomes_to_run_resultsP <- function(run, simframe, outcomes, cat.adjustment
   yrs.vars <- c("mage_years", "no99mage_years", "fage_years")
   all.convars <- c(convars, yrs.vars) #final and intermediate outcomes
   int.convars <- convars[c(1:7, 15)] #intermediate outcomes only 
-  
   
   
   # add additional "all years" row totals to continuous vars
@@ -483,8 +464,6 @@ map_outcomes_to_run_resultsP <- function(run, simframe, outcomes, cat.adjustment
   run_results <- list()
   
 
-  
-  
   rounded.outcomes <- sfLapply(outcomes[convars], round)    	
   
   run_results$confreqs <- sfLapply(rounded.outcomes, table_mx_cols_MELC_list, dict=dict)   
@@ -498,7 +477,7 @@ map_outcomes_to_run_resultsP <- function(run, simframe, outcomes, cat.adjustment
   no99fage_years.mx <- outcomes_wtotals["fage_years"][[1]]
   no99fage_years.mx[no99fage_years.mx==99] <- NA
   
-  run_results$summaries <- sfLapply(outcomes_wtotals[convars], summary_mx_cols)    
+  #run_results$summaries <- sfLapply(outcomes_wtotals[convars], summary_mx_cols)    
   run_results$quantiles <- sfLapply(outcomes_wtotals[convars], quantile_mx_cols, new.names=c("Min", "10th", "25th", "50th", "75th","90th","Max"), probs=c(0,.1,.25,.5,.75,.9,1), na.rm = TRUE)
   
   
@@ -549,7 +528,7 @@ collate_all_run_resultsP <- function(all_run_results, cat.adjustments=NULL, simf
   #CIs are the default for means
   collated_results$means <- lapply(all_run_results_zipped$means, collator_means, dict = dict, NA.as.zero=F, CI=TRUE)
   
-  collated_results$summaries <- lapply(all_run_results_zipped$summaries, collator_list_mx)
+  #collated_results$summaries <- lapply(all_run_results_zipped$summaries, collator_list_mx)
   collated_results$quantiles <- lapply(all_run_results_zipped$quantiles, collator_list_mx, NA.as.zero=FALSE, CI=FALSE)
   
   #Add normal theory CIs for year 1
