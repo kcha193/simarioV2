@@ -3,8 +3,6 @@
 # Author: oman002
 ###############################################################################
 
-library(xlsx)
-
 
 #' Returns the file extension, i.e: everything after the final dot.
 #' 
@@ -85,33 +83,6 @@ read_csv <- function (filedir, filename, stringsAsFactors = FALSE, ...) {
 #' }
 read_file <- function (filedir, filename, filetype = file_extension(filename), stringsAsFactors = FALSE, ...) {
 	switch(filetype,
-		csv = read_csv(filedir, filename, stringsAsFactors = stringsAsFactors, ...),
-		xls = readXLSSheet1(filedir, filename, stringsAsFactors = stringsAsFactors, ...),
-		xlsx = readXLSSheet1(filedir, filename, stringsAsFactors = stringsAsFactors, ...))
+		csv = read_csv(filedir, filename, stringsAsFactors = stringsAsFactors, ...))
 }
 
-
-#' Returns first sheet of XLS as dataframe
-#' 
-#' @param filedir
-#'  file directory, with or without trailing slash
-#' 
-#' @param filename
-#'  file name
-#' 
-#' @param stringsAsFactors
-#'  logical: should character vectors be converted to factors?
-#' 
-#' @param ...
-#'  additional parameters to read.xlsx2
-#' 
-#' @return 
-#'  a data frame
-#' 
-#' @export
-readXLSSheet1 <- function (filedir, filename, stringsAsFactors = FALSE, ...) {
-	filedir <- add_trailing_slash(filedir)		
-	oldOpt <- options(stringsAsFactors = stringsAsFactors)
-	on.exit(options(oldOpt))
-	read.xlsx2(paste(filedir, filename, sep=""), sheetIndex = 1, ...)
-} 

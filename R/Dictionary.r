@@ -1,12 +1,36 @@
 
-#' Create a dictionary object.
-#' 
+#' Return the category names for a vector of coded values.
+#' If no category names, returns the list as is.
+#'
 #' @param .
-#'  this
+#'  this 
+#' @param x
+#'  coded values
+#' @param varname
+#'  name of the category of x, or NULL
+
+#' @return
+#'  x, is there are no codings for varname, else a vector of category names
+#'  corresponding to the values in x
+#' 
+#' @export
+cmatch <- function (dict, x, varname) {
+  if (is.null(varname)) return(x)
+  
+  xcodings <- dict$codings[[varname]]
+  if (is.null(xcodings)) return(x)
+  
+  # match x in catcodings
+  codings.indices <- match(x, xcodings)
+  names(xcodings)[codings.indices]
+  
+}
+
+
+#' Create a dictionary object.
 #' 
 #' @param descriptions_dataframe
 #'   a dataframe with the variables:
-#' 
 #'   Varname = the variable name
 #'   Description = a description of the variable.
 #' 
@@ -25,8 +49,12 @@
 #' a dictionary object
 #' 
 #' @export
+#' @examples
+#' 
 createDict <- function (descriptions_dataframe, codings_dataframe = NULL) {
+  
   descriptions <- createDescriptions(descriptions_dataframe)
+  
   if (is.null(codings_dataframe)) {
     codings <- NULL
   } else {
@@ -53,32 +81,6 @@ createDict <- function (descriptions_dataframe, codings_dataframe = NULL) {
        codings = codings)	
 }
 
-#' Return the category names for a vector of coded values.
-#' If no category names, returns the list as is.
-#'
-#' @param .
-#'  this 
-#' @param x
-#'  coded values
-#' @param varname
-#'  name of the category of x, or NULL
-#' 
-#' @return
-#'  x, is there are no codings for varname, else a vector of category names
-#'  corresponding to the values in x
-#' 
-#' @export
-cmatch <- function (dict, x, varname) {
-  if (is.null(varname)) return(x)
-  
-  xcodings <- dict$codings[[varname]]
-  if (is.null(xcodings)) return(x)
-  
-  # match x in catcodings
-  codings.indices <- match(x, xcodings)
-  names(xcodings)[codings.indices]
-  
-}
 
 #' Returns the category names for the vector of flattened codes.
 #'
@@ -296,6 +298,9 @@ dlookup <- function(dict, x) {
 #' Useful when users specifiy their own subgroup expression.  If the expression is not 
 #' a name in the dictionary then one can assume that the user has specified their own 
 #' expression to be used for subgrouping purposes.
+#' 
+#' @export
+#'
 dlookup_exists <- function(dict, x) {
   
   name <- c()

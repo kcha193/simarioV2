@@ -1,15 +1,16 @@
 #' Returns a dataset for use in a table by the Table Builder GUI.
 #' 
 #' Currently cannot do freqs for final outcomes (can only do freqs for those vars with binbreaks)
-#' Also currently can only use a true categorical variable as a groupby variable - this coould be changed.
+#' Also currently can only use a true categorical variable as a groupby variable - this coould be 
+#' changed. 
 #' 
 #' If the user defined a logiset/subgroup expression inthe scenario weightings screen and then
 #' goes to tableBuilder() and sets a grpbyName, then the results they get will be on the entire 
-#' dataset, not just on their subgroup they defined earlier.  The user can't define a logiset
+#' dataset, not just on their subgroup they defined earlier.  The user can not define a logiset
 #' expression in tableBuilder - the logisetexpr parameter is there so it can be used to show the 
 #' user, in the scenario weightings screen, the distributions of the variable of interest for 
-#' their subgroup only so they can better choose the proportions for their subgroup scenario.   
-#' 
+#' their subgroup only so they can better choose the proportions for their subgroup scenario. 
+#'   
 #' @param envName 
 #'  the environment to use - Base, Scenario etc.
 #' 
@@ -18,40 +19,28 @@
 #' 
 #' @param variableName
 #'  the variable to use in producing the dataset
-#' 
+#'  
 #' @param grpbyName
 #'  a subgroup by which to examine the variable
 #' 
 #' @param CI
-#'  logical indicating whether 95% confidence intervals should be generated
-#' 
+#'  logical indicating whether 95\% confidence intervals should be generated
+#'  
+#' @param dict
+#'  Dictionary object.
 #' @param logisetexpr
 #'  a character expression which defines the logiset variable
 #' 
-#' @param dict
-#'  Dictionary object.
-#' 
 #' @param not.in.logiset
-#'  logical.  If TRUE, then the results will be calculated on those not in the logiset rather than those in the logiset.
+#'  logical.If  TRUE, then the results will be calculated on those not in the logiset rather than those in the logiset.
 #' 
 #' @return 
 #'  a summary table for the entire or subgroup of the variable of interest.
-#'  
+#'   
 #' @export
-#' @examples
-#' \dontrun{
-#' dict <- dict_demo
-#' test <- tableBuilder(envName="Scenario", "frequencies", "disability_state", "",CI=TRUE, logisetexpr=NULL)
-#' test <- tableBuilder(envName="Base", statistic="means", variableName="age", grpbyName="", CI=TRUE, logisetexpr=NULL)
-#' test <- tableBuilder("Base", "quintiles", "IQ", "",CI=TRUE, logisetexpr=NULL)
-#' test <- tableBuilder("Base", "frequencies", "disability_state", grpbyName="alive",CI=FALSE, logisetexpr=NULL)
-#' test <- tableBuilder(envName="Base", statistic="means", variableName="earnings", grpbyName="qualification", CI=TRUE, logisetexpr=NULL)
-#' test <- tableBuilder(envName="Base", statistic="means", variableName="earnings", grpbyName="qualification", CI=F, logisetexpr=NULL)
-#' test <- tableBuilder(envName="Base", statistic="quintiles", variableName="earnings", grpbyName="", CI=FALSE, logisetexpr="alive==TRUE", not.in.logiset=TRUE)
-#' test <- tableBuilder(envName="Base", statistic="frequencies", variableName="alive", grpbyName="sex", CI=FALSE, dict=dict_demo)
-#' test <- tableBuilder(envName="Base", statistic="frequencies", variableName="disability_state", grpbyName="qualification", CI=FALSE)
-#' tableBuilder(envName="Base", statistic="means", variableName="earnings", grpbyName="sex", CI=FALSE, dict=dict_demo)}
-tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", CI=TRUE, logisetexpr=NULL,  not.in.logiset=FALSE) {
+#' 
+tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", CI=TRUE, 
+                         logisetexpr=NULL,  not.in.logiset=FALSE) {
   
   
   if (!is.null(logisetexpr)) {
@@ -85,7 +74,8 @@ tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", C
         #variable is a time-invariant "Lvl" variable and is only present in the simframe with its Lvl suffix
         which.vars <- str_locate_all(names(env$simframe), variableName)
         lvl.vars <- which(lapply(which.vars, length)>0)
-        mx <- binary.levels.combine(env$simframe[[lvl.vars[1]]], env$simframe[[lvl.vars[2]]], env$simframe[[lvl.vars[3]]])
+        mx <- binary.levels.combine(env$simframe[[lvl.vars[1]]], 
+                                    env$simframe[[lvl.vars[2]]], env$simframe[[lvl.vars[3]]])
         #above code OK cos all the time-invariant Lvl vars only have three categories
         #but would be better to change code to be more generic
       }
@@ -121,7 +111,8 @@ tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", C
           #variable is a time-invariant "Lvl" variable and is only present in the simframe with its Lvl suffix
           which.vars <- str_locate_all(names(env$simframe), grpbyName)
           lvl.vars <- which(lapply(which.vars, length)>0)
-          grpbymx <- binary.levels.combine(env$simframe[[lvl.vars[1]]], env$simframe[[lvl.vars[2]]], env$simframe[[lvl.vars[3]]])
+          grpbymx <- binary.levels.combine(env$simframe[[lvl.vars[1]]], 
+                                           env$simframe[[lvl.vars[2]]], env$simframe[[lvl.vars[3]]])
         }
       }
     }
@@ -183,7 +174,10 @@ tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", C
       mean_mx_cols_BCASO(mx_wtotals, grpby=grpby, grpby.tag=grpbyName, logiset=logiset_wtotals, dict=dict)
       
     } else if (tolower(statistic)=="quintiles") {
-      quantile_mx_cols_BCASO(mx_wtotals, grpby=grpbymx_wtotals, grpby.tag=grpbyName, new.names=c("Min", "10th", "25th", "50th", "75th","90th","Max"), probs=c(0,.1,.25,.5,.75,.9,1), logiset=logiset_wtotals, na.rm=TRUE, dict=dict)
+      quantile_mx_cols_BCASO(mx_wtotals, grpby=grpbymx_wtotals, grpby.tag=grpbyName, 
+                             new.names=c("Min", "10th", "25th", "50th", "75th","90th","Max"), 
+                             probs=c(0,.1,.25,.5,.75,.9,1), 
+                             logiset=logiset_wtotals, na.rm=TRUE, dict=dict)
     }
   })
   

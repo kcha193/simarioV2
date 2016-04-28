@@ -59,7 +59,9 @@
 #'  the list of Simmodules for this Simenv
 #' 
 #' @return 
-#' 
+#'   
+#' @export
+#'  
 createSimenv <- function (name, simframe, dict, modulesName, cat.adjustments=list(), modules=list()) {
   
   
@@ -82,6 +84,8 @@ createSimenv <- function (name, simframe, dict, modulesName, cat.adjustments=lis
   )
 }
 #' Create empty categorical variable adjustment matrices.
+#'   
+#' @export
 #' 
 #' @examples
 #' . <- SimenvMELC 
@@ -437,9 +441,11 @@ applyContAdjustmentToSimframe <- function(Simenv, varname, iteration, desiredPro
 
 #' Generate pre simulation stats after adjustment but before simulation begins.
 #' 
-#' Typically these will be descriptive statistics of input variables that don’t change eg: gender, ethnicity
+#' Typically these will be descriptive statistics of input variables that don?t change eg: gender, ethnicity
 #' 
 #' Sub-classes override this function.
+#'   
+#' @export
 #' 
 generatePreSimulationStats <- function(Simenv, simframe) {
   codings <- Simenv$dict$codings
