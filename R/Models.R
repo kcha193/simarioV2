@@ -687,7 +687,8 @@ predSimNorm <- function(model.glm, envir=parent.frame(), set = NULL) {
 #' @return 
 #' a vector of predicted value
 #'
-#' @export   
+#' @export 
+#'   
 #' @examples
 #' \dontrun{
 #' fhrswrk.cat <- bin(simframe.master$fhrswrk, binbreaks$fhrswrk)
@@ -804,7 +805,6 @@ predSimNBinomsSelect <- function(x.cat, models, envir=parent.frame()) {
 #' a continuous vector that when binned by cont.bonbreaks will be the same as x.cat
 #'   envir=.GlobalEnv
 #' 
-#' @export 
 predSimModSelect <- function(x.cat, models, cont.binbreaks, logiset=NULL, envir=parent.frame()) {
 	#envir=simframe.master
 	x.cat <- as.integer(x.cat)
