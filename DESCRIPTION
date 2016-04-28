@@ -7,8 +7,7 @@ Imports:
     Hmisc,
     stringr,
     testthat,
-    stringi,
-    xlsx,
+    stringi,   
     snowfall
 Type: Package
 Title: Discrete-time dynamic micro-simulation framework for R
