@@ -33,11 +33,7 @@
 #' @export 
 createSimmodule <- function(name){
     
-  results <- list(name=name, outcomes=list(),  run_results=list(), run_results_collated=list())
-
-  names(results) <- name
-  
-  return(results)		
+  return(list(name=name, outcomes=list(),  run_results=list(), run_results_collated=list()))		
 }
 
 #' Simulate outomes and store them in the outcomes list.
