@@ -11,6 +11,8 @@
 #' a list of glm models
 #' @return
 #' a vector of model names
+#'  
+#' @export
 #' @examples 
 #' is.model.var("z1single0Lvl1", models)
 is.model.var <- function(varname, model.list) {
@@ -103,37 +105,6 @@ createGLM <- function (modeldf) {
 	
 	class(m.glm) <- c("glm","lm") 
 	m.glm
-}
-
-
-#' Load and create a GLM from the first sheet in an xlsx file.
-#' See \code{\link{createGLM}} for file format.
-#'
-#' @param filedir
-#'  file directory, ending with "/", eg: "d:/workspace/"
-#' 
-#' @param filename
-#'  file name, eg: "myfile.xls". See \code{\link{createGLM}} for file format.
-#' 
-#' @return 
-#'  a glm model object
-#'
-#' @seealso See \code{\link{createGLM}} for file format.
-#' 
-#' @export
-#' @examples
-#' \dontrun{
-#' filedir <- "D:/workspace.sim/MELC/CHDS/models/"
-#' filename <- "gptotvis.xlsx" ; filename <- "paddhsbetas.xlsx"
-#' 
-#' loadGLMXLS(filedir, filename)
-#' }
-loadGLMXLS <- function (filedir, filename) {
-	modeldf <- readXLSSheet1(filedir, filename)
-	tryCatch(	createGLM(modeldf), 
-			error = function(e) stop(paste(filename, e$message), call. = FALSE),
-			warning = function(e) stop(paste(filename, e$message), call. = FALSE)
-	)
 }
 
 
@@ -752,6 +723,7 @@ predSimNormsSelect <- function(x.cat, models, envir=parent.frame()) {
 #' @return 
 #' a continuous vector that when binned by cont.bonbreaks will be the same as x.cat
 #' 
+#' @export 
 #' @examples
 #' \dontrun{
 #' x.cont = simframe.master$fhrswrk
@@ -827,6 +799,7 @@ predSimNBinomsSelect <- function(x.cat, models, envir=parent.frame()) {
 #' @param envir
 #'  environment in which to evaluate model variables.
 #' 
+#' @export 
 #' @return 
 #' a continuous vector that when binned by cont.bonbreaks will be the same as x.cat
 #'   envir=.GlobalEnv
@@ -940,6 +913,7 @@ predictOrdinal <- function(models, numchildren, envir=parent.frame(), stochastic
 #' @param envir
 #'  environment in which to evaluate model variables.
 #' 
+#' @export
 #' @examples
 #' \dontrun{
 #' 	select <- z1single_previousLvl1
@@ -954,7 +928,21 @@ predSimBinomsSelect <- function(select, model0, model1, envir=parent.frame()) {
   result[select1] <- 1- predSimBinom(model1, envir, set=select1)
   result
 }
-
+#' Predict and simulate binary value from 2 binomial models.
+#' 
+#' @param select
+#'  a logical vector, or vector of 0s and 1s, which determine
+#'  when to use model0 and when to use model1, i.e:
+#'  when select == 0, then result is predSimBinom using model0
+#'  when select == 1, then result is 1 - predSimBinom using model1
+#' @param model0
+#'  model0
+#' @param model1
+#'  model1
+#' @param envir
+#'  environment in which to evaluate model variables.
+#' 
+#' @export
 predSimBinomsSelect_notChangeScores <- function(select, model0, model1, envir=parent.frame()) {
   select0 <- select == 0
   select1 <- select == 1
@@ -963,7 +951,23 @@ predSimBinomsSelect_notChangeScores <- function(select, model0, model1, envir=pa
   result[select1] <- predSimBinom(model1, envir, set=select1)
   return(result)
 }
-
+#' Predict and simulate binary value from 3 binomial models.
+#' 
+#' @param select
+#'  a logical vector, or vector of 0s and 1s, which determine
+#'  when to use model0 and when to use model1, i.e:
+#'  when select == 0, then result is predSimBinom using model0
+#'  when select == 1, then result is 1 - predSimBinom using model1
+#' @param model1
+#'  model1
+#' @param model2
+#'  model2
+#'  @param model3
+#'  model3
+#' @param envir
+#'  environment in which to evaluate model variables.
+#' 
+#' @export
 predSimBinomsSelect3Models_notChangeScores <- function(select, model1, model2, model3, envir=parent.frame()) {
   select0 <- select == 0
   select1 <- select == 1
@@ -996,6 +1000,8 @@ predSimBinomsSelect3Models_notChangeScores <- function(select, model1, model2, m
 #'  model 3
 #' @param envir
 #'  environment in which to evaluate model variables.
+#' 
+#' @export
 #' @examples
 #' \dontrun{
 #' select <- mumgroup
@@ -1020,6 +1026,25 @@ predSimNormsSelect3Models <- function(select, model1, model2, model3, envir=pare
   result
 }
 
+#' Predict and simulate value from 3 normal models.
+#' 
+#' @param select
+#'  a logical vector, or vector of 0,1,2,3which determine
+#'  when to use which model as follow,
+#'  when select == 0, then result is 0 
+#'  when select == 1, then result is predSimNorm using model1
+#'  when select == 2, then result is predSimNorm using model2
+#'  when select == 3, then result is predSimNorm using model3
+#' @param model1
+#'  model 1
+#' @param model2
+#'  model 2
+#' @param model3
+#'  model 3
+#' @param envir
+#'  environment in which to evaluate model variables.
+#' 
+#' @export
 predSimNBinomsSelect3Models <- function(select, model1, model2, model3, envir=parent.frame()) {
   select0 <- select == 0
   select1 <- select == 1

@@ -702,6 +702,63 @@ adjustCatVarCalib <- function(x, varname, propens=NULL, desiredProps=NULL, simen
 
 #' Adjust continuous values to desired proportions in cat.adjustments (if any).
 #' 
+#' Allows subgroup adjustment if a global subgroup expression is set. 
+#' 
+#' @param x
+#' continuous values to adjust
+#' @param varname
+#'  varname, used a lookup into cat.adjustments and propensities
+#'  
+#' @export
+#'
+#' @examples
+#' 
+adjustContVar <- function(x, varname, simenv = simenv, propens=NULL, desiredProps=NULL, iteration) {
+  cat.adjustments <- simenv$cat.adjustments
+  
+  if (!varname %in% names(cat.adjustments)) stop(gettextf("No cat.adjustments for %s", varname))
+  
+  if (varname %in% c("INTERACT", "PUNISH", "NPRESCH")) {
+    iteration <- 1 #just makes sure the 1st (and only) row from cat.adjustments is used next
+  }
+  
+  if (is.null(desiredProps)) {
+    #adjustCatVar is being used for scenario testing - get from cat.adjustments
+    desiredProps <- cat.adjustments[[varname]][iteration,]
+    
+  }
+  
+  if (any(is.na(desiredProps))) {
+    return(x)
+  }
+  
+  #attach logiset attribute to desiredProps
+  desiredProps <- structure(desiredProps, varname=varname, logisetexpr=attr(cat.adjustments[[varname]], "logiset"), levels=simenv$dict$codings[[varname]])
+  
+  logiset <- evaluateLogisetExprAttribute(desiredProps, parent.frame())
+  valid.subgroup <- check.subgroup.expr(cat.adjustments, parent.frame())
+  
+  if (valid.subgroup==1) {
+    cat("Adjusting", varname, ": ", desiredProps, "\n")
+    
+    catToContModels <- attr(cat.adjustments[[varname]], "catToContModel")
+    cont.binbreaks <- attr(cat.adjustments[[varname]], "cont.binbreaks")
+    
+    adj.x.cont <- adjust.proportions(x, desiredProps, propens, logiset, catToContModels, cont.binbreaks, envir=parent.frame())
+    return(adj.x.cont)
+  } else if (valid.subgroup==0) {
+    expr <- paste("Scenario adjustments cannot be made for iteration ", iteration, " because the subgroup expression is not defined")
+    cat(expr, "\n")
+    return(x)
+  } else {
+    stop("Check valid.subgroup in simulateRun()")
+  }
+}
+
+
+
+#' Adjust continuous values to desired proportions in cat.adjustments (if any).
+#' 
 #' Does not allow subgroup adjustment
 #' 
 #' @param x
