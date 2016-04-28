@@ -4,12 +4,10 @@
 \alias{tableBuilder}
 \title{Returns a dataset for use in a table by the Table Builder GUI.}
 \usage{
-tableBuilder(envName, statistic, variableName, dict, grpbyName = "",
-  CI = TRUE, logisetexpr = NULL, not.in.logiset = FALSE)
+tableBuilder(env, statistic, variableName, dict, grpbyName = "", CI = TRUE,
+  logisetexpr = NULL, not.in.logiset = FALSE)
 }
 \arguments{
-\item{envName}{the environment to use - Base, Scenario etc.}
-
 \item{statistic}{the summary measure to use in producing the dataset - frequencies, means, quintiles}
 
 \item{variableName}{the variable to use in producing the dataset}
@@ -23,6 +21,8 @@ tableBuilder(envName, statistic, variableName, dict, grpbyName = "",
 \item{logisetexpr}{a character expression which defines the logiset variable}
 
 \item{not.in.logiset}{logical.If  TRUE, then the results will be calculated on those not in the logiset rather than those in the logiset.}
+
+\item{envName}{the environment to use - Base, Scenario etc.}
 }
 \value{
 a summary table for the entire or subgroup of the variable of interest.

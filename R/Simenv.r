@@ -563,7 +563,7 @@ simulate <- function(Simenv, total_runs=1) {
     #Simenv$modules$outcomes <- lapply(Simenv$modules, function(module) 
      # simulateRun(module, simenv=Simenv, simulateFun = simulateKnowLab)  )
     
-    Simenv$modules[[1]]$outcomes <- 
+    outcomes <- 
       simulateRun(module, simenv=Simenv, simulateFun = simulateKnowLab)
     
     
@@ -573,7 +573,8 @@ simulate <- function(Simenv, total_runs=1) {
                                   Simenv$modules[[1]]$outcomes, Simenv$cat.adjustments)
     
     
-    Simenv$modules[[1]]$run_results <- c(Simenv$modules[[1]]$run_results, list(run_results))
+    Simenv$modules[[1]]$run_results <- c(Simenv$modules[[1]]$run_results, 
+                                         list(run_results))
     
     names(Simenv$modules[[1]]$run_results)[i] <- paste("run", i, sep="")
     
@@ -684,12 +685,12 @@ simulateP <- function(Simenv, total_runs=1) {
   run_results_collated <-
     collate_all_run_resultsP(all_run_results, 
                             cat.adjustments = Simenv$cat.adjustments,
-                            simframe = Simenv$simframe, outcomes = outcomes[[1]])
+                            simframe = Simenv$simframe, 
+                            outcomes = outcomes[[1]])
   
   
   
   Simenv$num_runs_simulated <- total_runs
-  Simenv$modules[[1]]$outcomes <- outcomes[[1]]
   Simenv$modules[[1]]$run_results <- all_run_results
   names(Simenv$modules[[1]]$run_results) <- paste("run", 1:total_runs, sep="")
   

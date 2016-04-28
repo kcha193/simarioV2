@@ -39,7 +39,7 @@
 #'   
 #' @export
 #' 
-tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", CI=TRUE, 
+tableBuilder <- function(env, statistic, variableName, dict = env$dict, grpbyName="", CI=TRUE, 
                          logisetexpr=NULL,  not.in.logiset=FALSE) {
   
   
@@ -48,15 +48,8 @@ tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", C
       logisetexpr <- NULL
     }
   }
-  
-  #select env base on envName, eg: base (env.base) or scenario (env.scenario)
-  if (envName=="Base") {
-    env <- env.base
-  } else {		
-    env <- env.scenario
-  }
-  
-  #do we need to have the simframe as an input or do we need to do an environment thing?
+
+    #do we need to have the simframe as an input or do we need to do an environment thing?
   catvars <- getOutcomeVars(env$simframe, "categorical")
   contvars <- c(getOutcomeVars(env$simframe, "continuous"), "age")
   presimvars <- names(env$presim.stats)
@@ -75,7 +68,8 @@ tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", C
         which.vars <- str_locate_all(names(env$simframe), variableName)
         lvl.vars <- which(lapply(which.vars, length)>0)
         mx <- binary.levels.combine(env$simframe[[lvl.vars[1]]], 
-                                    env$simframe[[lvl.vars[2]]], env$simframe[[lvl.vars[3]]])
+                                    env$simframe[[lvl.vars[2]]], 
+                                    env$simframe[[lvl.vars[3]]])
         #above code OK cos all the time-invariant Lvl vars only have three categories
         #but would be better to change code to be more generic
       }
@@ -131,7 +125,7 @@ tableBuilder <- function(envName, statistic, variableName, dict, grpbyName="", C
     #define logiset variable if logiset expression was specified
     outcomes <- single_run$outcomes
     if (!is.null(logisetexpr)) {
-      prepended.exprs <- prepend.paths(logisetexpr)
+      prepended.exprs <- prepend.paths(logisetexpr, env.base)
       logiset.expr <- unlist(prepended.exprs["sg.expr"])
       names(logiset.expr) <- ""
       simframe <- env$simframe

@@ -33,7 +33,7 @@
 #' @export
 createSimmodule <- function(name){
     
-  return(list(name=name, outcomes=list(),  run_results=list(), run_results_collated=list()))		
+  return(list(name=name, run_results=list(), run_results_collated=list()))		
 }
 
 #' Simulate outomes and store them in the outcomes list.
@@ -60,7 +60,9 @@ simulateRun <- function (Simmodule, simenv, simulateFun) {
 }
 
 
-
+#' prepend.paths
+#'  
+#' @export 
 prepend.paths <- function(expr, env.base) {
   #expr <- "r1stchildethnLvl3==1 & mhrswrk<21"
   
@@ -103,6 +105,9 @@ prepend.paths <- function(expr, env.base) {
   return(result)
 }
 
+#' prepend.paths.for.yr1.CI
+#'  
+#' @export 
 prepend.paths.for.yr1.CI <- function(expr, env.base) {
   #expr <- "r1stchildethnLvl3==1 & mhrswrk<21"
   
@@ -137,6 +142,9 @@ prepend.paths.for.yr1.CI <- function(expr, env.base) {
   return(sg.expr)
 }
 
+#' remove.NA.cols
+#'  
+#' @export 
 remove.NA.cols <- function(collated_results_freqs, num.runs) {
   
   colname <- colnames(collated_results_freqs)
@@ -180,6 +188,9 @@ remove.NA.cols <- function(collated_results_freqs, num.runs) {
   return(collated_results_freqs)
 }
 
+#' check.subgroup.expr
+#'  
+#' @export
 check.subgroup.expr <- function(cat.adjustments, simframe) {
   catadj1 <- cat.adjustments[[1]]
   logisetexpr <- attr(catadj1,"logisetexpr")
@@ -514,11 +525,8 @@ collate_all_run_resultsP <- function(all_run_results, cat.adjustments=NULL, simf
   all_run_results_zipped <- lapply(all_run_results_zipped, lzip)
   
   collated_results <- list()
-  
-  
-  
   collated_results$confreqs <- lapply(all_run_results_zipped$confreqs, collator_freqs, dict=dict, CI=FALSE) #usually keep as FALSE (though TRUE works)
-  collated_results$histogram <- lapply(all_run_results_zipped$confreqs, collator_histogram, dict=dict)
+  #collated_results$histogram <- lapply(all_run_results_zipped$confreqs, collator_histogram, dict=dict)
   
   
   collated_results$freqs <- lapply(all_run_results_zipped$freqs, collator_freqs_remove_zero_cat, dict=dict, CI=TRUE)

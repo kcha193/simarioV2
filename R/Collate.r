@@ -142,7 +142,8 @@ collator_freqs2 <- function (runs, dict, row.dim.label="Year", col.dim.label="",
     runs_mx <- label_flattened_mx_grping.and.CIs(runs_mx, dict, row.dim.label, col.dim.label, CI=FALSE, num.runs=num.runs, binbreaks=binbreaks)
     result <- runs_mx
   } else if ((CI==TRUE)&&(num.runs>1)) {
-    runs_mx <- label_flattened_mx_grping.and.CIs(runs_mx, dict, row.dim.label, col.dim.label, CI=CI, num.runs=num.runs, binbreaks=binbreaks)
+    runs_mx <- label_flattened_mx_grping.and.CIs(runs_mx, dict, 
+                                                 row.dim.label, col.dim.label, CI=CI, num.runs=num.runs, binbreaks=binbreaks)
     resultCI <- runs_mx
     
     #label CI components
