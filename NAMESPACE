@@ -152,7 +152,10 @@ export(predSimNBinomsSelect)
 export(predSimNBinomsSelect3Models)
 export(predSimNorm)
 export(predSimNormsSelect)
+<<<<<<< HEAD
 export(predSimNormsSelect3Models)
+=======
+>>>>>>> c4029190029fa6dbfb55eee492dc46d85b6e729a
 export(predSimNormsSelectWithRounding)
 export(predSimPois)
 export(predict)
