@@ -30,7 +30,7 @@
 #' @return 
 #'  a list
 #' 
-#' @export 
+#' @export
 createSimmodule <- function(name){
     
   return(list(name=name, outcomes=list(),  run_results=list(), run_results_collated=list()))		
