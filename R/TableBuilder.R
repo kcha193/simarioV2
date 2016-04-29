@@ -103,8 +103,10 @@ tableBuilder <- function(env, statistic, variableName, dict = env$dict, grpbyNam
         grpbymx <- env$simframe[[grpbyName]]
         if (is.null(grpbymx)) {
           #variable is a time-invariant "Lvl" variable and is only present in the simframe with its Lvl suffix
-          which.vars <- str_locate_all(names(env$simframe), grpbyName)
-          lvl.vars <- which(lapply(which.vars, length)>0)
+          #which.vars <- str_locate_all(names(env$simframe), grpbyName)
+          lvl.vars <-names(env$simframe)[grep(grpbyName, names(env$simframe))]
+
+          #lvl.vars <- which(lapply(which.vars, length)>0)
           grpbymx <- binary.levels.combine(env$simframe[[lvl.vars[1]]], 
                                            env$simframe[[lvl.vars[2]]], env$simframe[[lvl.vars[3]]])
         }
@@ -190,13 +192,14 @@ tableBuilder <- function(env, statistic, variableName, dict = env$dict, grpbyNam
     
   } else if (tolower(statistic)=="means") {
     result <- collator_means(run_tables, dict=dict, CI=CI, NA.as.zero=FALSE)
-    attr(result, "meta")[["varname"]] <- variableName
-    
+      
     
   } else if (tolower(statistic)=="quintiles") {
     result <- collator_list_mx(run_tables, CI=CI, NA.as.zero=FALSE)
     
   }
+  
+  attr(result, "meta")[["varname"]] <- variableName
   
   if (variableName %in% presimvars) {
     if (grpbyName=="" | grpbyName %in% presimvars) {

@@ -4,8 +4,8 @@
 \alias{tableBuilder}
 \title{Returns a dataset for use in a table by the Table Builder GUI.}
 \usage{
-tableBuilder(env, statistic, variableName, dict, grpbyName = "", CI = TRUE,
-  logisetexpr = NULL, not.in.logiset = FALSE)
+tableBuilder(env, statistic, variableName, dict = env$dict, grpbyName = "",
+  CI = TRUE, logisetexpr = NULL, not.in.logiset = FALSE)
 }
 \arguments{
 \item{statistic}{the summary measure to use in producing the dataset - frequencies, means, quintiles}
