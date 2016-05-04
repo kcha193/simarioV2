@@ -706,6 +706,79 @@ simulateP <- function(Simenv, total_runs=1) {
   return(Simenv)
 }
 
+#' Perform a simulation of X runs using parallel computing.
+#' 
+#' NB: if it exists, uses propensities in global environment when doing adjustments for year 1
+#' 
+#' @param .
+#'  Simenv receiving object
+#' @param total_runs
+#'  total number of runs to simulate
+#' 
+#' @return 
+#'  NULL
+#' 
+#' @export
+#' @examples 
+#' \dontrun{
+#'  . <- env.base
+#'  env.base$simulate()
+#'  . <- env.scenario
+#' }
+
+simulatePShiny <- function(Simenv, total_runs=1) {
+  start_time <- proc.time()
+  
+  cat(gettextf("Simulating %s\n", Simenv$name))
+  
+  if (!exists("propensities")) propensities <- NULL
+  
+  valid.subgroup <- check.subgroup.expr(Simenv)
+  
+  if (valid.subgroup==1) {
+    applyAllCatAdjustmentsToSimframe(Simenv, 1, propensities)
+  } else if (valid.subgroup==0) {
+    cat("Pre-simulation scenario adjustments cannot be made because the subgroup expression is not defined \n")
+  } else {
+    stop("Check creation of valid.subgroup \n")
+  }
+  
+  #at this point after adjusting continuous variables some values may be higher than 
+  #the limits set throughout the simulation - can fix here (rather than changing
+  #more deep down simario functions)
+  if (exists("limits")) {
+    for (j in 1:length(limits)) {
+      v <- Simenv$simframe[[names(limits)[j]]]
+      #v[v>limits[[j]]] <- limits[[j]]
+      #id <- which(v>limits[[j]])
+      Simenv$simframe[[names(limits)[j]]][v>limits[[j]]] <- limits[[j]]
+    }
+  }
+  
+  Simenv$presim.stats <- generatePreSimulationStats(Simenv, Simenv$simframe)
+  
+  
+  
+  outcomes <-sfLapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
+  
+  
+  
+  Simenv$num_runs_simulated <- total_runs
+  
+  Simenv$modules[[1]]$run_results <- outcomes
+  names(Simenv$modules[[1]]$run_results) <- paste("run", 1:total_runs, sep="")
+  
+
+  # call garbage collector to release memory used during calculation (sometimes this is a lot)
+  gc()
+  
+  end_time <- proc.time()
+  
+  print(end_time - start_time)
+  
+  return(Simenv)
+}
+
 numberOfUnits <- function(Simenv) {
   dim(Simenv$simframe)[1]
 }
