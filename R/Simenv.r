@@ -761,11 +761,16 @@ simulatePShiny <- function(Simenv, total_runs=1) {
   
   outcomes <-sfLapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
   
-  
-  
+   
   Simenv$num_runs_simulated <- total_runs
   
-  Simenv$modules[[1]]$run_results <- outcomes
+ 
+  Simenv$modules[[1]]$run_results <- sfLapply(1:total_runs, function(x) {
+    run_results <- list()
+    run_results$outcomes <- outcomes[[x]]
+    run_results  
+  })
+  
   names(Simenv$modules[[1]]$run_results) <- paste("run", 1:total_runs, sep="")
   
 
