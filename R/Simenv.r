@@ -160,8 +160,8 @@ applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NUL
                                              cat.adjustments=Simenv$cat.adjustments) {
   
   contvars <- getOutcomeVars(Simenv$simframe, "continuous")
-  
-  
+ 
+  temp <- 
   lapply(cat.adjustments, function (catadj) {
     cat_adj_vector <- catadj[iteration, ]	
     varnames <- attr(catadj,"varnames")
@@ -188,7 +188,7 @@ applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NUL
       }
       
       if (!is.null(catToContModels)) {
-        applyContAdjustmentToSimframe(Simenv, varnames, 
+         applyContAdjustmentToSimframe(Simenv, varnames, 
                                       iteration, cat_adj_vector, 
                                       catToContModels, cont.binbreaks, propensities)
       } else {
@@ -197,6 +197,17 @@ applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NUL
     }
     
   })
+  
+  
+  
+  for(i in 1:length(temp)){
+    if(is.null(temp[[i]]))  next
+    
+    Simenv$simframe[,match(names(temp[[i]]), names(Simenv$simframe))] <- temp[[i]]
+    
+  }
+  
+  return(Simenv)
 }
 
 
@@ -240,7 +251,6 @@ applyCatAdjustmentToSimframe <- function(Simenv, varnames, desired_props, iterat
   
   logiset <- as.logical(evaluateLogisetExprAttribute(desired_props, Simenv$simframe, varnames))
   
-  
   if (is_single_variable_to_adjust) {
     propens <- propensities[[varnames]][,,iteration]
     applyCatAdjustmentToSimframeVarSingle(Simenv, varnames, desired_props, propens, print_adj, 
@@ -250,7 +260,6 @@ applyCatAdjustmentToSimframe <- function(Simenv, varnames, desired_props, iterat
     applyCatAdjustmentToSimframeVarMultipleBinary(Simenv, varnames, desired_props, propens,
                                                   print_adj,logiset=logiset)	
   }
-  
 }
 
 #' Adjust the proportions of a single simframe variable.
@@ -296,6 +305,9 @@ applyCatAdjustmentToSimframeVarSingle <- function(Simenv, varname, desired_props
     else {print(prop.table(table(subset(Simenv$simframe[varname],logiset))), digits=3)}
     
   }
+  
+  
+  Simenv$simframe[varname]
 }
 
 
@@ -380,9 +392,9 @@ applyCatAdjustmentToSimframeVarMultipleBinary <- function (Simenv, binLevelVarna
       desiredProps=desiredProps, 
       propens=propens)
     
-    Simenv$simframe[varnames] <- result[varnames] 
+      Simenv$simframe[varnames] <- result[varnames] 
   }
-  
+
   if (printAdj) {
     
     if (is.null(logiset) || sum(logiset) == 0) {
@@ -394,7 +406,10 @@ applyCatAdjustmentToSimframeVarMultipleBinary <- function (Simenv, binLevelVarna
       cat("\n")
     }
     
+    Simenv$simframe[varnames]
   }
+  
+  
 }
 
 
@@ -434,7 +449,9 @@ applyContAdjustmentToSimframe <- function(Simenv, varname, iteration, desiredPro
   logiset <- as.logical(evaluateLogisetExprAttribute(desiredProps, Simenv$simframe))
   cat("Adjusting", varname, ": ", desiredProps, "\n")
   Simenv$simframe[varname] <- adjust.proportions(Simenv$simframe[[varname]], desiredProps, propens, logiset, catToContModels, cont.binbreaks, envir=Simenv$simframe)
-  Simenv$simframe[varname]
+  
+  
+  Simenv$simframe[varname] 
 }
 
 
@@ -533,7 +550,7 @@ simulate <- function(Simenv, total_runs=1) {
   valid.subgroup <- check.subgroup.expr(Simenv)
   
   if (valid.subgroup==1) {
-    invisible(applyAllCatAdjustmentsToSimframe(Simenv, 1, propensities)) #<- need to check!!
+    Simenv <- applyAllCatAdjustmentsToSimframe(Simenv, 1, propensities)
   } else if (valid.subgroup==0) {
     cat("Pre-simulation scenario adjustments cannot be made because the subgroup expression is not defined \n")
   } else {
@@ -644,9 +661,9 @@ simulateP <- function(Simenv, total_runs=1) {
   if (!exists("propensities")) propensities <- NULL
   
   valid.subgroup <- check.subgroup.expr(Simenv)
-  
+ 
   if (valid.subgroup==1) {
-    applyAllCatAdjustmentsToSimframe(Simenv, 1, propensities)
+    Simenv <- applyAllCatAdjustmentsToSimframe(Simenv, 1, propensities)
   } else if (valid.subgroup==0) {
     cat("Pre-simulation scenario adjustments cannot be made because the subgroup expression is not defined \n")
   } else {
@@ -736,7 +753,8 @@ simulatePShiny <- function(Simenv, total_runs=1) {
   valid.subgroup <- check.subgroup.expr(Simenv)
   
   if (valid.subgroup==1) {
-    applyAllCatAdjustmentsToSimframe(Simenv, 1, propensities)
+    Simenv <- applyAllCatAdjustmentsToSimframe(Simenv, 1, propensities)
+    
   } else if (valid.subgroup==0) {
     cat("Pre-simulation scenario adjustments cannot be made because the subgroup expression is not defined \n")
   } else {
