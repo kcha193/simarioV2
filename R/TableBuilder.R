@@ -177,18 +177,10 @@ tableBuilder <- function(env, statistic, variableName, dict = env$dict, grpbyNam
     }
   })
   
+
   #select collator based on statistic
   if (tolower(statistic)=="frequencies") {
-    if (variableName%in%catvars) {
-      
-      result <- collator_freqs2(run_tables, dict=dict, CI=CI, binbreaks=binbreaks[[variableName]])
-      
-    } else if (variableName%in%contvars) {
-      result <- collator_freqs2(run_tables, dict=dict, CI=CI, binbreaks=binbreaks[[variableName]])
-      
-    } else {
-      stop(gettextf("Unknown variable %s. Cannot not find in catvars or contvars.", variableName))
-    }
+    result <- collator_freqs2(run_tables, dict=dict, CI=CI, binbreaks=binbreaks[[variableName]])
     
   } else if (tolower(statistic)=="means") {
     result <- collator_means(run_tables, dict=dict, CI=CI, NA.as.zero=FALSE)
