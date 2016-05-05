@@ -8,7 +8,11 @@ Imports:
     stringr,
     testthat,
     stringi,   
-    snowfall
+    snowfall,
+    shiny,
+    shinydashboard,
+    DT,
+    rhandsontable
 Type: Package
 Title: Discrete-time dynamic micro-simulation framework for R
 Version: 1.7.0
