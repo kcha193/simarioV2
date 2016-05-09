@@ -55,7 +55,6 @@ createSimmodule <- function(name){
 #' @export 
 simulateRun <- function (Simmodule, simenv, simulateFun) {
   
-  
   simulateFun(Simmodule, simenv)
 }
 
