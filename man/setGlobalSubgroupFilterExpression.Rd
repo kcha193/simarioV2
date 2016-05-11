@@ -5,11 +5,16 @@
 \title{Set the subgroup expression to all cat.adjustments if the subgroup expression exists. 
 Otherwise, remove the subgroup expression.}
 \usage{
-setGlobalSubgroupFilterExpression(subgroupExpression)
+setGlobalSubgroupFilterExpression(env.scenario, subgroupExpression)
 }
 \arguments{
+\item{env.scenario}{Simenv object to be changed}
+
 \item{subgroupExpression}{the subgroup expression that is requested by the user. 
 It specify the subgroup which is going to be adjusted.}
+}
+\value{
+Simenv object
 }
 \description{
 Set the subgroup expression to all cat.adjustments if the subgroup expression exists. 

@@ -250,12 +250,15 @@ evaluateLogisetExprAttribute <- function(desired_props, simframe, varname="") {
 #' Set the subgroup expression to all cat.adjustments if the subgroup expression exists. 
 #' Otherwise, remove the subgroup expression.
 #' 
+#' @param env.scenario
+#'  Simenv object to be changed
+#' 
 #' @param subgroupExpression
 #'  the subgroup expression that is requested by the user. 
 #'  It specify the subgroup which is going to be adjusted.
 #'
 #' @return 
-#' NULL
+#' Simenv object
 #'
 #' @export 
 #' @examples
@@ -264,7 +267,7 @@ evaluateLogisetExprAttribute <- function(desired_props, simframe, varname="") {
 #' setGlobalSubgroupFilterExpression(subgroupExpression)
 #' attr(env.scenario$cat.adjustments[[1]], "logisetexpr")
 #' }
-setGlobalSubgroupFilterExpression <- function(subgroupExpression) {
+setGlobalSubgroupFilterExpression <- function(env.scenario, subgroupExpression) {
   if (is.null(subgroupExpression) || subgroupExpression == "") {
     return(removeGlobalSubgroupFilterExpression())
   }
@@ -274,21 +277,25 @@ setGlobalSubgroupFilterExpression <- function(subgroupExpression) {
   for (i in 1:length(env.scenario$cat.adjustments)) {
     attr(env.scenario$cat.adjustments[[i]], "logisetexpr") <- subgroupExpression
   }
+  
+  env.scenario
 }
-
-
-
 
 #' Clear the subgroup expression for all cat.adjustments.
 #' 
+#' @param env.scenario
+#'  Simenv object to be changed
+#'  
 #' @return
-#' NULL
+#' Simenv object
 #'
 #' @export 
-removeGlobalSubgroupFilterExpression <- function() {
+removeGlobalSubgroupFilterExpression <- function(env.scenario) {
   cat("Clearing global subgroup expression\n")
   
   for (i in 1:length(env.scenario$cat.adjustments)) {
     attr(env.scenario$cat.adjustments[[i]], "logisetexpr") <- NULL
   }
+  
+  env.scenario
 }

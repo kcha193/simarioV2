@@ -4,7 +4,13 @@
 \alias{removeGlobalSubgroupFilterExpression}
 \title{Clear the subgroup expression for all cat.adjustments.}
 \usage{
-removeGlobalSubgroupFilterExpression()
+removeGlobalSubgroupFilterExpression(env.scenario)
+}
+\arguments{
+\item{env.scenario}{Simenv object to be changed}
+}
+\value{
+Simenv object
 }
 \description{
 Clear the subgroup expression for all cat.adjustments.
