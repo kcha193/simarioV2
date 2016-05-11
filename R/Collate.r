@@ -977,7 +977,7 @@ label_flattened_mx_grping.and.CIs <- function(mx.flattened, dict, row.dim.label=
   if ((num.spaces[1]==0)) {
     #no grouping
     if (!is.null(binbreaks)) {
-      if (any(is.na(suppressWarningsas.numeric(sub.col.names)))) {
+      if (any(is.na(suppressWarnings (as.numeric(sub.col.names))))) {
         #names are already the character versions and the match is not needed
         un.ordered.names <- sub.col.names
       } else {
