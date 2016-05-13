@@ -583,11 +583,10 @@ simulate <- function(Simenv, total_runs=1) {
     outcomes <- 
       simulateRun(module, simenv=Simenv, simulateFun = simulateKnowLab)
     
-    
     #execute map_outcomes_to_run_results on all modules and store run results
     run_results <- 
       map_outcomes_to_run_results(run=i, Simenv$modules[[1]]$name, Simenv$simframe, 
-                                  Simenv$modules[[1]]$outcomes, Simenv$cat.adjustments)
+                                  outcomes, Simenv$cat.adjustments)
     
     
     Simenv$modules[[1]]$run_results <- c(Simenv$modules[[1]]$run_results, 
@@ -596,15 +595,6 @@ simulate <- function(Simenv, total_runs=1) {
     names(Simenv$modules[[1]]$run_results)[i] <- paste("run", i, sep="")
     
     
-    # Simenv$modules <- lapply(Simenv$modules, function(module) {
-    #   #module <- Simenv$modules[[1]]
-    #   run_results <- 
-    #     map_outcomes_to_run_results(run=i, module$name, Simenv$simframe, 
-    #                                 module$outcomes, Simenv$cat.adjustments)
-    #   
-    #   module$run_results <- c(module$run_results, list(run_results))
-    #   names(module$run_results)[i] <- paste("run", i, sep="")
-    # })
     
     Simenv$num_runs_simulated <- Simenv$num_runs_simulated + 1
     

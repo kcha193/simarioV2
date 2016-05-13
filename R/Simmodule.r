@@ -325,7 +325,7 @@ map_outcomes_to_run_results <- function(run, moduleName, simframe, outcomes, cat
 collate_all_run_results <- function(Simmodule, all_run_results, cat.adjustments=NULL, simframe) {
   cat(gettextf("Collating all run results for %s\n", Simmodule$name))
   
-  outcomes <- Simmodule$outcomes
+  outcomes <- Simmodule$run_results$run1$outcomes
 
   all_run_results_zipped <- lzip(all_run_results)
   all_run_results_zipped <- lapply(all_run_results_zipped, lzip)
@@ -345,16 +345,15 @@ collate_all_run_results <- function(Simmodule, all_run_results, cat.adjustments=
   
   #CIs are the default for means
   collated_results$means <- lapply(all_run_results_zipped$means, 
-                                   collator_means, dict = dict, NA.as.zero=F, CI=TRUE)
+                                   collator_means, dict = dict, NA.as.zero=FALSE, CI=TRUE)
   
   collated_results$quantiles <- lapply(all_run_results_zipped$quantiles, 
                                        collator_list_mx, NA.as.zero=FALSE, CI=FALSE)
  
  
   #Add normal theory CIs for year 1
-  #browser()
   if (length(all_run_results)>1) {
-    collated_results$freqs[1:6] <- lapply(collated_results$freqs[1:6], 
+    collated_results$freqs[1:6] <- lapply(collated_results$freqs[1:6] , 
                                           normal.theory.CIs, outcomes=outcomes)
     
     collated_results$freqs_continuousGrouped <- 
@@ -377,6 +376,8 @@ collate_all_run_results <- function(Simmodule, all_run_results, cat.adjustments=
     lapply(collated_results$freqs_continuousGrouped, remove.NA.cols, num.runs=num.runs)
   
   collated_results$freqs <- lapply(collated_results$freqs, remove.NA.cols, num.runs=num.runs)
+  
+  collated_results$means <- lapply(collated_results$means, remove.NA.cols, num.runs=num.runs)
   
   collated_results
 }
