@@ -12,7 +12,8 @@ Imports:
     shiny,
     shinydashboard,
     DT,
-    rhandsontable
+    rhandsontable,
+    plotly
 Type: Package
 Title: Discrete-time dynamic micro-simulation framework for R
 Version: 1.7.0
@@ -22,6 +23,5 @@ Maintainer: Kevin Chang <k.chang@auckland.ac.nz>
 Description: Framework for executing multi-run dynamic micro-simulation and
     aggregating results across all runs
 License: LGPL
-URL: https://github.com/compassresearchcentre/simario
 LazyData: true
 RoxygenNote: 5.0.1
