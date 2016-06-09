@@ -13,7 +13,9 @@ Imports:
     shinydashboard,
     DT,
     rhandsontable,
-    plotly
+    plotly,
+    tidyr,
+    dplyr
 Type: Package
 Title: Discrete-time dynamic micro-simulation framework for R
 Version: 1.7.0
