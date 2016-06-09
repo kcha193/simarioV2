@@ -3,8 +3,6 @@
 # Author: oman002
 ###############################################################################
 
-library(plyr)
-
 
 #' calculates the row means of each matrix
 #' NAs are treated as zero.

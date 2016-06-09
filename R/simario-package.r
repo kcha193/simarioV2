@@ -30,7 +30,7 @@
 #' @docType package
 #' @name simario
 #' @aliases simario package-simario
-#' @import abind plyr Hmisc
+#' @import abind Hmisc
 NULL
 
 #' An example Dictionary proto object. 

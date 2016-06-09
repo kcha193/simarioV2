@@ -5,7 +5,7 @@
 \title{Returns a dataset for use in a table by the Table Builder GUI.}
 \usage{
 tableBuilderNew(env, statistic, variableName, dict = env$dict,
-  grpbyName = NULL, CI = TRUE, logisetexpr = NULL)
+  grpbyName = "", CI = TRUE, logisetexpr = "")
 }
 \arguments{
 \item{statistic}{the summary measure to use in producing the dataset - frequencies, means, quintiles}

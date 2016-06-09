@@ -38,9 +38,10 @@
 #' 
 #' 
 
+
 tableBuilderNew <- 
-  function (env, statistic, variableName, dict = env$dict, grpbyName = NULL, 
-            CI = TRUE, logisetexpr = NULL){
+  function (env, statistic, variableName, dict = env$dict, grpbyName = "", 
+            CI = TRUE, logisetexpr = ""){
     
     if(logisetexpr == "")
       logisetexpr <- NULL
