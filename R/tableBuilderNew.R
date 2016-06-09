@@ -45,13 +45,28 @@ tableBuilderNew <-
     #Time variant variables
     timeVar <- names(env$modules[[1]]$run_results$run1$outcomes)
     
+    if(variableName %in% timeVar ){
+      simulatedDataFull <- 
+        sapply(env$modules[[1]]$run_results, 
+               function(x) t(x$outcomes[[variableName]]))
+      
+      simulatedData <- 
+        tbl_df(data.frame(Year = 1:21, simulatedDataFull))
+      
     
-    simulatedDataFull <- 
-      sapply(env$modules[[1]]$run_results, 
-             function(x) t(x$outcomes[[variableName]]))
-    
-    simulatedData <- 
-      tbl_df(data.frame(Year = 1:21, simulatedDataFull))
+    }else {
+      simulatedDataFull <- env$simframe[[variableName]]
+      
+      simulatedDataFull <-matrix(rep(simulatedDataFull, env$num_runs_simulated), 
+                                 ncol =  env$num_runs_simulated)
+      
+      colnames(simulatedDataFull) <- paste("run", 1:env$num_runs_simulated, sep = "")
+      
+      simulatedData <- 
+        tbl_df(data.frame(Year = 1, simulatedDataFull))
+      
+      
+    }
     
     simulatedData <- 
       simulatedData %>% gather(Run, Var, -Year) %>% filter(!is.na(Var))
@@ -121,8 +136,16 @@ tableBuilderNew <-
       
       groupByData <- groupByDataAll
       
-      simulatedData <- 
-        tbl_df(data.frame(Year = 1:21, A0 = 1:5000, simulatedDataFull))
+      
+      
+      if(variableName %in% timeVar ){
+        simulatedData <- 
+          tbl_df(data.frame(Year = 1:21, A0 = 1:5000,simulatedDataFull))
+        
+      }else {
+        simulatedData <- 
+          tbl_df(data.frame(Year = 1, A0 = 1:5000,simulatedDataFull))
+      }
       
       simulatedData <- 
         simulatedData %>% gather(Run, Var, -Year, -A0) %>% filter(!is.na(Var))
@@ -145,8 +168,6 @@ tableBuilderNew <-
     
     
     if(tolower(statistic)=="means") {
-      
-      
       
       if(!is.null(grpbyName))  {
         
@@ -222,12 +243,10 @@ tableBuilderNew <-
           m <- result[1,] %>% as.numeric()
           
           result[result$Year == 1, c("Mean", "Lower", "Upper")] <- 
-            c(m[2],  m[2] - qt(.975, n[2]-1)*SD[2]/sqrt(n[2]), 
-              m[2] + qt(.975, n[2]-1)*SD[2]/sqrt(n[2]))
+            c(m[2],  m[2] - qt(.975, n-1)*SD[2]/sqrt(n), 
+              m[2] + qt(.975, n-1)*SD[2]/sqrt(n))
         }
       }
-      
-      
       
       
       return(result)
