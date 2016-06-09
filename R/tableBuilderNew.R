@@ -42,6 +42,13 @@ tableBuilderNew <-
   function (env, statistic, variableName, dict = env$dict, grpbyName = NULL, 
             CI = TRUE, logisetexpr = NULL){
     
+    if(logisetexpr == "")
+      logisetexpr <- NULL
+    
+    if(grpbyName == "")
+      grpbyName <- NULL
+    
+    
     #Time variant variables
     timeVar <- names(env$modules[[1]]$run_results$run1$outcomes)
     
@@ -165,7 +172,6 @@ tableBuilderNew <-
       simulatedData <- 
         simulatedData %>% filter(!is.na(Var))
     }
-    
     
     if(tolower(statistic)=="means") {
       
