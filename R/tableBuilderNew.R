@@ -213,10 +213,10 @@ tableBuilderNew <-
                 m[x] + qt(.975, n[x]-1)*SD[x]/sqrt(n[x]))))
         }
         
-        # result$groupByData <- 
-        #   names(env$dict$codings[[grpbyName]])[
-        #     match( result$groupByData, env$dict$codings[[grpbyName]])]
-        # 
+        result$groupByData <-
+          names(env$dict$codings[[grpbyName]])[
+            match( result$groupByData, env$dict$codings[[grpbyName]])]
+
         # 
         # names(result)[names(result)=="groupByData"] <- grpbyName
         
@@ -296,10 +296,10 @@ tableBuilderNew <-
                      function(x)  c(p[x],  p[x] - qnorm(.975)* sqrt(p[x]*(1-p[x])/n[x]),
                                     p[x] + qnorm(.975)* sqrt(p[x]*(1-p[x])/n[x]))))
         }
-        # result$groupByData <- 
-        #   names(env$dict$codings[[grpbyName]])[
-        #     match( result$groupByData, env$dict$codings[[grpbyName]])]
-        # 
+        result$groupByData <-
+          names(env$dict$codings[[grpbyName]])[
+            match( result$groupByData, env$dict$codings[[grpbyName]])]
+
         # 
         # names(result)[names(result)=="groupByData"] <- grpbyName
         
@@ -341,10 +341,10 @@ tableBuilderNew <-
         
       }
       
-      # result$Var <- 
-      #   names(env$dict$codings[[variableName]])[
-      #     match(result$Var,env$dict$codings[[variableName]])]
-      # 
+      result$Var <-
+        names(env$dict$codings[[variableName]])[
+          match(result$Var,env$dict$codings[[variableName]])]
+
       # names(result)[names(result)=="Var"] <- variableName
       
       return(result)
