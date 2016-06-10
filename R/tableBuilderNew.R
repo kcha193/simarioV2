@@ -28,8 +28,13 @@
 #'  
 #' @param dict
 #'  Dictionary object.
+#'  
 #' @param logisetexpr
 #'  a character expression which defines the logiset variable
+#'  
+#' @param binbreaks
+#'  The binbreaks for the outcome variable. 
+#'  
 #' 
 #' @return 
 #'  a summary table for the entire or subgroup of the variable of interest.
@@ -49,14 +54,19 @@ tableBuilderNew <-
     if(grpbyName == "")
       grpbyName <- NULL
     
-    
     #Time variant variables
     timeVar <- names(env$modules[[1]]$run_results$run1$outcomes)
+    conVar <- names(binbreaks)
+    
     
     if(variableName %in% timeVar ){
       simulatedDataFull <- 
         sapply(env$modules[[1]]$run_results, 
                function(x) t(x$outcomes[[variableName]]))
+      
+      if(statistic == "frequencies" & variableName %in% conVar)
+        simulatedDataFull <- apply(simulatedDataFull,2, function(x) 
+          as.numeric(bin(x, binbreaks[[variableName]])))
       
       simulatedData <- 
         tbl_df(data.frame(Year = 1:21, simulatedDataFull))
@@ -64,6 +74,9 @@ tableBuilderNew <-
     
     }else {
       simulatedDataFull <- env$simframe[[variableName]]
+      
+      if(statistic == "frequencies" & variableName %in% conVar)
+        simulatedDataFull <- as.numeric(bin(simulatedDataFull, binbreaks[[variableName]]))
       
       simulatedDataFull <-matrix(rep(simulatedDataFull, env$num_runs_simulated), 
                                  ncol =  env$num_runs_simulated)
@@ -139,12 +152,9 @@ tableBuilderNew <-
           else 
             groupByDataAll <- groupByDataAll %>% left_join(groupByData)
         }
-        
       }
       
       groupByData <- groupByDataAll
-      
-      
       
       if(variableName %in% timeVar ){
         simulatedData <- 
@@ -255,9 +265,6 @@ tableBuilderNew <-
         }
       }
       
-      
-      return(result)
-      
     } else if (tolower(statistic)=="frequencies"){
       
       if(!is.null(grpbyName))  {
@@ -342,14 +349,22 @@ tableBuilderNew <-
       }
       
       result$Var <-
-        names(env$dict$codings[[variableName]])[
-          match(result$Var,env$dict$codings[[variableName]])]
+        if(statistic == "frequencies" & variableName %in% conVar)  
+          names(binbreaks[[variableName]])[-1][result$Var]
+        else 
+          names(env$dict$codings[[variableName]])[
+            match(result$Var,env$dict$codings[[variableName]])]
 
       # names(result)[names(result)=="Var"] <- variableName
       
-      return(result)
+      
+      result[,c("Mean", "Lower", "Upper")] <-  result[,c("Mean", "Lower", "Upper")]*100
       
     }
+    
+    result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], 1)
+    
+    return(result)
   }       
   
 

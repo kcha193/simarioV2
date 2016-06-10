@@ -21,6 +21,8 @@ tableBuilderNew(env, statistic, variableName, dict = env$dict,
 \item{logisetexpr}{a character expression which defines the logiset variable}
 
 \item{envName}{the environment to use - Base, Scenario etc.}
+
+\item{binbreaks}{The binbreaks for the outcome variable.}
 }
 \value{
 a summary table for the entire or subgroup of the variable of interest.
