@@ -14,7 +14,8 @@ Imports:
     rhandsontable,
     plotly,
     tidyr,
-    dplyr
+    dplyr,
+    data.table
 Type: Package
 Title: Discrete-time dynamic micro-simulation framework for R
 Version: 1.7.0

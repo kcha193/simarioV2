@@ -15,7 +15,7 @@
 #'  the environment to use - Base, Scenario etc.
 #' 
 #' @param statistic
-#'  the summary measure to use in producing the dataset - frequencies, means, quintiles
+#'  the summary measure to use in producing the dataset - frequencies, means, quantiles
 #' 
 #' @param variableName
 #'  the variable to use in producing the dataset
@@ -43,21 +43,22 @@
 #' 
 #' 
 
-
 tableBuilderNew <- 
-  function (env, statistic, variableName, dict = env$dict, grpbyName = "", 
-            CI = TRUE, logisetexpr = ""){
+  function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
+            dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = ""){
     
-    if(logisetexpr == "")
-      logisetexpr <- NULL
+    library(dplyr)
+    library(tidyr)
     
-    if(grpbyName == "")
-      grpbyName <- NULL
+    if(logisetexpr == "")  logisetexpr <- NULL
+    
+    if(grpbyName == "")  grpbyName <- NULL
+    
+    statistic <- match.arg(statistic)
     
     #Time variant variables
     timeVar <- names(env$modules[[1]]$run_results$run1$outcomes)
     conVar <- names(binbreaks)
-    
     
     if(variableName %in% timeVar ){
       simulatedDataFull <- 
@@ -70,7 +71,6 @@ tableBuilderNew <-
       
       simulatedData <- 
         tbl_df(data.frame(Year = 1:21, simulatedDataFull))
-      
     
     }else {
       simulatedDataFull <- env$simframe[[variableName]]
@@ -85,8 +85,6 @@ tableBuilderNew <-
       
       simulatedData <- 
         tbl_df(data.frame(Year = 1, simulatedDataFull))
-      
-      
     }
     
     simulatedData <- 
@@ -97,8 +95,6 @@ tableBuilderNew <-
     
     
     if(!is.null(logisetexpr) | !is.null(grpbyName)){
-      
-      
       if(!is.null(logisetexpr)){
         grpbyName1 <- unlist(strsplit(logisetexpr, " [[:punct:]]+ "))
         
@@ -184,7 +180,10 @@ tableBuilderNew <-
         simulatedData %>% filter(!is.na(Var))
     }
     
-    if(tolower(statistic)=="means") {
+  
+    ####################################################################################
+    
+    if(statistic == "means") {
       
       if(!is.null(grpbyName))  {
         
@@ -265,7 +264,9 @@ tableBuilderNew <-
         }
       }
       
-    } else if (tolower(statistic)=="frequencies"){
+      result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], 2)
+      
+    } else if (statistic == "frequencies"){
       
       if(!is.null(grpbyName))  {
         
@@ -289,8 +290,10 @@ tableBuilderNew <-
         if(any(result$Year==1)) {
           
           simulatedDataSum <- 
-            simulatedData %>% group_by(Year, groupByData, Run)  %>%  summarise(Sum = n()) %>% 
-            group_by(Year, groupByData) %>% filter(Year ==1) %>% summarise(Sum = unique(Sum))
+            simulatedData %>% group_by(Year, groupByData, Run)  %>%  
+            summarise(Sum = n()) %>% 
+            group_by(Year, groupByData) %>% 
+            filter(Year ==1) %>% summarise(Sum = unique(Sum))
           
           n <- simulatedDataSum[,"Sum"] %>% unlist()
           
@@ -359,10 +362,52 @@ tableBuilderNew <-
       
       
       result[,c("Mean", "Lower", "Upper")] <-  result[,c("Mean", "Lower", "Upper")]*100
+      result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], 2)
+      
+    } else if (statistic == "quantiles"){
+     
+      if(!is.null(grpbyName))  {
+        
+        names(simulatedData)[names(simulatedData)== grpbyName] <- "groupByData"
+        
+        result <- 
+          simulatedData %>% group_by(Year, groupByData, Run) %>% 
+          simulatedData %>% group_by(Year, Run) %>% 
+          summarise(Min = quantile(Var, 0), 
+                    "10th" = quantile(Var, 0.1),
+                    "25th" =  quantile(Var, 0.25),
+                    "50th" =quantile(Var, 0.5),
+                    "75th" =quantile(Var, 0.75),
+                    "90th" =quantile(Var, 0.9),
+                    Max =quantile(Var, 1))%>% ungroup() %>% 
+          group_by(groupByData, Year) %>% 
+          summarise_each(funs(mean), -Run) %>% data.frame()
+       
+        result$groupByData <-
+          names(env$dict$codings[[grpbyName]])[
+            match( result$groupByData, env$dict$codings[[grpbyName]])]
+        
+        # 
+        # names(result)[names(result)=="groupByData"] <- grpbyName
+        
+      } else {
+        
+        result <- 
+          simulatedData %>% group_by(Year, Run) %>% 
+          summarise(Min = quantile(Var, 0), 
+                    "10th" = quantile(Var, 0.1),
+                    "25th" =  quantile(Var, 0.25),
+                    "50th" =quantile(Var, 0.5),
+                    "75th" =quantile(Var, 0.75),
+                    "90th" =quantile(Var, 0.9),
+                    Max =quantile(Var, 1))%>% ungroup() %>% 
+          group_by(Year) %>% 
+          summarise_each(funs(mean), -Run) %>% data.frame()
+
+      }
+      
       
     }
-    
-    result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], 1)
     
     return(result)
   }       
