@@ -4,11 +4,12 @@
 \alias{tableBuilderNew}
 \title{Returns a dataset for use in a table by the Table Builder GUI.}
 \usage{
-tableBuilderNew(env, statistic, variableName, dict = env$dict,
-  grpbyName = "", CI = TRUE, logisetexpr = "")
+tableBuilderNew(env, statistic = c("frequencies", "means", "quantiles"),
+  variableName, dict = env$dict, grpbyName = "", CI = TRUE,
+  logisetexpr = "")
 }
 \arguments{
-\item{statistic}{the summary measure to use in producing the dataset - frequencies, means, quintiles}
+\item{statistic}{the summary measure to use in producing the dataset - frequencies, means, quantiles}
 
 \item{variableName}{the variable to use in producing the dataset}
 

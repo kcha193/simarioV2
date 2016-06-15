@@ -406,7 +406,10 @@ tableBuilderNew <-
 
       }
       
+      index <- c("Min", "X10th","X25th","X50th", "X75th","X90th", "Max")
       
+      
+      result[,index] <-  round(result[,index], 2)
     }
     
     return(result)
