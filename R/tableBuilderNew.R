@@ -56,6 +56,8 @@ tableBuilderNew <-
     
     statistic <- match.arg(statistic)
     
+    nRun <- as.numeric(env$num_runs_simulated)
+    
     #Time variant variables
     timeVar <- names(env$modules[[1]]$run_results$run1$outcomes)
     conVar <- names(binbreaks)
@@ -78,8 +80,7 @@ tableBuilderNew <-
       if(statistic == "frequencies" & variableName %in% conVar)
         simulatedDataFull <- as.numeric(bin(simulatedDataFull, binbreaks[[variableName]]))
       
-      simulatedDataFull <-matrix(rep(simulatedDataFull, env$num_runs_simulated), 
-                                 ncol =  env$num_runs_simulated)
+      simulatedDataFull <- matrix(rep(simulatedDataFull, nRun), ncol =  nRun)
       
       colnames(simulatedDataFull) <- paste("run", 1:env$num_runs_simulated, sep = "")
       
