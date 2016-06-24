@@ -314,9 +314,15 @@ loadSimFrame <- function (simframe_defn, envir = .GlobalEnv, enclos = parent.fra
 	outcome_vars <- with(simframe_defn, simframe_defn[Outcome_module != "", 
 					c("Varname", "Outcome_type", "Outcome_module")])
 	
+	#data frame of Time_Invariant var mappings, types and set
+	time_invariant_vars <- with(simframe_defn, simframe_defn[Time_Invariant != "", 
+	                                                  c("Varname", "Outcome_type", "Time_Invariant")])
+	
+
 	#return
 	structure(simframe, previous=previous,
 			outcome_vars = outcome_vars,
+			time_invariant_vars = time_invariant_vars,
 			na.actions=nas)
 }
 
