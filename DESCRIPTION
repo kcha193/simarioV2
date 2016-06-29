@@ -16,11 +16,12 @@ Imports:
     tidyr,
     dplyr,
     data.table,
-    openxlsx
+    openxlsx,
+    reshape2
 Type: Package
 Title: Discrete-time dynamic micro-simulation framework for R
-Version: 1.7.0
-Date: 2015-11-01
+Version: 1.8.0
+Date: 2016-06-29
 Author: Oliver Mannion <o.mannion@auckland.ac.nz>
 Maintainer: Kevin Chang <k.chang@auckland.ac.nz>
 Description: Framework for executing multi-run dynamic micro-simulation and
