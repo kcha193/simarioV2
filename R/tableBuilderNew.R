@@ -136,6 +136,11 @@ tableBuilderNew <-
             groupByDataAll <- groupByDataAll %>% right_join(groupByData)
           
         } else{
+          
+          if(grpby %in% conVar)
+            groupByDataFull <- as.numeric(bin(env$simframe[[grpby]], 
+                                                binbreaks[[grpby]]))
+          
           groupByDataFull <- env$simframe[[grpby]]
           
           groupByData <- 
