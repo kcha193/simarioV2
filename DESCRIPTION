@@ -7,7 +7,7 @@ Imports:
     stringr,
     testthat,
     stringi,   
-    snowfall,
+    parallel,
     shiny,
     shinydashboard,
     DT,

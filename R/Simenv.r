@@ -770,7 +770,7 @@ simulateP <- function(Simenv, total_runs=1) {
 #'  . <- env.scenario
 #' }
 
-simulatePShiny <- function(Simenv, total_runs=1) {
+simulatePShiny <- function(cl, Simenv, total_runs=1) {
   start_time <- proc.time()
   
   cat(gettextf("Simulating %s\n", Simenv$name))
@@ -804,17 +804,25 @@ simulatePShiny <- function(Simenv, total_runs=1) {
   
   
   
-  outcomes <-sfLapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
+  #outcomes <-sfLapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
   
-   
+  outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
+  
   Simenv$num_runs_simulated <- total_runs
   
  
-  Simenv$modules[[1]]$run_results <- sfLapply(1:total_runs, function(x) {
+  # Simenv$modules[[1]]$run_results <- sfLapply(1:total_runs, function(x) {
+  #   run_results <- list()
+  #   run_results$outcomes <- outcomes[[x]]
+  #   run_results  
+  # })
+  
+  Simenv$modules[[1]]$run_results <- parLapply(cl, 1:total_runs, function(x) {
     run_results <- list()
     run_results$outcomes <- outcomes[[x]]
     run_results  
   })
+  
   
   names(Simenv$modules[[1]]$run_results) <- paste("run", 1:total_runs, sep="")
   
