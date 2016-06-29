@@ -93,7 +93,8 @@ tableBuilderNew <-
     
     #########################################################################
     #Using logisetexpr
-    
+ 
+   
     
     if(!is.null(logisetexpr) | !is.null(grpbyName)){
       if(!is.null(logisetexpr)){
@@ -107,7 +108,7 @@ tableBuilderNew <-
       if(is.null(logisetexpr)){
         grpbyNameFull <- grpbyName
         
-      } else if(!is.null(grpbyName)){
+      } else if(is.null(grpbyName)){
         grpbyNameFull <-  grpbyName1
         
       } else {
@@ -115,6 +116,7 @@ tableBuilderNew <-
       }
       
       for(grpby in  grpbyNameFull){
+      
         if(grpby %in% names(env$modules[[1]]$run_results$run1$outcomes) ){
           
           groupByDataFull <- 
@@ -155,6 +157,9 @@ tableBuilderNew <-
             groupByDataAll <- groupByDataAll %>% left_join(groupByData)
         }
       }
+      
+    
+      
       
       groupByData <- groupByDataAll
       
