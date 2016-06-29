@@ -137,12 +137,12 @@ tableBuilderNew <-
           
         } else{
           
-          if(grpby %in% conVar)
-            groupByDataFull <- as.numeric(bin(env$simframe[[grpby]], 
-                                                binbreaks[[grpby]]))
-          
           groupByDataFull <- env$simframe[[grpby]]
           
+          if(grpby %in% conVar)
+            groupByDataFull <- as.numeric(bin(groupByDataFull, 
+                                              binbreaks[[grpby]]))
+
           groupByData <- 
             tbl_df(data.frame(Year = rep(1:21, each = 5000), A0 = rep(1:5000,21), 
                               groupByData = rep(groupByDataFull,21)))
@@ -177,7 +177,6 @@ tableBuilderNew <-
       if(!is.null(logisetexpr)){
         simulatedData <- 
           with(simulatedData, simulatedData[eval(parse(text=logisetexpr)),])
-        
         
         simulatedData <-simulatedData %>% select(-one_of(grpbyName1))
       }
@@ -229,8 +228,11 @@ tableBuilderNew <-
         }
         
         result$groupByData <-
+          if(grpbyName %in% conVar)  
+            names(binbreaks[[grpbyName]])[-1][result$groupByData]
+        else 
           names(env$dict$codings[[grpbyName]])[
-            match( result$groupByData, env$dict$codings[[grpbyName]])]
+            match(result$groupByData, env$dict$codings[[grpbyName]])]
 
         # 
         # names(result)[names(result)=="groupByData"] <- grpbyName
@@ -313,9 +315,13 @@ tableBuilderNew <-
                                     p[x] + qnorm(.975)* sqrt(p[x]*(1-p[x])/n[x]))))
         }
         result$groupByData <-
+         if(grpbyName %in% conVar)  
+          names(binbreaks[[grpbyName]])[-1][result$groupByData]
+        else 
           names(env$dict$codings[[grpbyName]])[
-            match( result$groupByData, env$dict$codings[[grpbyName]])]
-
+            match(result$groupByData, env$dict$codings[[grpbyName]])]
+        
+        
         # 
         # names(result)[names(result)=="groupByData"] <- grpbyName
         
