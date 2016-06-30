@@ -3,9 +3,6 @@
 # Author: oman002
 ###############################################################################
 
-library(abind)
-
-
 #' Align a list of matrices/vectors by row and column name, so all matrices have the 
 #' same set of named rows and named cols. 
 #' NAs are used to pad missing rows and cols. 
