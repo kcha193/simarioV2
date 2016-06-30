@@ -851,5 +851,3 @@ withinfunc <- function(data, func, ...) {
 	# returned modified dataenv
 	updatelist(data, as.list(dataenv))
 }
-
-cat("Loaded support functions\n")

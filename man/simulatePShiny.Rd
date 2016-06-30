@@ -4,7 +4,7 @@
 \alias{simulatePShiny}
 \title{Perform a simulation of X runs using parallel computing.}
 \usage{
-simulatePShiny(Simenv, total_runs = 1)
+simulatePShiny(cl, Simenv, total_runs = 1)
 }
 \arguments{
 \item{total_runs}{total number of runs to simulate}

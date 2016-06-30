@@ -313,6 +313,3 @@ table.contvar.with.CI <- function (x, breaks, varname) {
 	}
 }
 
-
-
-cat("Loaded simulate\n")

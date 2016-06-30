@@ -669,10 +669,6 @@ combine.and.reorder <- function(modified.x, non.modified.x, logiset) {
 	return(modified.in.order)
 }
 
-cat("Loaded modifyProps.r\n")
-
-
-
 
 
 
