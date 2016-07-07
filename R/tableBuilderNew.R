@@ -57,7 +57,7 @@ tableBuilderNew <-
     statistic <- match.arg(statistic)
     
     nRun <- as.numeric(env$num_runs_simulated)
-    
+
     #Time variant variables
     timeVar <- names(env$modules[[1]]$run_results$run1$outcomes)
     conVar <- names(binbreaks)
@@ -147,7 +147,7 @@ tableBuilderNew <-
 
           groupByData <- 
             tbl_df(data.frame(Year = rep(1:21, each = 5000), A0 = rep(1:5000,21), 
-                              groupByData = rep(groupByDataFull,21)))
+                              groupByData = rep(groupByDataFull, 21)))
           
           names(groupByData)[names(groupByData)=="groupByData"] <- grpby
           
@@ -165,7 +165,7 @@ tableBuilderNew <-
       
       if(variableName %in% timeVar ){
         simulatedData <- 
-          tbl_df(data.frame(Year = 1:21, A0 = 1:5000,simulatedDataFull))
+          tbl_df(data.frame(Year = 1:21, A0 = rep(1:5000, each = 21) ,simulatedDataFull))
         
       }else {
         simulatedData <- 
