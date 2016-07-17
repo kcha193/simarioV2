@@ -77,7 +77,6 @@ createSimenv <- function (name, simframe, dict, modulesName, cat.adjustments=lis
   list(name=name,
        num_runs_simulated = 0L,
        simframe=simframe,
-       presim.stats=list(),
        cat.adjustments=cat.adjustments,
        modules=modules,
        dict=dict
@@ -128,7 +127,8 @@ createEmptyCatAdjustments <- function(simframe, dict, numiterations = NUM_ITERAT
   
   
   # cat.adjustments$SESBTH <- createAdjustmentMatrix("SESBTH", dict$codings$SESBTH, "SES group", is_a_level_var=T) 
-  # cat.adjustments$pregsmk <- createAdjustmentMatrix("pregsmk", binbreaks$pregsmk[-1], "Cigarettes", is_a_level_var=F, cont.binbreaks=binbreaks$pregsmk, catToContModels=catToContModels$pregsmk)
+  # cat.adjustments$pregsmk <- createAdjustmentMatrix("pregsmk", binbreaks$pregsmk[-1], "Cigarettes", 
+  # is_a_level_var=F, cont.binbreaks=binbreaks$pregsmk, catToContModels=catToContModels$pregsmk)
   # cat.adjustments$pregalc <- createAdjustmentMatrix("pregalc", binbreaks$pregalc[-1], "Drinks", is_a_level_var=F, cont.binbreaks=binbreaks$pregalc, catToContModels=catToContModels$pregalc)
   # cat.adjustments$bwkg <- createAdjustmentMatrix("bwkg", binbreaks$bwkg[-1], "Grams", is_a_level_var=F, cont.binbreaks=binbreaks$bwkg, catToContModels=catToContModels$bwkg)
   # cat.adjustments$ga <- createAdjustmentMatrix("ga", binbreaks$ga[-1], "Weeks", is_a_level_var=F, cont.binbreaks=binbreaks$ga, catToContModels=catToContModels$ga)
@@ -197,7 +197,7 @@ applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NUL
                                              cat.adjustments=Simenv$cat.adjustments) {
   
   contvars <- getOutcomeVars(Simenv$simframe, "continuous")
- 
+
   temp <- 
   lapply(cat.adjustments, function (catadj) {
     cat_adj_vector <- catadj[iteration, ]	
@@ -242,6 +242,10 @@ applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NUL
     
     Simenv$simframe[,match(names(temp[[i]]), names(Simenv$simframe))] <- temp[[i]]
     
+    Simenv$simframe[,match(names(temp)[i], names(Simenv$simframe))] <- 
+      as.numeric(as.matrix(temp[[i]]) %*% 
+                   as.matrix(as.numeric(sapply(strsplit(names(temp[[i]]), "Lvl"), function(x) x[2]))))
+   
   }
   
   return(Simenv)
@@ -283,7 +287,9 @@ applyAllFixedOutcomesIfSetToSimframe <- function(Simenv) {
 #'  NULL. simframe in receiving object is modified directly.
 #' 
 #' @export
-applyCatAdjustmentToSimframe <- function(Simenv, varnames, desired_props, iteration, propensities, print_adj = TRUE) {
+applyCatAdjustmentToSimframe <- function(Simenv, varnames, desired_props, iteration, 
+                                         propensities, print_adj = TRUE) {
+  
   is_single_variable_to_adjust <- length(varnames) == 1
   
   logiset <- as.logical(evaluateLogisetExprAttribute(desired_props, Simenv$simframe, varnames))
@@ -319,6 +325,7 @@ applyCatAdjustmentToSimframe <- function(Simenv, varnames, desired_props, iterat
 #' 
 #' @export
 applyCatAdjustmentToSimframeVarSingle <- function(Simenv, varname, desired_props, propens, print_adj = T, logiset=NULL) {
+  
   if (print_adj) {
     if(is.null(logiset) || sum(logiset) == 0) {
       cat(varname,"\n")
@@ -342,8 +349,6 @@ applyCatAdjustmentToSimframeVarSingle <- function(Simenv, varname, desired_props
     else {print(prop.table(table(subset(Simenv$simframe[varname],logiset))), digits=3)}
     
   }
-  
-  
   Simenv$simframe[varname]
 }
 
@@ -492,52 +497,6 @@ applyContAdjustmentToSimframe <- function(Simenv, varname, iteration, desiredPro
 }
 
 
-
-#' Generate pre simulation stats after adjustment but before simulation begins.
-#' 
-#' Typically these will be descriptive statistics of input variables that don?t change eg: gender, ethnicity
-#' 
-#' Sub-classes override this function.
-#'   
-#' @export
-#' 
-generatePreSimulationStats <- function(Simenv, simframe) {
-  codings <- Simenv$dict$codings
-  
-  tbls <- list()
-  
-  
-  # cat vars at birth
-  
-  #NB: we transpose to turn the tables into matrices so they
-  #are displayed properly
-  tbls$SESBTH <- table.catvar.with.CI(binary.levels.combine(simframe$SESBTHLvl1, simframe$SESBTHLvl2, simframe$SESBTHLvl3), codings$SESBTH)
-  tbls$r1stchildethn <- table.catvar.with.CI(binary.levels.combine(simframe$r1stchildethnLvl1, simframe$r1stchildethnLvl2, simframe$r1stchildethnLvl3, simframe$r1stchildethnLvl4), codings$r1stchildethn)
-  #tbls$catpregsmk2 <- table.catvar.with.CI(simframe$catpregsmk2, codings$catpregsmk2)
-  tbls$r1stmeduc <- table.catvar.with.CI(binary.levels.combine(simframe$r1stmeducLvl1, simframe$r1stmeducLvl2, simframe$r1stmeducLvl3), codings$r1stmeduc)
-  tbls$r1stfeduc <- table.catvar.with.CI(binary.levels.combine(simframe$r1stfeducLvl1, simframe$r1stfeducLvl2, simframe$r1stfeducLvl3), codings$r1stfeduc)
-  tbls$z1single0 <- table.catvar.with.CI(simframe$z1single0Lvl1, codings$z1single0)
-  tbls$fage <- table.catvar.with.CI(simframe$fage, codings$fage)
-  tbls$bthorder <- table.catvar.with.CI(simframe$bthorder, codings$bthorder)
-  #tbls$NPRESCH <- table.catvar.with.CI(simframe$NPRESCH, codings$NPRESCH)
-  #tbls$z1single1 <- table.catvar.with.CI(simframe$z1singleLvl1, codings$z1singleLvl1)
-  
-  # continuous vars at birth
-  tbls$bwkg <- table.contvar.with.CI(simframe$bwkg, binbreaks$bwkg, "bwkg")
-  tbls$pregalc <- table.contvar.with.CI(simframe$pregalc, binbreaks$pregalc, "pregalc")
-  tbls$ga <- table.contvar.with.CI(simframe$ga, binbreaks$ga, "ga")
-  tbls$BREAST <- table.contvar.with.CI(simframe$BREAST, binbreaks$BREAST, "BREAST")
-  #tbls$INTERACT <- table.contvar.with.CI(simframe$INTERACT, binbreaks$INTERACT, "INTERACT")
-  #tbls$PUNISH <- table.contvar.with.CI(simframe$PUNISH, binbreaks$PUNISH, "PUNISH")
-  tbls$MAGE <- table.contvar.with.CI(simframe$MAGE, binbreaks$MAGE, "MAGE")
-  tbls$pregsmk <- table.contvar.with.CI(simframe$pregsmk, binbreaks$pregsmk, "pregsmk")
-  
-  #for Roy's Paper
-  tbls$z1gender <- table.catvar.with.CI(children$z1gender, codings$z1gender)
-  
-  tbls
-  
-}
 
 check.subgroup.expr <- function(Simenv, cat.adjustments=Simenv$cat.adjustments, simframe=Simenv$simframe) {
   catadj1 <- cat.adjustments[[1]]
@@ -704,13 +663,7 @@ simulatePShiny <- function(cl, Simenv, total_runs=1) {
   outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
   
   Simenv$num_runs_simulated <- total_runs
-  
- 
-  # Simenv$modules[[1]]$run_results <- sfLapply(1:total_runs, function(x) {
-  #   run_results <- list()
-  #   run_results$outcomes <- outcomes[[x]]
-  #   run_results  
-  # })
+
   
   Simenv$modules[[1]]$run_results <- parLapply(cl, 1:total_runs, function(x) {
     run_results <- list()
