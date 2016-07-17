@@ -319,7 +319,7 @@ modelVariableNames <- function (model, strip.Lvl = TRUE) {
 #'  predict(model, envir, set)
 #'  set = NULL
 #' }
-predict <- function(model, envir = parent.frame(), set = NULL) {
+predictSimario <- function(model, envir = parent.frame(), set = NULL) {
 	
 	set_all_false <- !is.null(set) && all(!set) 
 	if (set_all_false) {
@@ -378,7 +378,7 @@ predict <- function(model, envir = parent.frame(), set = NULL) {
 predSimBin <- function(model.glm, envir=parent.frame(), set = NULL) {
 	
 	#determine predicted values
-	predicted_logits <- predict(model.glm, envir, set)
+	predicted_logits <- predictSimario(model.glm, envir, set)
 	predicted_probabilities <- exp(predicted_logits)/(1+exp(predicted_logits))
 	
 	#simulate
@@ -411,7 +411,7 @@ predSimBin <- function(model.glm, envir=parent.frame(), set = NULL) {
 predLogistic <- function(model.glm, envir=parent.frame(), set = NULL) {
 	
 	#determine predicted values
-	predicted_logits <- predict(model.glm, envir, set)
+	predicted_logits <- predictSimario(model.glm, envir, set)
 	predicted_probabilities <- exp(predicted_logits)/(1+exp(predicted_logits))
 	
 	predicted_probabilities
@@ -449,7 +449,7 @@ predMultinomial <- function(model.glm.list, envir=parent.frame(), set = NULL) {
 	
 	#determine predicted values
 	predicted_logits <- sapply(model.glm.list, function(x) {
-				predict(x, envir, set)				
+	  predictSimario(x, envir, set)				
 			})
 	#note - exp(0) is the predicted exp(logit) for the first category (the refernce category - not yet included in the matrix	
 	predicted_probabilities <- exp(predicted_logits)/(exp(0) + rowSums(exp(predicted_logits)))
@@ -582,7 +582,7 @@ predSimBinomJoint <- function(model.glm, envir=parent.frame(), set = NULL) {
 #' }
 predSimPois <- function(model.glm, envir=parent.frame(), set = NULL) {
 	#determine predicted values
-	predicted_logs <- predict(model.glm, envir, set)
+	predicted_logs <- predictSimario(model.glm, envir, set)
 	predicted_means <- exp(predicted_logs)
 	
 	if(length(predicted_logs) == 0) return(predicted_logs)
@@ -621,7 +621,7 @@ predSimPois <- function(model.glm, envir=parent.frame(), set = NULL) {
 predSimNBinom <- function(model.glm, envir=parent.frame(), set = NULL, alpha=NULL) {
 	
 	#determine predicted values
-	predicted_logs <- predict(model.glm, envir, set)
+	predicted_logs <- predictSimario(model.glm, envir, set)
 	predicted_means <- exp(predicted_logs)
 	
 	if(length(predicted_logs) == 0) return(predicted_logs)
@@ -660,7 +660,7 @@ predSimNBinom <- function(model.glm, envir=parent.frame(), set = NULL, alpha=NUL
 #' }
 predSimNorm <- function(model.glm, envir=parent.frame(), set = NULL) {
 	#determine predicted values
-	predicted <- predict(model.glm, envir, set)
+	predicted <- predictSimario(model.glm, envir, set)
 	
 	if(length(predicted) == 0) return(predicted)
 	
@@ -876,11 +876,11 @@ predictOrdinal <- function(models, numchildren, envir=parent.frame(), stochastic
 	LinPreds <- prob.current.cat.or.less <- Probs <- matrix(ncol=num.cat, nrow=numchildren)
 	for (i in 1:num.cat) {
 		if (i==1) {
-			LinPreds[,i] <- predict(models[[i]], envir)
+			LinPreds[,i] <- predictSimario(models[[i]], envir)
 			Probs[,i] <- exp(LinPreds[,i])/(1 + exp(LinPreds[,i]))
 			prob.current.cat.or.less[,i] <- Probs[,i]
 		} else if (i>1 & i<num.cat) {
-			LinPreds[,i] <- predict(models[[i]], envir)
+			LinPreds[,i] <- predictSimario(models[[i]], envir)
 			prob.current.cat.or.less[,i] <- exp(LinPreds[,i])/(1 + exp(LinPreds[,i]))
 			Probs[,i] <- prob.current.cat.or.less[,i] - prob.current.cat.or.less[,i-1]
 		} else if (i==num.cat) {
