@@ -235,17 +235,15 @@ applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NUL
     
   })
   
-  
-  
   for(i in 1:length(temp)){
     if(is.null(temp[[i]]))  next
     
     Simenv$simframe[,match(names(temp[[i]]), names(Simenv$simframe))] <- temp[[i]]
     
-    Simenv$simframe[,match(names(temp)[i], names(Simenv$simframe))] <- 
-      as.numeric(as.matrix(temp[[i]]) %*% 
-                   as.matrix(as.numeric(sapply(strsplit(names(temp[[i]]), "Lvl"), function(x) x[2]))))
-   
+    if(length(names(temp[[i]])) > 1)
+      Simenv$simframe[,match(names(temp)[i], names(Simenv$simframe))] <- 
+        as.numeric(as.matrix(temp[[i]]) %*% 
+                     as.matrix(as.numeric(sapply(strsplit(names(temp[[i]]), "Lvl"), function(x) x[2]))))
   }
   
   return(Simenv)
