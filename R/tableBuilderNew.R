@@ -35,6 +35,9 @@
 #' @param binbreaks
 #'  The binbreaks for the outcome variable. 
 #'  
+#' @param simframe
+#'  The simframe for pre-simulation values 
+#'  
 #' 
 #' @return 
 #'  a summary table for the entire or subgroup of the variable of interest.
@@ -45,7 +48,8 @@
 
 tableBuilderNew <- 
   function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
-            dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = ""){
+            dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "",
+            simframe = NULL){
     
     library(dplyr)
     library(tidyr)
@@ -58,6 +62,9 @@ tableBuilderNew <-
     
     nRun <- as.numeric(env$num_runs_simulated)
 
+    if(!is.null(simframe))
+      env$simframe <- simframe
+      
     #Time variant variables
     timeVar <- names(env$modules[[1]]$run_results$run1$outcomes)
     conVar <- names(binbreaks)
@@ -319,6 +326,7 @@ tableBuilderNew <-
                      function(x)  c(p[x],  p[x] - qnorm(.975)* sqrt(p[x]*(1-p[x])/n[x]),
                                     p[x] + qnorm(.975)* sqrt(p[x]*(1-p[x])/n[x]))))
         }
+        
         result$groupByData <-
          if(grpbyName %in% conVar)  
           names(binbreaks[[grpbyName]])[-1][result$groupByData]
@@ -337,6 +345,7 @@ tableBuilderNew <-
           simulatedData %>% group_by(Year, Run) %>% 
           summarise(Sum = n()) 
         
+        browser()
         
         result <- 
           simulatedData %>% group_by(Year, Run, Var) %>%  
@@ -368,13 +377,15 @@ tableBuilderNew <-
         
       }
       
+     
+      
       result$Var <-
-        if(statistic == "frequencies" & variableName %in% conVar)  
+        if(statistic == "frequencies" & variableName %in% conVar){  
           names(binbreaks[[variableName]])[-1][result$Var]
-        else 
+        }else {
           names(env$dict$codings[[variableName]])[
             match(result$Var,env$dict$codings[[variableName]])]
-
+        }
       # names(result)[names(result)=="Var"] <- variableName
       
       
