@@ -344,9 +344,7 @@ tableBuilderNew <-
         simulatedDataSum <- 
           simulatedData %>% group_by(Year, Run) %>% 
           summarise(Sum = n()) 
-        
-        browser()
-        
+            
         result <- 
           simulatedData %>% group_by(Year, Run, Var) %>%  
           summarise(Len = n()) %>% 
