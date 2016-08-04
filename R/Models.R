@@ -316,7 +316,7 @@ modelVariableNames <- function (model, strip.Lvl = TRUE) {
 #'  model <- models$gptotvis2
 #'  set <- rep(F, 1075)
 #'  envir = .GlobalEnv
-#'  predict(model, envir, set)
+#'  predictSimario(model, envir, set)
 #'  set = NULL
 #' }
 predictSimario <- function(model, envir = parent.frame(), set = NULL) {
@@ -334,8 +334,7 @@ predictSimario <- function(model, envir = parent.frame(), set = NULL) {
 	#evalute vars, return as list
 	vars.evaluated <- eval(vars, envir)
 	names(vars.evaluated) <- as.character(vars)[-1]
-	
-	
+
 	#convert to matrix 
 	vars.evaluated.mx <- as.matrixFromList(vars.evaluated, byrow = FALSE)
 	

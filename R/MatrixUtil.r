@@ -285,15 +285,9 @@ as_array_list_mx <- function(listmx) {
 #'  as.matrixFromList(xlist, byrow = FALSE)
 as.matrixFromList <- function (xlist, byrow = TRUE) {
 	if (byrow) {
-		matrix(unlist(xlist), 
-				nrow = length(xlist),
-				byrow = TRUE,
-				dimnames=list(names(xlist), names(xlist[[1]])))
+	  do.call("rbind", xlist)
 	} else {
-		matrix(unlist(xlist), 
-				nrow = length(xlist[[1]]),
-				byrow = FALSE,
-				dimnames=list(names(xlist[[1]]), names(xlist)))	
+	  do.call("cbind", xlist)
 	}				
 }
 
