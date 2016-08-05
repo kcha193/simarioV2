@@ -70,7 +70,7 @@ createSimenv <- function (name, simframe, dict, modulesName, cat.adjustments=lis
   cat.adjustments <- 	createEmptyCatAdjustments(simframe, dict, numiterations=NUM_ITERATIONS)
   
   
-  modules <- list(createSimmodule(modulesName))
+  modules <- createSimmodule(modulesName)
   
   names(modules[1]) = modulesName
   
@@ -513,106 +513,21 @@ check.subgroup.expr <- function(Simenv, cat.adjustments=Simenv$cat.adjustments, 
   return(valid.subgroup)
 }
 
-
-#' Perform a simulation of X runs.
-#' 
-#' NB: if it exists, uses propensities in global environment when doing adjustments for year 1
-#' 
-#' @param .
-#'  Simenv receiving object
-#' @param total_runs
-#'  total number of runs to simulate
-#' 
-#' @return 
-#'  NULL
-#' 
-#' @export
-#' @examples 
-#' \dontrun{
-#'  . <- env.base
-#'  env.base$simulate()
-#'  . <- env.scenario
-#' }
-
-simulateNP <- function(Simenv, total_runs=1) {
-  start_time <- proc.time()
-  
-  cat(gettextf("Simulating %s\n", Simenv$name))
-  
-  if (!exists("propensities")) propensities <- NULL
-  
-  valid.subgroup <- check.subgroup.expr(Simenv)
-  
-  if (valid.subgroup==1) {
-    Simenv <- applyAllCatAdjustmentsToSimframe(Simenv, 1, propensities)
-    
-  } else if (valid.subgroup==0) {
-    cat("Pre-simulation scenario adjustments cannot be made because the subgroup expression is not defined \n")
-  } else {
-    stop("Check creation of valid.subgroup \n")
-  }
-  
-  #at this point after adjusting continuous variables some values may be higher than 
-  #the limits set throughout the simulation - can fix here (rather than changing
-  #more deep down simario functions)
-  if (exists("limits")) {
-    for (j in 1:length(limits)) {
-      v <- Simenv$simframe[[names(limits)[j]]]
-      #v[v>limits[[j]]] <- limits[[j]]
-      #id <- which(v>limits[[j]])
-      Simenv$simframe[[names(limits)[j]]][v>limits[[j]]] <- limits[[j]]
-    }
-  }
-  
-  #Simenv$presim.stats <- generatePreSimulationStats(Simenv, Simenv$simframe)
-  
-  
-  
-  #outcomes <-sfLapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
-  
-  outcomes <-lapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
-  
-  Simenv$num_runs_simulated <- total_runs
-  
-  
-  # Simenv$modules[[1]]$run_results <- sfLapply(1:total_runs, function(x) {
-  #   run_results <- list()
-  #   run_results$outcomes <- outcomes[[x]]
-  #   run_results  
-  # })
-  
-  Simenv$modules[[1]]$run_results <- lapply(1:total_runs, function(x) {
-    run_results <- list()
-    run_results$outcomes <- outcomes[[x]]
-    run_results  
-  })
-  
-  
-  names(Simenv$modules[[1]]$run_results) <- paste("run", 1:total_runs, sep="")
-  
-  
-  # call garbage collector to release memory used during calculation (sometimes this is a lot)
-  gc()
-  
-  end_time <- proc.time()
-  
-  print(end_time - start_time)
-  
-  return(Simenv)
-    
-  }
   
 #' Perform a simulation of X runs using parallel computing.
 #' 
 #' NB: if it exists, uses propensities in global environment when doing adjustments for year 1
-#' 
-#' @param .
+#'
+#'   
+#' @param Simenv
 #'  Simenv receiving object
 #' @param total_runs
 #'  total number of runs to simulate
-#' 
+#' @param parallel
+#'  logical, which allows the user to decide on using parallel computing
+#'   
 #' @return 
-#'  NULL
+#'  Simenv object with simulated results
 #' 
 #' @export
 #' @examples 
@@ -622,7 +537,7 @@ simulateNP <- function(Simenv, total_runs=1) {
 #'  . <- env.scenario
 #' }
 
-simulatePShiny <- function(cl, Simenv, total_runs=1) {
+simulateSimario <- function(Simenv, total_runs=1, parallel = TRUE) {
   start_time <- proc.time()
   
   cat(gettextf("Simulating %s\n", Simenv$name))
@@ -646,35 +561,33 @@ simulatePShiny <- function(cl, Simenv, total_runs=1) {
   if (exists("limits")) {
     for (j in 1:length(limits)) {
       v <- Simenv$simframe[[names(limits)[j]]]
-      #v[v>limits[[j]]] <- limits[[j]]
-      #id <- which(v>limits[[j]])
       Simenv$simframe[[names(limits)[j]]][v>limits[[j]]] <- limits[[j]]
     }
   }
-  
-  #Simenv$presim.stats <- generatePreSimulationStats(Simenv, Simenv$simframe)
-  
-  
-  
-  #outcomes <-sfLapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
-  
-  outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
-  
+ 
   Simenv$num_runs_simulated <- total_runs
-
   
-  Simenv$modules[[1]]$run_results <- parLapply(cl, 1:total_runs, function(x) {
-    run_results <- list()
-    run_results$outcomes <- outcomes[[x]]
-    run_results  
-  })
+  if(parallel){
+    
+    cl <- makeCluster(detectCores())
+    
+    clusterExport(cl, c("binbreaks", "transition_probabilities", "models", 
+                        "PropensityModels", "children"))
+    
+    clusterEvalQ(cl, {library(simarioV2)})
+    clusterSetRNGStream(cl, 1)
   
+    outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
+    
+    stopCluster(cl)
+    
+  } else {
+    outcomes <-lapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
+  }
   
-  names(Simenv$modules[[1]]$run_results) <- paste("run", 1:total_runs, sep="")
+  Simenv$modules$run_results <- outcomes
   
-
-  # call garbage collector to release memory used during calculation (sometimes this is a lot)
-  gc()
+  names(Simenv$modules$run_results) <- paste("run", 1:total_runs, sep="")
   
   end_time <- proc.time()
   

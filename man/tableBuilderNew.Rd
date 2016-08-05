@@ -6,7 +6,7 @@
 \usage{
 tableBuilderNew(env, statistic = c("frequencies", "means", "quantiles"),
   variableName, dict = env$dict, grpbyName = "", CI = TRUE,
-  logisetexpr = "")
+  logisetexpr = "", simframe = NULL)
 }
 \arguments{
 \item{statistic}{the summary measure to use in producing the dataset - frequencies, means, quantiles}
@@ -20,6 +20,8 @@ tableBuilderNew(env, statistic = c("frequencies", "means", "quantiles"),
 \item{CI}{logical indicating whether 95\% confidence intervals should be generated}
 
 \item{logisetexpr}{a character expression which defines the logiset variable}
+
+\item{simframe}{The simframe for pre-simulation values}
 
 \item{envName}{the environment to use - Base, Scenario etc.}
 

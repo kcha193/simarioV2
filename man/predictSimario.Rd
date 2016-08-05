@@ -44,7 +44,7 @@ then create a model with a single variable and a zero coefficient.
  model <- models$gptotvis2
  set <- rep(F, 1075)
  envir = .GlobalEnv
- predict(model, envir, set)
+ predictSimario(model, envir, set)
  set = NULL
 }
 }
