@@ -72,7 +72,7 @@ tableBuilderNew <-
 
       combineSimario <-
         function(base, scenario, index){
-          for(i in 1:length(base))
+          for(i in 1:length(scenario))
             scenario[[i]]<-  c(base[[i]][index], scenario[[i]])
 
           scenario
