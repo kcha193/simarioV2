@@ -35,6 +35,9 @@
 #' @param binbreaks
 #'  The binbreaks for the outcome variable. 
 #'  
+#' @param env.base
+#'  Base simulation results
+#' 
 #' @param simframe
 #'  The simframe for pre-simulation values 
 #'  
@@ -48,7 +51,7 @@
 
 tableBuilderNew <- 
   function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
-            dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "",
+            dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "", env.base = NULL,
             simframe = NULL){
     
     library(dplyr)
@@ -62,6 +65,26 @@ tableBuilderNew <-
     
     nRun <- as.numeric(env$num_runs_simulated)
 
+    if(!is.null(env.base)){
+      index <-
+        !names(env.base$modules$run_results$run1) %in%
+        names(Simenv.scenario$modules$run_results$run1)  
+      
+      combineSimario <-
+        function(base, scenario, index){
+          for(i in 1:length(base))
+            scenario[[i]]<-  c(base[[i]][index], scenario[[i]])
+          
+          scenario
+        }
+      
+      env$modules$run_results <- 
+        combineSimario(env.base$modules$run_results, 
+                       env$modules$run_results, index)
+    }
+      
+      
+    
     if(!is.null(simframe))
       env$simframe <- simframe
       
