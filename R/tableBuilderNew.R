@@ -66,12 +66,12 @@ tableBuilderNew <-
       env$simframe <- simframe
       
     #Time variant variables
-    timeVar <- names(env$modules[[1]]$run_results$run1$outcomes)
+    timeVar <- names(env$modules$run_results$run1$outcomes)
     conVar <- names(binbreaks)
     
     if(variableName %in% timeVar ){
       simulatedDataFull <- 
-        sapply(env$modules[[1]]$run_results, 
+        sapply(env$modules$run_results, 
                function(x) t(x$outcomes[[variableName]]))
       
       if(statistic == "frequencies" & variableName %in% conVar)
@@ -124,10 +124,10 @@ tableBuilderNew <-
       
       for(grpby in  grpbyNameFull){
       
-        if(grpby %in% names(env$modules[[1]]$run_results$run1$outcomes) ){
+        if(grpby %in% names(env$modules$run_results$run1$outcomes) ){
           
           groupByDataFull <- 
-            sapply(env$modules[[1]]$run_results, 
+            sapply(env$modules$run_results, 
                    function(x) t(x$outcomes[[grpby]]))
           
           groupByData <- 
