@@ -51,7 +51,7 @@
 
 tableBuilderNew <- 
   function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
-            dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "", env.base = NULL,
+            dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "", envBase = NULL,
             simframe = NULL){
     
     library(dplyr)
@@ -65,37 +65,35 @@ tableBuilderNew <-
     
     nRun <- as.numeric(env$num_runs_simulated)
 
-    if(!is.null(env.base)){
+    if(!is.null(envBase)){
       index <-
-        !names(env.base$modules$run_results$run1) %in%
-        names(Simenv.scenario$modules$run_results$run1)  
-      
+        !names(envBase$modules$run_results$run1) %in%
+        names(env$modules$run_results$run1)
+
       combineSimario <-
         function(base, scenario, index){
           for(i in 1:length(base))
             scenario[[i]]<-  c(base[[i]][index], scenario[[i]])
-          
+
           scenario
         }
-      
-      env$modules$run_results <- 
-        combineSimario(env.base$modules$run_results, 
+
+      env$modules$run_results <-
+        combineSimario(envBase$modules$run_results,
                        env$modules$run_results, index)
     }
-      
-      
     
     if(!is.null(simframe))
       env$simframe <- simframe
       
     #Time variant variables
-    timeVar <- names(env$modules$run_results$run1$outcomes)
+    timeVar <- names(env$modules$run_results$run1)
     conVar <- names(binbreaks)
     
     if(variableName %in% timeVar ){
       simulatedDataFull <- 
         sapply(env$modules$run_results, 
-               function(x) t(x$outcomes[[variableName]]))
+               function(x) t(x[[variableName]]))
       
       if(statistic == "frequencies" & variableName %in% conVar)
         simulatedDataFull <- apply(simulatedDataFull,2, function(x) 
@@ -147,11 +145,11 @@ tableBuilderNew <-
       
       for(grpby in  grpbyNameFull){
       
-        if(grpby %in% names(env$modules$run_results$run1$outcomes) ){
+        if(grpby %in% names(env$modules$run_results$run1) ){
           
           groupByDataFull <- 
             sapply(env$modules$run_results, 
-                   function(x) t(x$outcomes[[grpby]]))
+                   function(x) t(x[[grpby]]))
           
           groupByData <- 
             tbl_df(data.frame(Year = 1:21,  A0 = 1:5000, groupByDataFull))
