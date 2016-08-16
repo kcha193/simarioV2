@@ -6,7 +6,7 @@
 \usage{
 tableBuilderNew(env, statistic = c("frequencies", "means", "quantiles"),
   variableName, dict = env$dict, grpbyName = "", CI = TRUE,
-  logisetexpr = "", env.base = NULL, simframe = NULL)
+  logisetexpr = "", envBase = NULL, simframe = NULL)
 }
 \arguments{
 \item{statistic}{the summary measure to use in producing the dataset - frequencies, means, quantiles}
@@ -21,13 +21,13 @@ tableBuilderNew(env, statistic = c("frequencies", "means", "quantiles"),
 
 \item{logisetexpr}{a character expression which defines the logiset variable}
 
-\item{env.base}{Base simulation results}
-
 \item{simframe}{The simframe for pre-simulation values}
 
 \item{envName}{the environment to use - Base, Scenario etc.}
 
 \item{binbreaks}{The binbreaks for the outcome variable.}
+
+\item{env.base}{Base simulation results}
 }
 \value{
 a summary table for the entire or subgroup of the variable of interest.

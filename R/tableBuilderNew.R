@@ -100,9 +100,11 @@ tableBuilderNew <-
           as.numeric(bin(x, binbreaks[[variableName]])))
       
       simulatedData <- 
-        tbl_df(data.frame(Year = 1:21, simulatedDataFull))
+        tbl_df(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[variableName]])), 
+                          simulatedDataFull))
     
-    }else {
+    }else{
+      #Time invariant variables
       simulatedDataFull <- env$simframe[[variableName]]
       
       if(statistic == "frequencies" & variableName %in% conVar)
@@ -120,10 +122,8 @@ tableBuilderNew <-
       simulatedData %>% gather(Run, Var, -Year) %>% filter(!is.na(Var))
     
     #########################################################################
-    #Using logisetexpr
- 
-   
-    
+    #Using logisetexpr and grpbyName
+
     if(!is.null(logisetexpr) | !is.null(grpbyName)){
       if(!is.null(logisetexpr)){
         grpbyName1 <- unlist(strsplit(logisetexpr, " [[:punct:]]+ "))
@@ -151,19 +151,16 @@ tableBuilderNew <-
             sapply(env$modules$run_results, 
                    function(x) t(x[[grpby]]))
           
+          if(grpby %in% conVar)
+            groupByDataFull <- apply(groupByDataFull,2, function(x) as.numeric(bin(x, binbreaks[[grpby]])))
+          
           groupByData <- 
-            tbl_df(data.frame(Year = 1:21,  A0 = 1:5000, groupByDataFull))
+            tbl_df(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[grpby]])), 
+                              A0 = 1:5000, groupByDataFull))
           
           groupByData <- 
             groupByData %>% gather(Run, groupByData, -Year, -A0)  %>% 
             filter(!is.na(groupByData))
-          
-          names(groupByData)[names(groupByData)=="groupByData"] <- grpby
-          
-          if(is.null(groupByDataAll))
-            groupByDataAll <- groupByData
-          else 
-            groupByDataAll <- groupByDataAll %>% right_join(groupByData)
           
         } else{
           
@@ -174,38 +171,34 @@ tableBuilderNew <-
                                               binbreaks[[grpby]]))
 
           groupByData <- 
-            tbl_df(data.frame(Year = rep(1:21, each = 5000), A0 = rep(1:5000,21), 
-                              groupByData = rep(groupByDataFull, 21)))
-          
-          names(groupByData)[names(groupByData)=="groupByData"] <- grpby
-          
-          if(is.null(groupByDataAll))
-            groupByDataAll <- groupByData
-          else 
-            groupByDataAll <- groupByDataAll %>% left_join(groupByData)
+            tbl_df(data.frame(Year = 1:21, A0 = rep(1:5000, each = 21), 
+                              groupByData = groupByDataFull))
         }
+        
+        names(groupByData)[names(groupByData)=="groupByData"] <- grpby
+        
+        if(is.null(groupByDataAll))
+          groupByDataAll <- groupByData
+        else 
+          groupByDataAll <- groupByDataAll %>% left_join(groupByData)
       }
-      
-    
-      
       
       groupByData <- groupByDataAll
       
       if(variableName %in% timeVar ){
         simulatedData <- 
-          tbl_df(data.frame(Year = 1:21, A0 = rep(1:5000, each = 21) ,simulatedDataFull))
-        
+          tbl_df(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[variableName]])), 
+                            A0 = rep(1:5000, each = 
+                                       length(as.numeric(colnames(env$modules$run_results$run1[[variableName]])))) ,
+                                     simulatedDataFull))
       }else {
         simulatedData <- 
-          tbl_df(data.frame(Year = 1, A0 = 1:5000,simulatedDataFull))
+          tbl_df(data.frame(Year = 1, A0 = 1:5000, simulatedDataFull))
       }
       
       simulatedData <- 
-        simulatedData %>% gather(Run, Var, -Year, -A0) %>% filter(!is.na(Var))
+        simulatedData %>% gather(Run, Var, -Year, -A0) %>% left_join(groupByData) %>% select(-A0)
       
-      
-      simulatedData <- 
-        simulatedData %>% left_join(groupByData) %>% select(-A0)
       
       if(!is.null(logisetexpr)){
         simulatedData <- 
@@ -217,7 +210,7 @@ tableBuilderNew <-
       simulatedData <- 
         simulatedData %>% filter(!is.na(Var))
     }
-    
+
   
     ####################################################################################
     
@@ -355,11 +348,6 @@ tableBuilderNew <-
           names(env$dict$codings[[grpbyName]])[
             match(result$groupByData, env$dict$codings[[grpbyName]])]
         
-        
-        # 
-        # names(result)[names(result)=="groupByData"] <- grpbyName
-        
-        
       } else {
         
         simulatedDataSum <- 
@@ -433,10 +421,8 @@ tableBuilderNew <-
         result$groupByData <-
           names(env$dict$codings[[grpbyName]])[
             match( result$groupByData, env$dict$codings[[grpbyName]])]
-        
-        # 
-        # names(result)[names(result)=="groupByData"] <- grpbyName
-        
+       
+            
       } else {
         
         result <- 

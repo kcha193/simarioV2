@@ -569,6 +569,8 @@ simulateSimario <- function(Simenv, total_runs=1, parallel = TRUE) {
   
   if(parallel){
     
+    library(parallel)
+    
     cl <- makeCluster(detectCores())
     
     clusterExport(cl, c("binbreaks", "transition_probabilities", "models", 
