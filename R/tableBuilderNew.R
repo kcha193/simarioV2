@@ -171,7 +171,7 @@ tableBuilderNew <-
                                               binbreaks[[grpby]]))
 
           groupByData <- 
-            tbl_df(data.frame(Year = 1:21, A0 = rep(1:5000, each = 21), 
+            tbl_df(data.frame(Year = rep(1:21, each = 5000), A0 = 1:5000, 
                               groupByData = groupByDataFull))
         }
         
@@ -260,8 +260,6 @@ tableBuilderNew <-
           names(env$dict$codings[[grpbyName]])[
             match(result$groupByData, env$dict$codings[[grpbyName]])]
 
-        # 
-        # names(result)[names(result)=="groupByData"] <- grpbyName
         
       } else {
         
