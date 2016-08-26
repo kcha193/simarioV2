@@ -564,12 +564,12 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun = simulateFun, par
     clusterEvalQ(cl, {library(simarioV2)})
     clusterSetRNGStream(cl, 1)
   
-    outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
+    outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateFun)
     
     stopCluster(cl)
     
   } else {
-    outcomes <-lapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateKnowLab)
+    outcomes <-lapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateFun)
   }
   
   Simenv$modules$run_results <- outcomes
