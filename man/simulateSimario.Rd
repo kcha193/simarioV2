@@ -4,12 +4,15 @@
 \alias{simulateSimario}
 \title{Perform a simulation of X runs using parallel computing.}
 \usage{
-simulateSimario(Simenv, total_runs = 1, parallel = TRUE)
+simulateSimario(Simenv, total_runs = 1, simulateFun = simulateFun,
+  parallel = TRUE)
 }
 \arguments{
 \item{Simenv}{Simenv receiving object}
 
 \item{total_runs}{total number of runs to simulate}
+
+\item{simulateFun}{a function contains a set of actual simulation to be performed}
 
 \item{parallel}{logical, which allows the user to decide on using parallel computing}
 }

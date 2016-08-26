@@ -143,6 +143,8 @@ tableBuilderNew <-
         grpbyNameFull <- c(grpbyName, grpbyName1)
       }
       
+      grpbyNameFull <- unique(grpbyNameFull)
+      
       for(grpby in  grpbyNameFull){
       
         if(grpby %in% names(env$modules$run_results$run1) ){

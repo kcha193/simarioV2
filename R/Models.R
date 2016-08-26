@@ -344,6 +344,7 @@ predictSimario <- function(model, envir = parent.frame(), set = NULL) {
 	}
 	
 	columns.with.NAs <- apply(vars.evaluated.mx, COL, function(x) {any(is.na(x))})
+	
 	if (any(columns.with.NAs)) {
 		cat("Warning: During predict(), NAs present in", names(columns.with.NAs)[columns.with.NAs], "\n")
 	}

@@ -104,46 +104,32 @@ createEmptyCatAdjustments <- function(simframe, dict, numiterations = NUM_ITERAT
   #z1accom, z1homeown, z1overcrowd, mumgroup, dadgroup, and z1cond
   
   # create first year only cat adjs
+  
   time_invariant_vars <- attr(simframe, "time_invariant_vars")
   
-  for(i in 1:length(time_invariant_vars$Varname)){
-    
-    time_invariant_vars[i,2]
-    
-    if(time_invariant_vars[i,2] =="categorical"){
-      cat.adjustments$" " <-       
-        createAdjustmentMatrix(time_invariant_vars[i,1], dict$codings[[time_invariant_vars[i,1]]], 
-                             dict$descriptions[[time_invariant_vars[i,1]]], is_a_level_var=TRUE) 
-    } else {
-      cat.adjustments$" " <-       
-        createAdjustmentMatrix(time_invariant_vars[i,1], binbreaks[[time_invariant_vars[i,1]]][-1], 
-                               dict$descriptions[[time_invariant_vars[i,1]]], is_a_level_var=FALSE,
-                               cont.binbreaks=binbreaks[[time_invariant_vars[i,1]]], 
-                               catToContModels=catToContModels[[time_invariant_vars[i,1]]]) 
+  if(!is.null(time_invariant_vars)){
+    for(i in 1:length(time_invariant_vars$Varname)){
+      
+      
+      if(time_invariant_vars[i,2] =="categorical"){
+        cat.adjustments$" " <-       
+          createAdjustmentMatrix(time_invariant_vars[i,1], dict$codings[[time_invariant_vars[i,1]]], 
+                               dict$descriptions[[time_invariant_vars[i,1]]], is_a_level_var=TRUE) 
+      } else {
+        cat.adjustments$" " <-       
+          createAdjustmentMatrix(time_invariant_vars[i,1], binbreaks[[time_invariant_vars[i,1]]][-1], 
+                                 dict$descriptions[[time_invariant_vars[i,1]]], is_a_level_var=FALSE,
+                                 cont.binbreaks=binbreaks[[time_invariant_vars[i,1]]], 
+                                 catToContModels=catToContModels[[time_invariant_vars[i,1]]]) 
+      }
+      
+      names(cat.adjustments)[length(cat.adjustments)] <- time_invariant_vars[i,1]
     }
-    
-    names(cat.adjustments)[length(cat.adjustments)] <- time_invariant_vars[i,1]
   }
-  
-  
-  # cat.adjustments$SESBTH <- createAdjustmentMatrix("SESBTH", dict$codings$SESBTH, "SES group", is_a_level_var=T) 
-  # cat.adjustments$pregsmk <- createAdjustmentMatrix("pregsmk", binbreaks$pregsmk[-1], "Cigarettes", 
-  # is_a_level_var=F, cont.binbreaks=binbreaks$pregsmk, catToContModels=catToContModels$pregsmk)
-  # cat.adjustments$pregalc <- createAdjustmentMatrix("pregalc", binbreaks$pregalc[-1], "Drinks", is_a_level_var=F, cont.binbreaks=binbreaks$pregalc, catToContModels=catToContModels$pregalc)
-  # cat.adjustments$bwkg <- createAdjustmentMatrix("bwkg", binbreaks$bwkg[-1], "Grams", is_a_level_var=F, cont.binbreaks=binbreaks$bwkg, catToContModels=catToContModels$bwkg)
-  # cat.adjustments$ga <- createAdjustmentMatrix("ga", binbreaks$ga[-1], "Weeks", is_a_level_var=F, cont.binbreaks=binbreaks$ga, catToContModels=catToContModels$ga)
-  # cat.adjustments$r1stmeduc <- createAdjustmentMatrix("r1stmeduc", dict$codings$r1stmeduc, "Level", is_a_level_var=T)
-  # cat.adjustments$r1stfeduc <- createAdjustmentMatrix("r1stfeduc", dict$codings$r1stfeduc, "Level", is_a_level_var=T)
-  # cat.adjustments$fage <- createAdjustmentMatrix("fage", dict$codings$fage, "At Birth", is_a_level_var=F)
-  # cat.adjustments$z1single0 <- createAdjustmentMatrix("z1single0", dict$codings$z1single0, "Family status", is_a_level_var=T)
-  # cat.adjustments$BREAST <- createAdjustmentMatrix("BREAST", binbreaks$BREAST[-1], "Months", is_a_level_var=F, cont.binbreaks=binbreaks$BREAST, catToContModels=catToContModels$BREAST)
-  # cat.adjustments$MAGE <- createAdjustmentMatrix("MAGE", binbreaks$MAGE[-1], "Age group", is_a_level_var=F, cont.binbreaks=binbreaks$MAGE, catToContModels=catToContModels$MAGE) 
-   
   
   catcontvar<- names(binbreaks)[!names(binbreaks) %in% time_invariant_vars$Varname]
   
-  
-  #create continuous variable cat.adjustments
+    #create continuous variable cat.adjustments
   for(i in catcontvar){
     cat.adjustments$" " <- 
       createAdjustmentMatrix(i, binbreaks[[i]][-1], numiterations, is_a_level_var=FALSE, 
@@ -152,22 +138,7 @@ createEmptyCatAdjustments <- function(simframe, dict, numiterations = NUM_ITERAT
     names(cat.adjustments)[length(cat.adjustments)] <- i 
   }
     
-  
-  
-  
-  
-  # cat.adjustments$fhrswrk <- createAdjustmentMatrix("fhrswrk", binbreaks$fhrswrk[-1], numiterations, is_a_level_var=F, cont.binbreaks=binbreaks$fhrswrk, catToContModels=catToContModels$fhrswrk)
-  # cat.adjustments$mhrswrk <- createAdjustmentMatrix("mhrswrk", binbreaks$mhrswrk[-1], numiterations, is_a_level_var=F, cont.binbreaks=binbreaks$mhrswrk, catToContModels=catToContModels$mhrswrk)
-  # cat.adjustments$fsmoke <- createAdjustmentMatrix("fsmoke", binbreaks$fsmoke[-1], numiterations, is_a_level_var=F, cont.binbreaks=binbreaks$fsmoke, catToContModels=catToContModels$fsmoke)
-  # cat.adjustments$msmoke <- createAdjustmentMatrix("msmoke", binbreaks$msmoke[-1], numiterations, is_a_level_var=F, cont.binbreaks=binbreaks$msmoke, catToContModels=catToContModels$msmoke)
-  # cat.adjustments$kids <- createAdjustmentMatrix("kids", binbreaks$kids[-1], numiterations, is_a_level_var=F, cont.binbreaks=binbreaks$kids, catToContModels=catToContModels$kids)
-  # cat.adjustments$householdsize <- createAdjustmentMatrix("householdsize", binbreaks$householdsize[-1], numiterations, is_a_level_var=F, cont.binbreaks=binbreaks$householdsize, catToContModels=catToContModels$householdsize)
-  # cat.adjustments$chres <- createAdjustmentMatrix("chres", binbreaks$chres[-1], numiterations, is_a_level_var=F, cont.binbreaks=binbreaks$chres, catToContModels=catToContModels$chres)
-  # cat.adjustments$INTERACT <- createAdjustmentMatrix("INTERACT", binbreaks$INTERACT[-1], "At Year 5", is_a_level_var=F, cont.binbreaks=binbreaks$INTERACT, catToContModels=catToContModels$INTERACT)
-  # cat.adjustments$NPRESCH <- createAdjustmentMatrix("NPRESCH", binbreaks$NPRESCH[-1], "By Year 5", is_a_level_var=F, cont.binbreaks=binbreaks$NPRESCH, catToContModels=catToContModels$NPRESCH)
-  # #don't think NPRESCH actually needed catToCont models cos everything works fine for PUNISH which does not have them
-  # cat.adjustments$PUNISH <- createAdjustmentMatrix("PUNISH", binbreaks$PUNISH[-1], "At Year 5", is_a_level_var=F, cont.binbreaks=binbreaks$PUNISH)
-  
+ 
   cat.adjustments 
 }
 
@@ -495,8 +466,20 @@ applyContAdjustmentToSimframe <- function(Simenv, varname, iteration, desiredPro
 }
 
 
-
-check.subgroup.expr <- function(Simenv, cat.adjustments=Simenv$cat.adjustments, simframe=Simenv$simframe) {
+#' Check number of valid subgroup while applying cat.adjustment
+#' 
+#' @param Simenv
+#'  simenv receiving object. Simenv$simframe is modified.  
+#' 
+#' @return 
+#'  numeric number. 
+#' 
+#' @export
+check.subgroup.expr <- function(Simenv) {
+  
+  cat.adjustments <- Simenv$cat.adjustments
+  simframe <- Simenv$simframe
+  
   catadj1 <- cat.adjustments[[1]]
   logisetexpr <- attr(catadj1,"logisetexpr")
   valid.subgroup <- 1
@@ -523,6 +506,8 @@ check.subgroup.expr <- function(Simenv, cat.adjustments=Simenv$cat.adjustments, 
 #'  Simenv receiving object
 #' @param total_runs
 #'  total number of runs to simulate
+#' @param simulateFun  
+#'  a function contains a set of actual simulation to be performed   
 #' @param parallel
 #'  logical, which allows the user to decide on using parallel computing
 #'   
@@ -537,7 +522,7 @@ check.subgroup.expr <- function(Simenv, cat.adjustments=Simenv$cat.adjustments, 
 #'  . <- env.scenario
 #' }
 
-simulateSimario <- function(Simenv, total_runs=1, parallel = TRUE) {
+simulateSimario <- function(Simenv, total_runs=1, simulateFun = simulateFun, parallel = TRUE) {
   start_time <- proc.time()
   
   cat(gettextf("Simulating %s\n", Simenv$name))
