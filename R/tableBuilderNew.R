@@ -38,8 +38,8 @@
 #' @param env.base
 #'  Base simulation results
 #' 
-#' @param simframe
-#'  The simframe for pre-simulation values 
+#' @param basePop
+#' logical which to allow the users to used the base population  
 #'  
 #' 
 #' @return 
@@ -52,7 +52,7 @@
 tableBuilderNew <- 
   function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
             dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "", envBase = NULL,
-            simframe = NULL){
+            basePop = FALSE){
     
     library(dplyr)
     library(tidyr)
@@ -66,26 +66,37 @@ tableBuilderNew <-
     nRun <- as.numeric(env$num_runs_simulated)
 
     if(!is.null(envBase)){
-      index <-
-        !names(envBase$modules$run_results$run1) %in%
-        names(env$modules$run_results$run1)
-
+      
       combineSimario <-
         function(base, scenario, index){
           for(i in 1:length(scenario))
             scenario[[i]]<-  c(base[[i]][index], scenario[[i]])
-
+          
           scenario
         }
-
+      
+      
+      if(basePop){
+        env$simframe <- envBase$simframe
+        
+        index <-
+          !names(envBase$modules$run_results$run1) %in% variableName
+        
+      } else {
+      
+      index <-
+        !names(envBase$modules$run_results$run1) %in%
+        names(env$modules$run_results$run1)
+      
+      }
+      
       env$modules$run_results <-
         combineSimario(envBase$modules$run_results,
                        env$modules$run_results, index)
     }
     
-    if(!is.null(simframe))
-      env$simframe <- simframe
-      
+
+    
     #Time variant variables
     timeVar <- names(env$modules$run_results$run1)
     conVar <- names(binbreaks)

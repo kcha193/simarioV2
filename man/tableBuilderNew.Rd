@@ -6,7 +6,7 @@
 \usage{
 tableBuilderNew(env, statistic = c("frequencies", "means", "quantiles"),
   variableName, dict = env$dict, grpbyName = "", CI = TRUE,
-  logisetexpr = "", envBase = NULL, simframe = NULL)
+  logisetexpr = "", envBase = NULL, basePop = FALSE)
 }
 \arguments{
 \item{statistic}{the summary measure to use in producing the dataset - frequencies, means, quantiles}
@@ -21,7 +21,7 @@ tableBuilderNew(env, statistic = c("frequencies", "means", "quantiles"),
 
 \item{logisetexpr}{a character expression which defines the logiset variable}
 
-\item{simframe}{The simframe for pre-simulation values}
+\item{basePop}{logical which to allow the users to used the base population}
 
 \item{envName}{the environment to use - Base, Scenario etc.}
 

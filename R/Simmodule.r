@@ -261,7 +261,7 @@ adjustCatVar <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, it
   
   logiset <- evaluateLogisetExprAttribute(desiredProps, parent.frame())
   
-  valid.subgroup <- check.subgroup.expr(cat.adjustments, parent.frame())
+  valid.subgroup <- check.subgroup.expr(cat.adjustments)
   
   if (valid.subgroup==1) {
     cat("Adjusting", varname.no.lvl, ": ", desiredProps, "\n")
@@ -349,7 +349,7 @@ adjustContVar <- function(x, varname, simenv = simenv, propens=NULL, desiredProp
   desiredProps <- structure(desiredProps, varname=varname, logisetexpr=attr(cat.adjustments[[varname]], "logiset"), levels=simenv$dict$codings[[varname]])
   
   logiset <- evaluateLogisetExprAttribute(desiredProps, parent.frame())
-  valid.subgroup <- check.subgroup.expr(cat.adjustments, parent.frame())
+  valid.subgroup <- check.subgroup.expr(cat.adjustments)
   
   if (valid.subgroup==1) {
     cat("Adjusting", varname, ": ", desiredProps, "\n")
