@@ -48,7 +48,6 @@
 #' @export
 #' 
 #' 
-
 tableBuilderNew <- 
   function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
             dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "", envBase = NULL,
@@ -157,20 +156,17 @@ tableBuilderNew <-
       
         if(grpby %in% names(env$modules$run_results$run1) ){
           
-          groupByDataFull <- 
-            sapply(env$modules$run_results, 
-                   function(x) t(x[[grpby]]))
+          groupByDataFull <- sapply(env$modules$run_results, function(x) x[[grpby]])
           
           if(grpby %in% conVar)
             groupByDataFull <- apply(groupByDataFull,2, function(x) as.numeric(bin(x, binbreaks[[grpby]])))
           
           groupByData <- 
-            tbl_df(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[grpby]])), 
+            tbl_df(data.frame(Year = rep(as.numeric(colnames(env$modules$run_results$run1[[grpby]])), each = 5000), 
                               A0 = 1:5000, groupByDataFull))
           
           groupByData <- 
-            groupByData %>% gather(Run, groupByData, -Year, -A0)  %>% 
-            filter(!is.na(groupByData))
+            groupByData %>% gather(Run, groupByData, -Year, -A0)  %>%   filter(!is.na(groupByData))
           
         } else{
           
