@@ -79,16 +79,13 @@ tableBuilderNew <-
       if(basePop){
         env$simframe <- envBase$simframe
         
-        index <-
-          !names(envBase$modules$run_results$run1) %in% variableName
-        
-      } else {
+        env$modules$run_results <- 
+          lapply(env$modules$run_results, function(x) x[variableName])
+      } 
       
       index <-
         !names(envBase$modules$run_results$run1) %in%
         names(env$modules$run_results$run1)
-      
-      }
       
       env$modules$run_results <-
         combineSimario(envBase$modules$run_results,
