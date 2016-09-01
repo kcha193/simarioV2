@@ -15,9 +15,4 @@ character vector without alpha
 \description{
 Remove any alpha from character vector, leaving only numbers.
 }
-\examples{
-
-x <- c("1 (\%)", "-2 (\%)", "2.102 (\%)", "10 (\%)")
-strip.alpha(x)
-}
 

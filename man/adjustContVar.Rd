@@ -15,7 +15,4 @@ adjustContVar(x, varname, simenv = simenv, propens = NULL,
 \description{
 Allows subgroup adjustment if a global subgroup expression is set.
 }
-\examples{
-
-}
 

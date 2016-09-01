@@ -15,10 +15,4 @@ file extension, eg: "csv"
 \description{
 Returns the file extension, i.e: everything after the final dot.
 }
-\examples{
-x <- "data.txt"
-x <- "d:/workspace/data old.csv"
-x <- "d:/workspace/data.new.xlsx"
-file_extension(x)
-}
 

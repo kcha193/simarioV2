@@ -17,14 +17,4 @@ nothing if no NAs, otherwise error message
 Check a list for any NAs, producing error if they exist, otherwise
 silently exit.
 }
-\examples{
-\dontrun{
-	foo <- c(1,NA,3)
- names(foo) <- c("a","b","c")
- xlist <- foo
-
-	checkNAs(foo)
-	checkNAs(mpropens)
-}
-}
 

@@ -22,18 +22,4 @@ a vector of simframe variables (with names the same as the vector value)
 \description{
 Get a set of outcome variables from the simframe.
 }
-\examples{
-\dontrun{
-outcome_module_name = "years1_5"
-outcome_module_name = c("years1_5", "years6_13")
-outcome_module_name = NULL
-
-outcome_type_select = "categorical"
-outcome_type_select = "continuous"
-outcome_type_select = NULL
-sorted = TRUE
-
-getOutcomeVars(simframe, outcome_type_select, outcome_module_name, sorted)
-}
-}
 

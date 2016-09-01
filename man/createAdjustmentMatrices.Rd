@@ -31,17 +31,4 @@ Before or during the simulation the user may wish to specify the proportion of c
 Create empty categorical variable adjustment matrices for specified number of iterations.
 Initial matrix values are NA (i.e: no adjustment).
 }
-\examples{
-\dontrun{
-dict <- dict.MELC
-cat.varnames <- c("z1homeownLvl1", "catpregsmk2") 
-rows = 5
-
-dict <- dict_demo
-cat.varnames  <- c("sex","age_grp", "alive")
-rows = 100
-
-createAdjustmentMatrices(cat.varnames, dict, rows)
-}
-}
 

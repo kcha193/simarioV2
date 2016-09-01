@@ -27,17 +27,4 @@ Checks whether a fixed vector of values should be used instead of the just simul
 The fixed vector is that in fixed.outcomes and is based on user specified adjustments to a base
 run of the simulation.
 }
-\examples{
-\dontrun{
-simenv <- env.scenario
-iteration <- 3
-x <- 1:1017
-varname <- "kids"
-x.replaced <- selectFixedOutcomeIfSet(simenv, iteration, x, varname)
-
-attr(env.scenario$fixed.outcomes[["kids"]], "is.fixed.iteration")[3] <- TRUE 
- x.replaced2 <- selectFixedOutcomeIfSet(simenv, iteration, x, varname)
-table(x.replaced2)
-}
-}
 

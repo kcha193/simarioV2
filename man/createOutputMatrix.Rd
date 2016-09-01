@@ -21,12 +21,4 @@ a matrix with the "varname" attribute set to varname
 \description{
 Create a matrix of NA with specified col/row names/lengths.
 }
-\examples{
-\dontrun{
-rows <- length(children$z1msmoke1)
-cols <- 5
-varname <- "z1msmokeLvl1"
-createOutputMatrix(varname, nrows, ncols)
-}
-}
 

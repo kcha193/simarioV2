@@ -25,18 +25,4 @@ A function based on PredSimNormsSelect with the modification that if any simulat
 outside the binbreaks for the group, the simulated values are changed to be equal to the
 boundary value.   Use when all the catToCont models for a variable are normal.
 }
-\examples{
-\dontrun{
-x.cont = simframe.master$fhrswrk
-fhrs.binbreaks = attr(env.scenario$cat.adjustments$fhrswrk, "cont.binbreaks")
-x.cat <- bin(x.cont, fhrs.binbreaks)
-desired_props <- rep(1/7, 7)
-desired_props <-c(.05, .1, .15, .2, .25, .2, .05) 
-adj.x.cat <- modifyProps(x.cat, desired_props, propen=NULL, accuracy=.01)
-adj.x.cont <- predSimNormsSelectWithRounding(adj.x.cat, catToContModels$fhrswrk, cont.binbreaks=fhrs.binbreaks, envir=simframe.master)
-check <- bin(adj.x.cont, fhrs.binbreaks)
-table(check)
-table(check)/sum(table(check))
-}
-}
 

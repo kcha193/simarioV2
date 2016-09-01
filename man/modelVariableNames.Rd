@@ -21,11 +21,4 @@ Return the variables used in the supplied terms.
 Removes "LvlX" suffix, and surrounding "I( )"
 as well as disaggregates squared variables
 }
-\examples{
-\dontrun{
-model <- models$z1accomLvl1
-modelVariableNames(model) 
-modelVariableNames(model, strip.Lvl = FALSE)
-}
-}
 

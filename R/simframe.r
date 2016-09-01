@@ -25,9 +25,6 @@
 #'  nothing if successful, otherwise errors
 #' 
 #' @export
-#' @examples
-#' #simframe <- simframe.master
-#' #checkModelVars(models, simframe)
 checkModelVars <- function (models, simframe) {
 	# try a predict on each model
 	predtest <- lapply(models, function (model) try({
@@ -60,8 +57,6 @@ checkModelVars <- function (models, simframe) {
 #' nothing if successful, otherwise errors
 #' 
 #' @export
-#' @examples
-#' #checkOutcomeVars(createMELCfoutcomes(children),simframe) #outcomes <- createMELCfoutcomes(children) 
 checkOutcomeVars <- function(outcomes, simframe) {
 	#check varname specified on outcome var exists in simframe
 	srcvar <- unlist(lapply(outcomes, attr, "varname"))
@@ -94,16 +89,6 @@ checkOutcomeVars <- function(outcomes, simframe) {
 #' same name as the name outcome matrix.
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' simframe <- simframe.master
-#' simframe <- env.base$simframe
-#' outcome_module_name <- "years1_5"
-#' outcome_module_name <- "years6_13"
-#' iterations <- 8
-#' iterations <- c(6:13)
-#' outcomes <- createOutcomeMatrices(simframe, outcome_module_name, iterations)
-#' }
 createOutcomeMatrices <- function (simframe, outcome_module_name, iterations) {
 	setVars <- getOutcomeVars(simframe, outcome_module_name=outcome_module_name, sorted=TRUE)
 	
@@ -138,13 +123,6 @@ createOutcomeMatrices <- function (simframe, outcome_module_name, iterations) {
 #' a matrix with the "varname" attribute set to varname
 #' 
 #' @export
-#' @examples 
-#' \dontrun{
-#' rows <- length(children$z1msmoke1)
-#' cols <- 5
-#' varname <- "z1msmokeLvl1"
-#' createOutputMatrix(varname, nrows, ncols)
-#' }
 createOutputMatrix <- function (varname, rows, cols) {
 	structure(namedMatrix(rows, cols), varname = varname)
 }
@@ -165,19 +143,6 @@ createOutputMatrix <- function (varname, rows, cols) {
 #'  a vector of simframe variables (with names the same as the vector value)
 #' 
 #' @export
-#' @examples 
-#' \dontrun{
-#' outcome_module_name = "years1_5"
-#' outcome_module_name = c("years1_5", "years6_13")
-#' outcome_module_name = NULL
-#' 
-#' outcome_type_select = "categorical"
-#' outcome_type_select = "continuous"
-#' outcome_type_select = NULL
-#' sorted = TRUE
-#' 
-#' getOutcomeVars(simframe, outcome_type_select, outcome_module_name, sorted)
-#' }
 getOutcomeVars <- function(simframe, outcome_type_select=NULL, outcome_module_name=NULL, sorted=FALSE) {
 	
 	outcome_vars <- attr(simframe, "outcome_vars")
@@ -246,14 +211,6 @@ getOutcomeVars <- function(simframe, outcome_type_select=NULL, outcome_module_na
 #' 				remain.
 #' 
 #' @export
-#' @examples 
-#' \dontrun{
-#'  data_dir <- paste(getwd(), "/data/", sep=""); base_dir <- file.path(data_dir, "base")
-#'  people <- read_csv(base_dir, "Base_file_(people).csv")
-#'  envir <- people
-#'  simframe_defn <- read_csv(base_dir, "simframedef.csv")
-#'  simframe.master <- loadSimFrame(simframe_defn, envir)
-#' }
 loadSimFrame <- function (simframe_defn, envir = .GlobalEnv, enclos = parent.frame(), 
 		na_omit=FALSE) {
 	

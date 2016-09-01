@@ -20,8 +20,4 @@ NB: the variable "_Alpha" will not be added to the model formula
 NB: the variable "_sd" will not be added to the model formula
     but will be added as the model component m.glm$sd
 }
-\examples{
-
-#m.glm <- createGLM(modeldf) 
-}
 

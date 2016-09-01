@@ -47,13 +47,4 @@ zip is the same as the Lisp operation zip:
 		'(b1 b2 b3)
 		=> ((a1 b1) (a2 b2) (a3 b3))
 }
-\examples{
-lol <- list(A=list("A1"="a1","A2"="a2","A3"="a3"),B=list("B1"="b1","B2"="b2","B3"="b3"))
-lol.zipped <- lzip(lol)
-#lol.zip.list <- lisp::zip.list(lol$A, lol$B)                 # same as lol.zipped but without names on outer & inner elements
-lol.mapply <- mapply(list, lol$A, lol$B, SIMPLIFY = FALSE) 		# same as lol.zipped but only has names on outer elements
-lol.2d <- mapply(list, lol$A, lol$B) 						# creates 2D list [2,3]
-lol.2ds <- split(lol.2d, col(lol.2d))						# same as lol.zip.list
-#lol.zwn <- lisp::zip.with.names(lol$A, lol$B)				# same as lol.zipped but only has names on inner elements
-}
 

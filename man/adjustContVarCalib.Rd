@@ -15,7 +15,4 @@ adjustContVarCalib(x, varname, propens = NULL, desiredProps = NULL, simenv,
 \description{
 Does not allow subgroup adjustment
 }
-\examples{
- 
-}
 

@@ -21,11 +21,4 @@ z dim - iterations/years. Only 1 iteration.
 \description{
 Create a propensity array from a dataframe, for only a single iteration.
 }
-\examples{
-\dontrun{
-df <- data.frame(year1_cat1 = 1:10/100, year1_cat2 = 11:20/100)
-iteration_name <- "Year 1" 
-createSingleIterationPropensityArray(df, iteration_name)
-}
-}
 

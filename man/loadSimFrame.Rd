@@ -62,13 +62,4 @@ This function establishes the values of the simulation frame at the start
 prior to simulation by evaluating the initial value expression specified by 
 the simframe definition.
 }
-\examples{
-\dontrun{
- data_dir <- paste(getwd(), "/data/", sep=""); base_dir <- file.path(data_dir, "base")
- people <- read_csv(base_dir, "Base_file_(people).csv")
- envir <- people
- simframe_defn <- read_csv(base_dir, "simframedef.csv")
- simframe.master <- loadSimFrame(simframe_defn, envir)
-}
-}
 

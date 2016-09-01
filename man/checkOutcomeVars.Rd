@@ -17,7 +17,4 @@ nothing if successful, otherwise errors
 \description{
 Checks that the outcome variables have a source variable in simframe.
 }
-\examples{
-#checkOutcomeVars(createMELCfoutcomes(children),simframe) #outcomes <- createMELCfoutcomes(children) 
-}
 

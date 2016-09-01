@@ -48,22 +48,6 @@ that are not in the other).  In other words, the propensity score for a
 specific child is in the same row in propens as that same child's value of 
 the variable in default.vec.
 }
-\examples{
-default.vec<-c(1,1,1,1,0,0,0,0,0,1,1,1,1)
-logiset<-c(FALSE, FALSE,  TRUE,  TRUE, FALSE,  TRUE,  TRUE,  TRUE,  TRUE,  TRUE,  TRUE,  TRUE,TRUE)
-desired_props<-c(0.5,0.5)
-propens<-c(0.90, 0.80, 0.80, 0.70, 0.50, 0.40, 0.10, 0.10, 0.15, 0.70, 0.90, 0.90, 0.90)
-a<-modifypropsVarSingle_on_subset(default.vec=default.vec, desired_props=desired_props, propens=propens, logiset=logiset)
-prop.table(table(a[logiset]))
-
-
-default.vec<-c(1,1,1,1,0,0,0,0,0,1,1,1,1)
-logiset<-NULL
-desired_props<-c(0.5,0.5)
-propens<-c(0.90, 0.80, 0.80, 0.70, 0.50, 0.40, 0.10, 0.10, 0.15, 0.70, 0.90, 0.90, 0.90)
-a<-modifypropsVarSingle_on_subset(default.vec=default.vec, desired_props=desired_props, propens=propens, logiset=logiset)
-prop.table(table(a[logiset]))
-}
 \seealso{
 This function calls \code{\link{modifyProps}}
 }

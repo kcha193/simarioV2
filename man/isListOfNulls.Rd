@@ -15,8 +15,4 @@ a logical value
 \description{
 True if all list members are NULL
 }
-\examples{
-x <- list(NULL)
-isListOfNulls(x)
-}
 

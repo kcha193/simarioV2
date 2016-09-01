@@ -201,10 +201,6 @@ remove.NA.cols <- function(collated_results_freqs, num.runs) {
 #'  
 #' @export
 #'  
-#' @examples
-#'  varname <- "z1msmokeLvl1"
-#'  varname <- "z1singleLvl1"
-#'  adjustCatVar(predSimBinomsSelect(z1single_previousLvl1, models$z1singlePrev0, models$z1singlePrev1), "z1singleLvl1")
 adjustCatVarSimple <- function(x, varname, simenv = simenv, iteration = iteration) {
   cat.adjustments <- simenv$cat.adjustments
   
@@ -232,10 +228,6 @@ adjustCatVarSimple <- function(x, varname, simenv = simenv, iteration = iteratio
 #'  
 #' @export
 #' 
-#' @examples
-#'  varname <- "z1msmokeLvl1"
-#'  varname <- "z1singleLvl1"
-#'  adjustCatVar(predSimBinomsSelect(z1single_previousLvl1, models$z1singlePrev0, models$z1singlePrev1), "z1singleLvl1")
 adjustCatVar <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, iteration) {
   
   cat.adjustments <- simenv$cat.adjustments
@@ -289,10 +281,6 @@ adjustCatVar <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, it
 #'  
 #' @export
 #' 
-#' @examples
-#'  varname <- "z1msmokeLvl1"
-#'  varname <- "z1singleLvl1"
-#'  adjustCatVar(predSimBinomsSelect(z1single_previousLvl1, models$z1singlePrev0, models$z1singlePrev1), "z1singleLvl1")
 adjustCatVarCalib <- function(x, varname, propens=NULL, desiredProps=NULL, simenv = simenv, iteration = iteration) {
   
   
@@ -324,8 +312,6 @@ adjustCatVarCalib <- function(x, varname, propens=NULL, desiredProps=NULL, simen
 #'  
 #' @export
 #'
-#' @examples
-#' 
 adjustContVar <- function(x, varname, simenv = simenv, propens=NULL, desiredProps=NULL, iteration) {
   cat.adjustments <- simenv$cat.adjustments
   
@@ -381,8 +367,6 @@ adjustContVar <- function(x, varname, simenv = simenv, propens=NULL, desiredProp
 #'  
 #' @export
 #' 
-#' @examples
-#'  
 adjustContVarSimple <- function(x, varname, simenv, iteration) {
   cat.adjustments <- simenv$cat.adjustments
   
@@ -416,8 +400,6 @@ adjustContVarSimple <- function(x, varname, simenv, iteration) {
 #'  
 #' @export
 #' 
-#' @examples
-#'  
 adjustContVarCalib <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, iteration) {
   cat.adjustments <- simenv$cat.adjustments
   

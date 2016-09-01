@@ -37,15 +37,4 @@ NB: In order to know how many values to predict, there needs to be at least
 one variable in the model. If you wish to create a intercept only model,
 then create a model with a single variable and a zero coefficient.
 }
-\examples{
-\dontrun{
- model <- model.glm
- model <- models$gptotvis3_6 ; set <- c(T, T, rep(F, 1073))
- model <- models$gptotvis2
- set <- rep(F, 1075)
- envir = .GlobalEnv
- predictSimario(model, envir, set)
- set = NULL
-}
-}
 

@@ -22,7 +22,4 @@ a vector of binary values
 \description{
 Predict and simulate binary value from logistic model
 }
-\examples{
- #model.glm <- models$z1msmokeLvl1
-}
 

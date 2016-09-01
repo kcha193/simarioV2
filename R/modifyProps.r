@@ -112,36 +112,6 @@ change.cat <- function(num, rank.col, i, new.all.dat, n.change) {
 #' @seealso This function calls \code{\link{change.cat}}
 #' 
 #' @export 
-#' @examples
-#' \dontrun{
-#' default.vec <- children$SESBTH
-#' desired_props <- c(0.1,0.1,0.8)
-#' propens <- data.frame(propensities$SESBTH)
-#' new.vec <- modifyProps(default.vec, desired_props, propens)
-#' table(default.vec)/sum(table(default.vec))
-#' table(new.vec)/sum(table(new.vec))
-#' 
-#' default.vec <- env.scenario$simframe$z1accomLvl1
-#' desired_props <- c(0.1,0.9)
-#' propens <- propensities$z1accom[,,5]
-#' #propensities$z1accom is a 3 dimentional array so we take only the the 5th z dimension
-#' 	#(the propensities for year 5)
-#'  table(default.vec)/sum(table(default.vec))
-#' new.vec <- modifyProps(default.vec, desired_props, propens)
-#'  table(new.vec)/sum(table(new.vec))
-#' 
-#' default.vec <- env.scenario$simframe$catpregsmk2
-#' desired_props <- c(0.1, 0.1, 0.1, 0.5, 0.2)
-#' propens <- NULL
-#' 
-#' prop.table(table(default.vec))
-#' prop.table(table(modifyProps(default.vec, desired_props, propens)))
-#' 
-#' desired_props <- c(.05, .1, .2, .15, .3, .12, .08)
-#' fhrs.binbreaks = attr(env.scenario$cat.adjustments$fhrswrk, "cont.binbreaks")
-#' x.cat <- bin(x.cont,fhrs.binbreaks)
-#' adj.x.cat <- modifyProps(x.cat, desired_props, propens, accuracy)
-#' }
 modifyProps <- function(default.vec, desired_props, propens=NULL, accuracy=.01) {
 	if (exists(".accuracy")) {accuracy<-.accuracy}
 	
@@ -365,22 +335,6 @@ modifyProps <- function(default.vec, desired_props, propens=NULL, accuracy=.01) 
 #'  same list of vectors, but with proportions modified
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' level1 <- env.scenario$simframe$SESBTHLvl1
-#' level2 <- env.scenario$simframe$SESBTHLvl2
-#' level3 <- env.scenario$simframe$SESBTHLvl3
-#' vecs.list <- list(level1=level1, level2=level2, level3=level3) ; vecs.list <- list(level1, level2, level3)
-#' desiredProps <- c(0.1,0.1,0.8)
-#' propens <- propensities$SESBTH[,,1]
-#' r <- modifyPropsAsBinLevels(vecs.list, desiredProps = desiredProps, propens = propens)
-#' 
-#' level0 <- simframe$z1chparLvl0; level1 <- simframe$z1chparLvl1
-#' desiredProps <- c(0,1)
-#' vecs.list <- list(level0=level0, level1=level1) ; vecs.list <- list(level0, level1)  
-#' vecs.list <- simframe[binLevelVarnames]
-#' r <- modifyPropsAsBinLevels(vecs.list, desiredProps = desiredProps, propens = propens)
-#' }
 modifyPropsAsBinLevels <- function (vecs.list, desiredProps, propens=NULL) {
 	
 	#catvar <- binary.levels.combine(simframe[binLevelVarnames])
@@ -453,22 +407,6 @@ modifyPropsAsBinLevels <- function (vecs.list, desiredProps, propens=NULL) {
 #' @seealso This function calls \code{\link{modifyProps}}
 #' 
 #' @export
-#' @examples
-#' default.vec<-c(1,1,1,1,0,0,0,0,0,1,1,1,1)
-#' logiset<-c(FALSE, FALSE,  TRUE,  TRUE, FALSE,  TRUE,  TRUE,  TRUE,  TRUE,  TRUE,  TRUE,  TRUE,TRUE)
-#' desired_props<-c(0.5,0.5)
-#' propens<-c(0.90, 0.80, 0.80, 0.70, 0.50, 0.40, 0.10, 0.10, 0.15, 0.70, 0.90, 0.90, 0.90)
-#' a<-modifypropsVarSingle_on_subset(default.vec=default.vec, desired_props=desired_props, propens=propens, logiset=logiset)
-#' prop.table(table(a[logiset]))
-#' 
-#' 
-#' default.vec<-c(1,1,1,1,0,0,0,0,0,1,1,1,1)
-#' logiset<-NULL
-#' desired_props<-c(0.5,0.5)
-#' propens<-c(0.90, 0.80, 0.80, 0.70, 0.50, 0.40, 0.10, 0.10, 0.15, 0.70, 0.90, 0.90, 0.90)
-#' a<-modifypropsVarSingle_on_subset(default.vec=default.vec, desired_props=desired_props, propens=propens, logiset=logiset)
-#' prop.table(table(a[logiset]))
-
 modifypropsVarSingle_on_subset<-function(default.vec, desired_props, propens=NULL, logiset=NULL, accuracy=.01) {
 	if (is.null(logiset)) {logiset<-rep(TRUE, length(default.vec))}
 	default.df<-as.data.frame(default.vec)
@@ -543,18 +481,6 @@ modifypropsVarSingle_on_subset<-function(default.vec, desired_props, propens=NUL
 #' 
 #' @return
 #'  an 'adjusted' continuous variable that if binned will have the same proportions as requested in desired_props
-#' 
-#' @examples
-#' \dontrun{
-#' simframe.master$age=2
-#' desired_props <- rep(1/7, 7)
-#' desired_props <-c(.05, .1, .15, .2, .25, .2, .05) 
-#' test <- modifyPropsContinuous(simframe.master$fhrswrk, modifyPropsContinuous, catToContModels$fhrswrk, cont.binbreaks=attr(env.scenario$cat.adjustments$fhrswrk, "cont.binbreaks"), envir=simframe.master)
-#' fhrs.binbreaks = attr(env.scenario$cat.adjustments$fhrswrk, "cont.binbreaks")
-#' check <- bin(test, fhrs.binbreaks)
-#' table(check)
-#' table(check)/sum(table(check))
-#' }
 modifyPropsContinuous <- function(x.cont, desired_props, catToContModels, cont.binbreaks, propens=NULL, logiset=NULL, accuracy=.01, envir=parent.frame()) {
 	x.cat <- bin(x.cont, cont.binbreaks)
 	adj.x.cat <- modifyProps(x.cat, desired_props, propens, accuracy)
@@ -599,8 +525,6 @@ modifyPropsContinuous <- function(x.cont, desired_props, catToContModels, cont.b
 #' models were provided.
 #' 
 #' @export 
-
-
 adjust.proportions <- function(x, desiredProps, propens=NULL, logiset=NULL, catToContModels=NULL, cont.binbreaks=NULL, envir=parent.frame()) {
 	#browser()
 	if (!is.null(logiset) && sum(logiset)>0) {
@@ -656,11 +580,6 @@ adjust.proportions <- function(x, desiredProps, propens=NULL, logiset=NULL, catT
 #' order.
 #' 
 #' @export 
-#' @examples 
-#' modified.x <- 1:10*2-1
-#' non.modified.x <- 1:10*2
-#' logiset<-rep(c(TRUE,FALSE),10) 
-#' combine.and.reorder(modified.x, non.modified.x, logiset)
 combine.and.reorder <- function(modified.x, non.modified.x, logiset) {
 	n = length(modified.x) + length(non.modified.x)
 	original.position <- 1:n
@@ -675,7 +594,6 @@ combine.and.reorder <- function(modified.x, non.modified.x, logiset) {
 ########### Add missing categories ##############
 modifyProps.Mengdan <- function(default.vec, desired_props, propens=NULL, accuracy=.01) {
 
-				
 	# If the length of desired_props not equal to number of categories in variable which means
 	# there were unobserved categories in the variable, then we choose the units randomly from the 
 	# the category in majority and apply the missing categories to them.

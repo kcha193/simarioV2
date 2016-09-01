@@ -27,10 +27,4 @@ Combines and reorders (so correct original order) after modifyProps has been cal
 a logiset.
 Called in adjust.proportions().
 }
-\examples{
-modified.x <- 1:10*2-1
-non.modified.x <- 1:10*2
-logiset<-rep(c(TRUE,FALSE),10) 
-combine.and.reorder(modified.x, non.modified.x, logiset)
-}
 

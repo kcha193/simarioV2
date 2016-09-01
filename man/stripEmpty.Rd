@@ -15,7 +15,4 @@ a vector without empty values
 \description{
 Remove empty values from vector
 }
-\examples{
-stripEmpty(c("", NA, "1"))
-}
 

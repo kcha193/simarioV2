@@ -28,12 +28,4 @@ Display a vector of continuous values in a table with confidence interval
 using the breaks supplied.
 Attachs a meta attribute with varname
 }
-\examples{
-\dontrun{
-x <- env.scenario$simframe$bwkg
-breaks <- binbreaks$bwkg
-
-table.contvar.with.CI(env.scenario$simframe$bwkg, binbreaks$bwkg, "bwkg")
-}
-}
 

@@ -29,36 +29,4 @@ as a extra list element to each matrix elements of lol}
 Apply lapply.subset.append to each element of lol, using the arguments from 
 the parallel list lol.args and the function .FUN.
 }
-\examples{
-\dontrun{
-X <- outcomes_wtotals
-lol <- .$runstats$means
-lol.args <- attr(lol, "args.list")
-.FUN <- mean_mx_cols
-
-X <- env.base$years1_5$outcomes
-lol <- env.base$years1_5$runstats$means
-lol.args <- attr(lol, "args.list")
-.FUN <- mean_mx_cols.lbl
-
-X <- env.base$modules[[1]]$outcomes
-lol <- list(all=namedList("gptotvis", "hadmtot"), females.by.ethnicity=namedList("gptotvis", "hadmtot")) 
-lol.args <- list(all=NULL, females.by.ethnicity=list(logiset=childsets$females, grpby=children$r1stchildethn, grpby.tag="r1stchildethn"))
-attr(lol, "args.list") <- lol.args
-.FUN <- mean_mx_cols.lbl
-}
-
-outcome1 <- structure(matrix(1:8, ncol=2), varname="outcome1")
-outcome2 <- structure(matrix(11:18, ncol=2), varname="outcome2")
-X <- list(outcome1=outcome1, outcome2=outcome2)
-lol <- list(all=namedList("outcome1", "outcome2"), females.by.ethnicity=namedList("outcome1", "outcome2"))
-lol.args <- list(all=NULL, females.by.ethnicity=list(logiset=c(TRUE,TRUE,TRUE,FALSE), grpby=c("E","E","O","O"), grpby.tag="ethn"))
-simplify = TRUE
-attr(lol, "args.list") <- lol.args
-.FUN <- mean_mx_cols
-   
-lapply.subset.append.lol.args(X, lol, lol.args, simplify=simplify, .FUN)
-mean_mx_cols(outcome1)
-mean_mx_cols(outcome1, logiset=lol.args$females.by.ethnicity$logiset, grpby=lol.args$females.by.ethnicity$grpby, grpby.tag="ethn")
-}
 

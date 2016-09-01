@@ -21,10 +21,4 @@ z dim - iterations/years
 Create a propensity array from a dataframe, for a variable with only 2 categories 
 across multiple iterations.
 }
-\examples{
-\dontrun{
-df <- data.frame(year1 = 1:10/100, year2 = 11:20/100)
-create2CategoryPropensityArray(df)
-}
-}
 

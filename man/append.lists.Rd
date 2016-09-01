@@ -37,37 +37,4 @@ a list of lists. The inner list contains the
 \description{
 NB: attributes of list.dest are replaced by list.src.
 }
-\examples{
-
-#list.dest <- results.list; list.src <- results
-#list.dest <- years1_5$runstats.collated$means
-#list.src <- years6_13$runstats.collated$means
-#by.name = TRUE
-#r <- append.lists(list.dest, list.src, by.name)
-
-#Test first three cases:
-
-#ml0 <- namedList("msmoke", "fsmoke")
-#x <- env.base$years1_5$outcomes; indices=names(ml0); simplify = FALSE; .FUN=table_mx_cols
-#list.src <- lapply.subset(x, indices, .FUN)
- 
-#ml0 <- namedList("gptotvis", "hadmtot")
-#x <- env.base$years1_5$outcomes; indices=names(ml0); simplify = FALSE; .FUN=wtdtablecols
-#list.src <- lapply.subset(x, indices, .FUN)
-
-#ml1 <- append.lists(ml0, list.src)
-#ml2 <- append.lists(ml1, list.src)
-#ml3 <- append.lists(ml2, list.src)
-
-#list.dest <- ml0
-#list.dest <- ml1
-
-#Test with lists with differently named items.
-
-list.dest <- list(foo=matrix(1:4)) # list.dest <- years1_5$run_results_collated$quantiles
-list.src <- list(bar=matrix(5:10)) # list.src <- years6_13$run_results_collated$quantiles
-
-by.name = TRUE; flatten.src = TRUE
-list.result <- append.lists(list.dest , list.src, by.name = TRUE, flatten.src = TRUE)
-}
 

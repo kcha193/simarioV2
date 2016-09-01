@@ -18,9 +18,4 @@ the list "dest" after updated.
 Use this to update a dest list when the ordering of src is different from dest and you
 wish to preserve the dest list ordering.
 }
-\examples{
-dest <- list(a=1,b=2,c=3,d=4)
-src <- list(c=3,a=1,e=5)
-updatelist(dest, src)
-}
 

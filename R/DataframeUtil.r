@@ -19,10 +19,6 @@
 #' a dataframe after merged.
 #' 
 #' @export
-#' @examples
-#'  df <- data.frame(key=1:5, value=LETTERS[1:5]); key_column_name <- "key"; selected_keys <- c(2,3)
-#'  mergeAndRemoveKeyColumn(df, key_column_name, selected_keys)
-#'  selected_keys <- c(1:6)
 mergeAndRemoveKeyColumn <- function(df, key_column_name, selected_keys) {
 	if (!key_column_name %in% names(df)) {
 		stop(gettextf("Cannot find key column %s", key_column_name))
@@ -48,9 +44,6 @@ mergeAndRemoveKeyColumn <- function(df, key_column_name, selected_keys) {
 #' a matrix or dataframe after remove rows
 #' 
 #' @export
-#' @examples
-#' x <- data.frame(x = c(1, 2, 3), y = c(0, 10, NA))
-#' remove_rows_by_index(x, c(1,3))
 remove_rows_by_index <- function(x, indices) {
 	#create inverted logical array of nas
 	invlogi <- rep(TRUE, dim(x)[1])

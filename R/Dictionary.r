@@ -8,7 +8,6 @@
 #'  coded values
 #' @param varname
 #'  name of the category of x, or NULL
-
 #' @return
 #'  x, is there are no codings for varname, else a vector of category names
 #'  corresponding to the values in x
@@ -42,15 +41,24 @@ cmatch <- function (dict, x, varname) {
 #'   Codings_Expr = an expression which generates the codings, eg:
 #'  				"c("Other"=1, "Pacific"=2, "Maori"=3)"
 #'  			   NB: Codings must be specified in numeric order
-#' 
-#'   additional variables are ignored.
-#' 
 #' @return 
 #' a dictionary object
+#' Vector of variable desciptions.
+#' names(descriptions) are the variable names.
+#' List of codings.
+#' names(codings) are the variable names.
+#' Each element is a vector. The vector values are the category values (eg: 1, 2)
+#' and the names of the vector are the category descriptions. 
+#' Each element also contains the varname attribute.
 #' 
+#' Example of an element:
+#'  
+#' Professional     Clerical Semi-skilled 
+#'        1            2            3 
+#' attr(,"varname")
+#' [1] "SESBTH"
+#'  
 #' @export
-#' @examples
-#' 
 createDict <- function (descriptions_dataframe, codings_dataframe = NULL) {
   
   descriptions <- createDescriptions(descriptions_dataframe)
@@ -60,22 +68,6 @@ createDict <- function (descriptions_dataframe, codings_dataframe = NULL) {
   } else {
     codings <- createCodings(codings_dataframe)
   }
-  
-  # return new object
-  #' Vector of variable desciptions.
-  #' names(descriptions) are the variable names.
-  #' List of codings.
-  #' names(codings) are the variable names.
-  #' Each element is a vector. The vector values are the category values (eg: 1, 2)
-  #' and the names of the vector are the category descriptions. 
-  #' Each element also contains the varname attribute.
-  #' 
-  #' Example of an element:
-  #'  
-  #' Professional     Clerical Semi-skilled 
-  #'        1            2            3 
-  #' attr(,"varname")
-  #' [1] "SESBTH"
   
   list(descriptions = descriptions,
        codings = codings)	
@@ -146,8 +138,7 @@ cnamesLookup <- function(dict, vars)
 #' a list of category names for categorical variables.
 #' 
 #' @export
-#' @examples
-#' 
+
 createCodings <- function (codings_dataframe) {
   #remove empty variables, 
   #these are blank lines at the end of the file or
@@ -178,8 +169,7 @@ createCodings <- function (codings_dataframe) {
 #' 
 #' 
 #' @export
-#' @examples
-#'
+
 createDescriptions <- function (descriptions_dataframe) {
   #remove empty variables, 
   #generally these are blank lines at the end of the file
@@ -206,10 +196,6 @@ createDescriptions <- function (descriptions_dataframe) {
 #'  ... in order according to dlookup
 #' 
 #' @export
-#' @examples
-#'  . <- dict.MELC
-#'  xlist <- means$all.by.ethnicity
-#'  .$order_by_dlookup(xlist)
 order_by_dlookup <- function (dict, ...) {
   xlist <- c(...)
   ordering <- sort.list(sapply(xlist, dlookup(dict)))

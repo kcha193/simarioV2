@@ -14,9 +14,4 @@ model_coefs_names_unique(models_list)
 Get the unique set of names of model coefs for the 
 supplied list of models
 }
-\examples{
-\dontrun{
-	model_coefs_names_unique(models)
-}
-}
 

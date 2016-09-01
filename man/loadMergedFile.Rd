@@ -26,12 +26,4 @@ Loads and merges a CSV/XLS file with the supplied values (keys). ie:
 returns a dataframe (excluding key_column_name) for the supplied 
 values that exist in key_column_name of the file
 }
-\examples{
-\dontrun{
-selected_keys <- children$A0
-key_column_name <- "A0"
-filedir <- "D:/workspace.sim/MELC/CHDS/propensityFiles/"
-loadMergedFile(key_column_name, selected_keys, propensityfiledir)
-}
-}
 

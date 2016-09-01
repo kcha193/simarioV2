@@ -40,38 +40,6 @@
 #'  elements of list.dest.
 #' 
 #' @export
-#' @examples
-#' 
-#' #list.dest <- results.list; list.src <- results
-#' #list.dest <- years1_5$runstats.collated$means
-#' #list.src <- years6_13$runstats.collated$means
-#' #by.name = TRUE
-#' #r <- append.lists(list.dest, list.src, by.name)
-#' 
-#' #Test first three cases:
-#' 
-#' #ml0 <- namedList("msmoke", "fsmoke")
-#' #x <- env.base$years1_5$outcomes; indices=names(ml0); simplify = FALSE; .FUN=table_mx_cols
-#' #list.src <- lapply.subset(x, indices, .FUN)
-#'  
-#' #ml0 <- namedList("gptotvis", "hadmtot")
-#' #x <- env.base$years1_5$outcomes; indices=names(ml0); simplify = FALSE; .FUN=wtdtablecols
-#' #list.src <- lapply.subset(x, indices, .FUN)
-#' 
-#' #ml1 <- append.lists(ml0, list.src)
-#' #ml2 <- append.lists(ml1, list.src)
-#' #ml3 <- append.lists(ml2, list.src)
-#' 
-#' #list.dest <- ml0
-#' #list.dest <- ml1
-#' 
-#' #Test with lists with differently named items.
-#' 
-#' list.dest <- list(foo=matrix(1:4)) # list.dest <- years1_5$run_results_collated$quantiles
-#' list.src <- list(bar=matrix(5:10)) # list.src <- years6_13$run_results_collated$quantiles
-#' 
-#' by.name = TRUE; flatten.src = TRUE
-#' list.result <- append.lists(list.dest , list.src, by.name = TRUE, flatten.src = TRUE)
 append.lists <- function(list.dest, list.src, by.name = FALSE, flatten.src = FALSE) {
 	if (is.null(list.dest) || isListOfNulls(list.dest)) {
 		# create a list of lists from list.src
@@ -119,9 +87,6 @@ append.lists <- function(list.dest, list.src, by.name = FALSE, flatten.src = FAL
 #'  a data frame
 #' 
 #' @export
-#' @examples
-#' x <- list(matrix(1:4, nrow=2),c(1:4))
-#' x <- as_data_frame_list_as_is(x)
 as_data_frame_list_as_is <- function(xlist, row.names=NULL) {
 	structure(xlist, 
 			class="data.frame", row.names=row.names)
@@ -138,15 +103,6 @@ as_data_frame_list_as_is <- function(xlist, row.names=NULL) {
 #'  nothing if no NAs, otherwise error message
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' 	foo <- c(1,NA,3)
-#'  names(foo) <- c("a","b","c")
-#'  xlist <- foo
-#' 
-#' 	checkNAs(foo)
-#' 	checkNAs(mpropens)
-#' }
 checkNAs <- function (xlist) {
 	
 	nas <- sapply(xlist, function(x) { any(is.na(x)) })
@@ -171,15 +127,6 @@ checkNAs <- function (xlist) {
 #'  equivalent to c(fx(xlist[[1]]), fx(xlist[[2]] ... ) across every element.
 #'  
 #' @export
-#' @examples 
-#' xlist <- list('1'=list(inner=list(A1=1:2,A2=2:3)))
-#' xlist <- list('1'=list(inner=list(A1=1:2,A2=2:3)),'2'=list(inner=list(B1=3:4,B2=4:5)))
-#' fx <- function(x) x$inner
-#' 
-#' c(xlist[[1]]$inner, xlist[[2]]$inner)
-#' c(fx(xlist[[1]]), fx(xlist[[2]]))
-#' c_list(xlist, fx)
-#' all.equal(c(xlist[[1]]$inner, xlist[[2]]$inner),c_list(xlist, fx)) 
 c_list <- function(xlist, fx) {
 	result <- unlist(lapply(xlist, fx), recursive = FALSE)  #do.call(c, lapply(xlist, fx))
 	names(result) <- unlist(lapply(xlist, function(x) names(fx(x))))
@@ -196,9 +143,6 @@ c_list <- function(xlist, fx) {
 #'  a logical value
 #' 
 #' @export
-#' @examples
-#' x <- list(NULL)
-#' isListOfNulls(x)
 isListOfNulls <- function(xlist) {
 	all(sapply(xlist, is.null))
 }
@@ -227,15 +171,6 @@ isListOfNulls <- function(xlist) {
 #' a list of lists, the result of applying .FUN to lol
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' lol <- env.base$years6_13$runstats$means
-#' lol <- env.base$years1_5$runstats$means
-#' lol <- env.base$years1_5$runstats$means
-#' lol <- env.base$years6_13$runstats$summaries
-#' lol <- years1_5$runstats$summaries
-#' lapply.inner(lol, mean_array_z)
-#' }
 lapply.inner <- function (lol, .FUN, ..., simplify = FALSE, USE.NAMES = FALSE) {
 	
 	lapply(lol, function (outer) {
@@ -288,14 +223,6 @@ lapply.inner <- function (lol, .FUN, ..., simplify = FALSE, USE.NAMES = FALSE) {
 #'  the corresponding elements of lol combined
 #' 
 #' @export
-#' @examples
-#' lol <- list(A=list("A1"="a1","A2"="a2","A3"="a3"),B=list("B1"="b1","B2"="b2","B3"="b3"))
-#' lol.zipped <- lzip(lol)
-#' #lol.zip.list <- lisp::zip.list(lol$A, lol$B)                 # same as lol.zipped but without names on outer & inner elements
-#' lol.mapply <- mapply(list, lol$A, lol$B, SIMPLIFY = FALSE) 		# same as lol.zipped but only has names on outer elements
-#' lol.2d <- mapply(list, lol$A, lol$B) 						# creates 2D list [2,3]
-#' lol.2ds <- split(lol.2d, col(lol.2d))						# same as lol.zip.list
-#' #lol.zwn <- lisp::zip.with.names(lol$A, lol$B)				# same as lol.zipped but only has names on inner elements
 lzip <- function(lol) {
 	lzipper(lol, c)
 }
@@ -347,14 +274,6 @@ lzip <- function(lol) {
 #'  a list of the results from applying .FUN to each combination
 #'  
 #' @export
-#' @examples
-#' lol <- list(A=list("A1"="a1","A2"="a2","A3"="a3"),B=list("B1"="b1","B2"="b2","B3"="b3"))
-#' lol.zipped <- lzipper(lol, c)			
-#' #lol.zip.list <- lisp::zip.list(lol$A, lol$B)                 # same as lol.zipped but without names on outer & inner elements
-#' lol.mapply <- mapply(list, lol$A, lol$B, SIMPLIFY = FALSE) 		# same as lol.zipped but only has names on outer elements
-#' lol.2d <- mapply(list, lol$A, lol$B) 						# creates 2D list [2,3]
-#' lol.2ds <- split(lol.2d, col(lol.2d))						# same as lol.zip.list
-#' #lol.zwn <- lisp::zip.with.names(lol$A, lol$B)				# same as lol.zipped but only has names on inner elements
 lzipper <- function (lol, .FUN, ...)  {
 	#NB: can be implemented with mapply when no inner element names needed 
 	
@@ -403,27 +322,6 @@ lzipper <- function (lol, .FUN, ...)  {
 #'  results of .FUN applied to X as a list
 #' 
 #' @export
-#' @examples
-#' 
-#' \dontrun{
-#' X <- env.base$years1_5$outcomes
-#' indices <- names(env.base$years1_5$run_results$confreqs)
-#' .FUN <- wtdtablecols
-#'
-#' X <- env.base$years6_13$outcomes
-#' indices <- names(env.base$years6_13$runstats$means$all)
-#' .FUN <- summary_mx_cols
-#'  
-#' 
-#' #' lapply.subset(X, indices, .FUN, ...)
-#' results.list <-  run_results$freqs.by.ethnicity; X <- outcomes; indices=names(results.list); .FUN=table_mx_cols
-#' results <- lapply.subset (X, indices, .FUN, grpby.tag="r1stchildethn")
-#' 
-#' 
-#' lapply.subset (X, indices, .FUN, logiset=logiset, grpby=grpby, grpby.tag = grpby.tag)
-#'  
-#' results <- lapply.subset (X, indices, .FUN)
-#' } 
 lapply.subset <- function (X, indices, .FUN, ...) {
 	if (is.null(indices)) {
 		lapply(X, .FUN, ...)
@@ -446,17 +344,6 @@ lapply.subset <- function (X, indices, .FUN, ...) {
 #' NULL
 #' 
 #' @export
-#' @examples
-#' mx <- matrix(c(8,2,2,2,8,2,3,2,3,2,2,4,8,2,3,4,2,2,4,3),nrow=4,ncol=5,dimnames=list(NULL, LETTERS[1:5]))
-#' grpby <- c('M','F','F','M')
-#' logiset <- c(FALSE, TRUE, FALSE, TRUE)
-#' result <- table_mx_cols(mx, grpby = grpby, logiset = logiset)
-#' 
-#' X <- list(mx=mx)
-#' FUN <- table_mx_cols
-#' FUN.args <- list(grpby = grpby, logiset = logiset)
-#' result2 <- lapply.args.as.list(X, FUN, FUN.args)
-#' all.equal(result2[[1]], result)
 lapply.args.as.list <- function (X, FUN, FUN.args) {
 	do.call(lapply,
 			args=c(list(
@@ -500,41 +387,6 @@ lapply.args.as.list <- function (X, FUN, FUN.args) {
 #' NULL
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' X <- env.base$years6_13$outcomes
-#' results.list <- env.base$years6_13$runstats$summaries
-#' lapply.subset.append (results.list, X, .FUN=summary_mx_cols)
-#' 
-#' X <- env.base$years1_5$outcomes
-#' lol <- env.base$years1_5$run_results$confreqs
-#'
-#' lol <- env.base$years6_13$runstats$summaries
-#' X <- env.base$years6_13$outcomes
-#' 
-#' X <- outcomes
-#' .FUN=table_mx_cols
-#' 
-#' lapply.subset.append (lol, X, simplify = FALSE, .FUN=wtdtablecols)
-#' 
-#' 
-#' lapply.subset.append(results.list=lol.x, X=X, simplify=simplify, .FUN=.FUN, logiset=lol.a$logiset)
-#' 
-#' results.list <- run_results$freqs; X <- outcomes; indices=names(results.list); simplify = FALSE; .FUN=table_mx_cols
-#' lapply.subset.append (run_results$freqs, outcomes, simplify = FALSE, .FUN=table_mx_cols)
-#' 	
-#' results.list <- run_results$confreqs; X <- outcomes; indices=names(results.list); simplify = FALSE; .FUN=wtdtablecols
-#' lapply.subset.append (run_results$confreqs, outcomes, simplify = FALSE, .FUN=wtdtablecols, wgts=outcomes[[wgtsname]])
-#' 
-#' results.list <- runstats$summaries; X <- outcomes; indices=names(results.list); simplify = FALSE; .FUN=quantile_mx_cols
-#' lapply.subset.append (runstats$summaries, outcomes, .FUN=quantile_mx_cols, probs=seq(0.2,1,0.2))
-#' 
-#' results.list <-  run_results$freqs.by.ethnicity; X <- outcomes; indices=names(results.list); simplify = FALSE; .FUN=table_mx_cols
-#' lapply.subset.append (run_results$freqs.by.ethnicity, outcomes, simplify = FALSE, .FUN=table_mx_cols, grpby=outcomes$r1stchildethn, grpby.tag="r1stchildethn")
-#' 
-#' results.list <- mxlist; X <- xframe ; indices=names(results.list); simplify = TRUE ; .FUN = mean_mx_cols.lbl2
-#' lapply.subset.append (results.list, X, indices, simplify, .FUN, logiset=logiset, grpby=grpby, grpby.tag = grpby.tag)
-#' }
 lapply.subset.append <- function (results.list, X, indices=names(results.list), simplify = TRUE, .FUN, ...) {
 	
 	if (is.null(indices)) {
@@ -579,37 +431,6 @@ lapply.subset.append <- function (results.list, X, indices=names(results.list), 
 #' NULL
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' X <- outcomes_wtotals
-#' lol <- .$runstats$means
-#' lol.args <- attr(lol, "args.list")
-#' .FUN <- mean_mx_cols
-#' 
-#' X <- env.base$years1_5$outcomes
-#' lol <- env.base$years1_5$runstats$means
-#' lol.args <- attr(lol, "args.list")
-#' .FUN <- mean_mx_cols.lbl
-#' 
-#' X <- env.base$modules[[1]]$outcomes
-#' lol <- list(all=namedList("gptotvis", "hadmtot"), females.by.ethnicity=namedList("gptotvis", "hadmtot")) 
-#' lol.args <- list(all=NULL, females.by.ethnicity=list(logiset=childsets$females, grpby=children$r1stchildethn, grpby.tag="r1stchildethn"))
-#' attr(lol, "args.list") <- lol.args
-#' .FUN <- mean_mx_cols.lbl
-#' }
-#' 
-#' outcome1 <- structure(matrix(1:8, ncol=2), varname="outcome1")
-#' outcome2 <- structure(matrix(11:18, ncol=2), varname="outcome2")
-#' X <- list(outcome1=outcome1, outcome2=outcome2)
-#' lol <- list(all=namedList("outcome1", "outcome2"), females.by.ethnicity=namedList("outcome1", "outcome2"))
-#' lol.args <- list(all=NULL, females.by.ethnicity=list(logiset=c(TRUE,TRUE,TRUE,FALSE), grpby=c("E","E","O","O"), grpby.tag="ethn"))
-#' simplify = TRUE
-#' attr(lol, "args.list") <- lol.args
-#' .FUN <- mean_mx_cols
-#'    
-#' lapply.subset.append.lol.args(X, lol, lol.args, simplify=simplify, .FUN)
-#' mean_mx_cols(outcome1)
-#' mean_mx_cols(outcome1, logiset=lol.args$females.by.ethnicity$logiset, grpby=lol.args$females.by.ethnicity$grpby, grpby.tag="ethn")
 lapply.subset.append.lol.args <- function(X, lol, lol.args = attr(lol, "args.list"), simplify=TRUE, .FUN) {
 	
 	result <- mapply(function(lol.x,lol.a) {
@@ -644,8 +465,6 @@ lapply.subset.append.lol.args <- function(X, lol, lol.args = attr(lol, "args.lis
 #' a list of NULL elements
 #' 
 #' @export
-#' @examples 
-#' namedList("foo","bar")
 namedList <- function(...) {
 	elementNames <- c(...)
 	
@@ -667,12 +486,6 @@ namedList <- function(...) {
 #' the list after removed
 #' 
 #' @export
-#' @examples
-#' xlist <- list(a=1,b=2,c=3,d=4)
-#' names_of_elements_to_remove <- c("c","b")
-#' names_of_elements_to_remove <- c("e")
-#' names_of_elements_to_remove <- c("e","a")
-#' remove.elements(xlist, names_of_elements_to_remove)
 remove.elements <- function(xlist, names_of_elements_to_remove) {
 	matched <- match(names_of_elements_to_remove, names(xlist))
 	matched <- matched[!is.na(matched)]
@@ -697,10 +510,6 @@ remove.elements <- function(xlist, names_of_elements_to_remove) {
 #' the list "dest" after updated.
 #' 
 #' @export
-#' @examples
-#' dest <- list(a=1,b=2,c=3,d=4)
-#' src <- list(c=3,a=1,e=5)
-#' updatelist(dest, src)
 updatelist <- function(dest, src) {
 	# get all non nulls
 	src <- src[!sapply(src, is.null)]

@@ -17,8 +17,4 @@ a matrix or dataframe after remove rows
 \description{
 Remove rows specified by indices
 }
-\examples{
-x <- data.frame(x = c(1, 2, 3), y = c(0, 10, NA))
-remove_rows_by_index(x, c(1,3))
-}
 

@@ -18,11 +18,4 @@ Assign the values of variables (specifed by name in a source character vector)
 to another set of variables (specifed by name in a dest character vector).
 Will modify variables in enclosing environments.
 }
-\examples{
-\dontrun{
-d1 <- 1; d2 <- 2; s1 <- 10; s2 <- 20
-assign_values(c("d1","d2"), c("s1","s2"))
-d1; d2
-}
-}
 

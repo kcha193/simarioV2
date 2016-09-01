@@ -25,14 +25,4 @@ a list of lists, the result of applying .FUN to lol
 \description{
 Apply a function to the inner element of a list of lists.
 }
-\examples{
-\dontrun{
-lol <- env.base$years6_13$runstats$means
-lol <- env.base$years1_5$runstats$means
-lol <- env.base$years1_5$runstats$means
-lol <- env.base$years6_13$runstats$summaries
-lol <- years1_5$runstats$summaries
-lapply.inner(lol, mean_array_z)
-}
-}
 

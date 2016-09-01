@@ -15,13 +15,4 @@ vector that contains all components in the list with "try-error" class
 \description{
 Return the messages of any element that is a try-error
 }
-\examples{
-x1 <- 1:4
-x2 <- 5:8
-x3 <- 1
-x1 <- structure(x1, class="try-error")
-x2 <- structure(x2, class="try-error")
-xlist <- list(x1, x2, x3)
-tryerrorMsgs(xlist)
-}
 

@@ -19,10 +19,4 @@ a vector of predicted value
 \description{
 for the case where each category has a separate model that should be used to simulate a value
 }
-\examples{
-\dontrun{
-fhrswrk.cat <- bin(simframe.master$fhrswrk, binbreaks$fhrswrk)
-test <- predSimNormsSelect(fhrswrk.cat, catToContModels$fhrswrk, envir=simframe.master)
-}
-}
 

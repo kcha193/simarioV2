@@ -23,26 +23,4 @@ Compares a vector x against a set of factors and returns
 a list for each factor which indicates whether x 
 is equal to that factor or not.
 }
-\examples{
-x <- c(1,2,3,2,1)
-f <- c(1,2,3)
-
-binary.levels.split (x, f)
-
-\dontrun{ 
-$`1`
-[1] 1 0 0 0 1
-
-$`2`
-[1] 0 1 0 1 0
-
-$`3`
-[1] 0 0 1 0 0
-
-
-x <- adjcatvar
-f=sort(unique(x))
-binary.levels.split(x)
-}
-}
 

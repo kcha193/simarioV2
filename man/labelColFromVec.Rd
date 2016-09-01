@@ -19,9 +19,4 @@ a list with named column
 set the columns names of each x in xlist to
 each char vector c in colnameslist
 }
-\examples{
-xlist <- list(matrix(1:8,ncol=2), matrix(1:9,ncol=3))
-colnameslist <- list(c("a","b"),c("c","d","e"))
-labelColFromVec(xlist, colnameslist)
-}
 

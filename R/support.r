@@ -30,13 +30,6 @@ ZDIM <- 3
 #' 
 #' @return 
 #'  NULL
-#' 
-#' @examples
-#' \dontrun{
-#' d1 <- 1; d2 <- 2; s1 <- 10; s2 <- 20
-#' assign_values(c("d1","d2"), c("s1","s2"))
-#' d1; d2
-#' }
 assign_values <- function(dest_var_names, src_var_names) {
 	invisible(mapply(function(dest_var_name, src_var_name) {
 						assign(dest_var_name, get(src_var_name), inherits=T)
@@ -61,12 +54,6 @@ environment(assign_values) <- .GlobalEnv
 #'  a character vector
 #'
 #' @export 
-#' @examples
-#' x <- matrix(c(2,3,4,5,6,7,8,9),nrow=2)
-#' cat(as.csv.string(x))
-#' cat(as.csv.string(x,"title"))	#title <- "title"
-#' str(as.csv.string(x))
-#' length(as.csv.string(x))
 as.csv.string <- function(x, title = NULL, row.names = T) {
 	if (!(is.null(title))) title <- dQuote(title) 
 	
@@ -95,12 +82,6 @@ as.csv.string <- function(x, title = NULL, row.names = T) {
 #'  a list of character vectors
 #' 
 #' @export
-#' @examples 
-#' x1 <- matrix(1:8,nrow=2)
-#' x2 <- matrix(2:9,nrow=2)
-#' xlist <- list(x1, x2)
-#' names(xlist) <- c("x1", "x2")
-#' as.csv.string.list(xlist)
 as.csv.string.list <- function(xlist, row.names = T) {
 	mapply(function (x, name) {
 						as.csv.string(x,name, row.names = row.names)
@@ -117,9 +98,6 @@ as.csv.string.list <- function(xlist, row.names = T) {
 #'  If there is FALSE, return error message.
 #' 
 #' @export
-#' @examples
-#' assert(c(TRUE,TRUE))
-#' #assert(c(TRUE,FALSE))
 assert <- function(xvec) {
 	if (!all(xvec)) {
 		if (is.null(names(xvec))) names(xvec) <- paste("[",seq(length(xvec)),"]",sep="")
@@ -164,31 +142,6 @@ assert <- function(xvec) {
 #' the values of x factored into bins 
 #' 
 #' @export
-#' @examples
-#' \dontrun{ 
-#' table(bin(env.scenario$simframe$bwkg, binbreaks$bwkg)) 
-#' table(bin(children$bwkg, 0.5)) # x <- children$bwkg; breaks <- 0.5
-#' table(bin(children$ga, 1, breaklast=37)) #x <- children$ga; breaks = 1; breaklast = 37
-#' table(bin(children$pregalc,1,breaklast=7)) #x <- children$pregalc; breaks = 1; breaklast = 7
-#'
-#' binbreaks <- list()
-#' binbreaks$pregalc <- c(-1,0,1,2,3,4,5,6,7,max(children$pregalc))
-#' names(binbreaks$pregalc) <- c(NA, 0:7,"8+")
-#' table(bin(children$pregalc,binbreaks$pregalc)); x <- children$pregalc;breaks<-binbreaks$pregalc 
-#' 
-#' binbreaks$bwgrams <- c(0,2499,2999,3499,3999,max(children$bwgrams))
-#' names(binbreaks$bwgrams) <- c(NA, "< 2500", "2500 - 2999", "3000 - 3499", "3500 - 3999", "4000 + ") 
-#' table(bin(children$bwgrams,binbreaks$bwgrams))
-#' 
-#' binbreaks$ga <- c(0,34,35,36,37,max(children$ga))
-#' names(binbreaks$ga) <- c(NA, "< 35", "35", "36", "37", "38+")
-#' table(bin(children$ga,binbreaks$ga))
-#' 
-#' breaks <- binbreaks$INTERACT
-#' blabels <- names(breaks)
-#' breaklast=NULL
-#' table(bin(x, breaks, breaklast=NULL), useNA="always")
-#' }
 bin <- function (x, breaks, blabels = names(breaks), breaklast=NULL) {
 	if (length(breaks) == 1L) {
 		# breaks is a binsize. calculate actual breaks
@@ -237,25 +190,6 @@ bin <- function (x, breaks, blabels = names(breaks), breaklast=NULL) {
 #'  a single vector
 #' 
 #' @export
-#' @examples 
-#' level1 <- c(1,0,0)
-#' level2 <- c(0,1,0)
-#' level3 <- c(0,0,1)
-#' levelvalues <- c(1,2,3)
-#' binary.levels.combine(level1, level2, level3)   # [1] 1 2 3
-#' 
-#' binary.levels.combine(list(level1, level2, level3)) # [1] 1 2 3
-#' 
-#' #level1 <- env.scenario$simframe$SESBTHLvl1
-#' #level2 <- env.scenario$simframe$SESBTHLvl2
-#' #level3 <- env.scenario$simframe$SESBTHLvl3
-#' 
-#' binary.levels.combine(level1, level2, level3)
-#' binary.levels.combine(list(level1, level2, level3))
-#' levelvalues <- c(1,2,3)
-#' binlevels <- list(level1, level2, level3)
-#' #binlevels <- simframe[c("z1chparLvl0", "z1chparLvl1")] ; levelvalues = c(0,1)
-#' binary.levels.combine (binlevels, levelvalues = levelvalues)
 binary.levels.combine  <- function (..., levelvalues = NULL) {
 	
 	binlevels <- if (is.list(c(...))) c(...) else list(...)
@@ -292,27 +226,6 @@ binary.levels.combine  <- function (..., levelvalues = NULL) {
 #'  list of binary levels
 #' 
 #' @export
-#' @examples
-#' x <- c(1,2,3,2,1)
-#' f <- c(1,2,3)
-#' 
-#' binary.levels.split (x, f)
-#' 
-#' \dontrun{ 
-#' $`1`
-#' [1] 1 0 0 0 1
-#' 
-#' $`2`
-#' [1] 0 1 0 1 0
-#' 
-#' $`3`
-#' [1] 0 0 1 0 0
-#' 
-#' 
-#' x <- adjcatvar
-#' f=sort(unique(x))
-#' binary.levels.split(x)
-#' }
 binary.levels.split <- function(x, f=sort(unique(x))) {
 	if (is.null(names(f))) names(f) <- f 
 	lapply(f, function(fac) { as.integer(x == fac) } )
@@ -334,26 +247,6 @@ binary.levels.split <- function(x, f=sort(unique(x))) {
 #' x incremented by the factor increments
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' x <- children$bwkg
-#' xi <- incByFactor(children$bwkg, bin(children$bwkg, 0.5), c(0,0.5,0,0,0,0,0,0,0))
-#' table(bin(x, 0.5))
-#' table(bin(xi, 0.5))
-#' 
-#' x <- env.scenario$simframe$INTERACT
-#' factoredx <- bin(x, binbreaks$INTERACT, breaklast=NULL)
-#' factorincrements <- rep(0,9)
-#' r <- incByFactor(x, factoredx, factorincrements)
-#' table(r, useNA="always")
-#' }
-#' 
-#' #example with an array
-#' test.xa <- array(c(1:18), dim=c(3,3,2))
-#' test.breaks = c(0,6,12,18)
-#' factored.xa <- bin(test.xa, test.breaks)
-#' inc <- c(0,2,-1)
-#' incByFactor(test.xa, factored.xa, inc)
 incByFactor <- function(x, factoredx, factorincrements) {
 	if (nlevels(factoredx) != length(factorincrements)) {
 		stop("factor increments must be of length ", nlevels(factoredx))
@@ -406,10 +299,6 @@ detachReturn <- function(envname) {
 #'  the result calculated
 #' 
 #' @export
-#' @examples
-#' err(x=2)
-#' err(x=1:10)
-#' err(x=c(4,NA))
 err <- function (x) {
 	## see http://www.cyclismo.org/tutorial/R/confidence.html
 	if (length(x) < 2) {
@@ -439,12 +328,7 @@ err <- function (x) {
 #' NULL
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' exprlist <- initial_value
-#' envir <- bf
-#' eval.list(exprlist, bf)
-#' }
+
 eval.list <- function (exprlist, envir = .GlobalEnv, enclos = parent.frame(), allowEmptyExpr = FALSE) {
 	
 	#evaluate list of strings as expressions.
@@ -528,9 +412,6 @@ global <- function (x, pos = 1) {
 #'  logical value
 #' 
 #' @export 
-#' @examples 
-#' is_numeric_scalar(c(1,2))
-#' is_numeric_scalar(1)
 is_numeric_scalar <- function (x) {
 	length(x) == 1 && is.numeric(x)
 }
@@ -545,12 +426,6 @@ is_numeric_scalar <- function (x) {
 #'  num vector of bytes per element
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' mem.lx(env.base)
-#' prettyNum(sum(mem.lx(env.base)), big.mark=",")
-#' mem.lx(env.base$years1_5)
-#' }
 mem.lx <- function(lx) {
 	sapply(lx, object.size)
 }
@@ -572,15 +447,6 @@ mem.lx <- function(lx) {
 #'  x with "meta" attribute
 #' 
 #' @export
-#' @examples
-#' 
-#' x <- 1:3
-#' x <- structure(1:3, meta=c(grpby.tag="r1stchildethn", set="females only"))
-#' new.meta <- c(varname="gptotvis")
-#' new.meta <- c(grpby.tag="newtag")
-#' new.meta <- c(grpby.tag=NULL)
-#' meta.add(x, new.meta)
-#' meta.add(x, new.meta)
 meta.add <- function(x, new.meta) {
 	if (is.null(new.meta)) return(x)
 	
@@ -606,12 +472,6 @@ meta.add <- function(x, new.meta) {
 #'  attribute of each xlist element.
 #' 
 #' @export
-#' @examples
-#' xlist <- list(gpmorb = 1:3, hadmtot = 10:13)
-#' xlist <- list(1:3, 10:13)
-#' varnames <- names(xlist)
-#' 
-#' meta.add.list.varname(xlist, varnames) 
 meta.add.list.varname <- function(xlist, varnames = names(xlist)) {
 	if (is.null(varnames)) {
 		xlist
@@ -647,17 +507,6 @@ meta.add.list.varname <- function(xlist, varnames = names(xlist)) {
 #' @seealso sort
 #' 
 #' @export
-#' @examples
-#'  
-#' x <- c("1 (%)", "-2 (%)", "2 (%)", "10 (%)")
-#' x <- c("1 (%)", "0 (%)", "2 (%)", "10 (%)")
-#' x <- c("1","0","2","10")
-#' x <- c("b","d","a","c")
-#' x <- c(1,4,3,2)
-#' x <- c("1", "2", "3", "4", "5", "6", "7", "8", "10", NA, "9", NA)
-#' x <- c("10", "11", "12", "13", "6", "7", "8", "9", "All Years")
-#' x <- c("10 (%)", "11 (%)", "12", "13", "6", "7", "8", "9", "All Years")
-#' nsort(x)
 nsort <- function (x, stripAlpha = TRUE, sortAlphaOnlySeparately = TRUE, ...) {
 
 	# remove any NAs
@@ -706,9 +555,6 @@ nsort <- function (x, stripAlpha = TRUE, sortAlphaOnlySeparately = TRUE, ...) {
 #' NULL 
 #' 
 #' @export
-#' @examples
-#' exceptions <- c("ov")
-#' rmall(exceptions)
 rmall <- function (exceptions = NULL) {
 	vars <- ls(".GlobalEnv", all.names=TRUE)
 	if (!is.null(exceptions)) {
@@ -727,8 +573,6 @@ rmall <- function (exceptions = NULL) {
 #'  a vector without empty values
 #' 
 #' @export
-#' @examples
-#' stripEmpty(c("", NA, "1"))
 stripEmpty <- function (xvec) {
 	#remove empty values (NAs, empty string) from vector
 	xvec <- xvec[!is.na(xvec)]	#remove NAs
@@ -746,10 +590,6 @@ stripEmpty <- function (xvec) {
 #'  x without "class" attribute
 #' 
 #' @export
-#' @examples
-#' x <- 1:10
-#' x <- structure(x, class=class(x))
-#' stripClass(x)
 stripClass <- function (x) {
 	#remove the class attribute
 	`attr<-`(x, "class", NULL)
@@ -793,14 +633,6 @@ stripMeta.list <- function (xlist) {
 #'  vector that contains all components in the list with "try-error" class
 #' 
 #' @export
-#' @examples 
-#' x1 <- 1:4
-#' x2 <- 5:8
-#' x3 <- 1
-#' x1 <- structure(x1, class="try-error")
-#' x2 <- structure(x2, class="try-error")
-#' xlist <- list(x1, x2, x3)
-#' tryerrorMsgs(xlist)
 tryerrorMsgs <- function (xlist) {
 	unlist(sapply(xlist, function (x) if (class(x)=="try-error") { stripClass(x) }))
 }
@@ -824,17 +656,6 @@ tryerrorMsgs <- function (xlist) {
 #' data modified
 #' 
 #' @export
-#' @examples
-#' myvar <- "globalenv"
-#' data <- list(myvar="dataenv") 
-#' func <- function() {
-#' 	print(myvar)
-#' 	myvar <<- "func.changed"	
-#' }
-#'
-#' args <- list() 
-#' data <- withinfunc(data, func)
-#' 
 withinfunc <- function(data, func, ...) {
 	# create environment from base that has
 	# parent environment that is the environment 

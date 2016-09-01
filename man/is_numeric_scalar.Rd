@@ -17,8 +17,4 @@ logical value
 Returns whether x is a scalar (i.e. length 1)
 and numeric.
 }
-\examples{
-is_numeric_scalar(c(1,2))
-is_numeric_scalar(1)
-}
 

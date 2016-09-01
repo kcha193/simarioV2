@@ -15,43 +15,6 @@
 #'  rows and cols are in numerical sort order.
 #'
 #' @export 
-#' @examples 
-#' 
-#' #list of vectors with same names
-#' listmx2 <- list(A = c("0"=720L, "1"=353L), B = c("0"=722L, "1"=355L))
-#' 
-#' #list of vectors with diff names
-#' listmxa <- list(A = c("0"=720L, "1"=353L), B = c("1"=722L, "2"=355L))
-#'  
-#' #list of 2 4x1 matrices with same number of rows but different row names, and no col names 
-#' listmx7 <- list(matrix(c(10,20,30,40), dimnames = list(c(1:4), NULL)), matrix(c(20,30,40,50), dimnames = list(c(2:5), NULL)))
-#'
-#' #list of 3x2 matrix and 4x2 matrix  
-#' listmx8 <- list(matrix(c(10,20,30,40,50,60), nrow = 3, ncol = 2, dimnames = list(c("1","10","100"), c("b","a"))), matrix(c(20,30,40,50,60,70,80,90), nrow = 4, ncol = 2, dimnames = list(c("10","2","100","200"), c("b","c"))))
-#' 
-#' #list of 5x1 table and 4x1 table
-#' listmx9 <-  list(structure(c(1L, 15L, 3L, 27L, 1029L), .Dim = c(5L, 1L), .Dimnames = structure(list(    c("1", "2", "3", "4", "5"), NULL), .Names = c("", "")), class = "table"),    structure(c(11L, 1L, 18L, 1045L), .Dim = c(4L, 1L), .Dimnames = structure(list(        c("2", "3", "4", "5"), NULL), .Names = c("", "")), class = "table"))
-#' 
-#' #list with a matrix with NA for a rowname
-#' listmxa <- list(matrix(c(10,20), ncol = 1, dimnames = list(c("1","10"), NULL)), matrix(c(200,1000), ncol = 1, dimnames = list(c("2",NA), NULL)) )
-#'
-#' #list of 2 matrices with meta
-#' listmx10 <- list(structure(matrix(100, dimnames = list(1, NULL)), meta=c("grpby.tag"="r1stchildethn")), matrix(c(200,300), dimnames = list(c(1,2), NULL))) 
-#' 
-#' listmx11 <- list(numeric(0), structure(0.5, .Dim = c(1,1), .Dimnames = list(NULL, "Cat 1")))
-#' listmx11 <- list(structure(numeric(0), .Dim=c(1,0)), structure(0.5, .Dim = c(1,1), .Dimnames = list(NULL, "Cat 1")))
-#' listmx11 <- list(structure(0, .Dim=c(1,1)), structure(0.5, .Dim = c(1,1), .Dimnames = list(NULL, "Cat 1")))
-#' 
-#' listmx <- listmxa
-#' listmx <- listmx2 
-#' listmx <- listmx7
-#' listmx <- listmx8
-#' listmx <- listmx9
-#' listmx <- listmxa
-#' listmx <- listmx10
-#' listmx <- listmx11
-#' 
-#' align.by.name.list.mx(listmx)
 align.by.name.list.mx <- function(listmx) {
 	
 	listmx.is.vector <- sapply(listmx, is.vector)
@@ -154,24 +117,6 @@ align.by.name.list.mx <- function(listmx) {
 #'  list of vector/matrix/arrays after appended.
 #' 
 #' @export 
-#' @examples
-#'
-#' listmx.dest <- list(a=c(1:3), b=c(1:2))
-#' listmx.src <- list(a=c(11:13), b=c(11:12))
-#' into.dim=ROW
-#' 
-#' result <- append.list.mx(listmx.dest, listmx.src, into.dim)
-#' result <- append.list.mx(result, listmx.src, into.dim)
-#'
-#' #listmx.dest <- mxlist
-#' #listmx.src <- results
-#' #listmx.dest <- me.base
-#' #listmx.src <- me.scenario
-#' into.dim=ROW 
-#' 
-#' listmx.dest <- structure(list(means = structure(c(5, 5, 9, 11, 15, 50), .Names = c("0%","20%", "40%", "60%", "80%", "100%")), errs = structure(c(0, 0,0, 0, 0, 0), .Names = c("0%", "20%", "40%", "60%", "80%", "100%"))))
-#' listmx.src <- structure(list(means = structure(c(5, 5, 9, 11, 15, 50.5), .Names = c("0%","20%", "40%", "60%", "80%", "100%")), errs = structure(c(0, 0,0, 0, 0, 44.4717165766114), .Names = c("0%", "20%", "40%", "60%","80%", "100%"))))
-#' append.list.mx(listmx.dest, listmx.src, into.dim)
 append.list.mx <- function(listmx.dest, listmx.src, into.dim=ZDIM) {
 	
 	
@@ -226,9 +171,6 @@ copyMeta.list <- function(list.dest, list.src) {
 #'  an array
 #' 
 #' @export 
-#' @examples
-#' mylist <- list(1:5,2:6,7)
-#' result <- as.arrayFromList(mylist)
 as.arrayFromList <- function (mylist) {
 	t(array(unlist(mylist), dim=c(length(mylist[[1]]),length(mylist))))
 }
@@ -243,9 +185,6 @@ as.arrayFromList <- function (mylist) {
 #'  array with dimnames and meta from listmx
 #' 
 #' @export 
-#' @examples
-#'  listmx <- list(A=structure(matrix(c(1:6), nrow=2, dimnames=(list(1:2, 1:3))), meta=c("grpby.tag"="r1stchildethn")), B=structure( matrix(c(21:26), nrow=2, dimnames=(list(1:2, 1:3))) , meta=c("grpby.tag"="r1stchildethn")))
-#'  as_array_list_mx(listmx)
 as_array_list_mx <- function(listmx) {
 	
 	rows <- nrow(listmx[[1]]) ; rnames <- rownames(listmx[[1]])
@@ -275,14 +214,6 @@ as_array_list_mx <- function(listmx) {
 #' a matrix
 #' 
 #' @export 
-#' @examples
-#' 
-#'  xlist <- list(a=c("1st"=1,"2nd"=2, "3rd"=3), b=c(11:13))
-#' 
-#'  as.matrix.default(xlist)
-#'  as.matrix(xlist)
-#'  as.matrixFromList(xlist)
-#'  as.matrixFromList(xlist, byrow = FALSE)
 as.matrixFromList <- function (xlist, byrow = TRUE) {
 	if (byrow) {
 	  do.call("rbind", xlist)
@@ -301,11 +232,6 @@ as.matrixFromList <- function (xlist, byrow = TRUE) {
 #' matrix with prepended dimnames
 #' 
 #' @export 
-#' @examples
-#'  mx <- matrix(1:4, nrow=2, ncol=2, dimnames=list(gender=c("M","F"), SES=c("Low","High")))
-#'  mx <- matrix(1:4, nrow=2, ncol=2, dimnames=list(c("M","F"), SES=c("Low","High")))
-#'  names(dimnames(mx))[[ROW]] <- NA
-#'  dimnames_prepend_header(mx)
 dimnames_prepend_header <- function(mx) {
 	
 	dx <- dimnames(mx)[ROW]
@@ -345,29 +271,6 @@ dimnames_prepend_header <- function(mx) {
 #' @seealso align.by.name.list.mx
 #' 
 #' @export
-#' @examples
-#'  
-#' #lol.mx <- .$run_results$freqs.by.ethnicity$z1msmokeLvl1
-#' lol.mx <- structure(list(year1 = structure(list(`1` = structure(c(1:6), .Dim = 2:3, .Dimnames = structure(list(0:1,1:3), .Names = c("", "")), class = "table", meta = c(grpby.tag="r1stchildethn")), '2'= structure(c(21:26), .Dim = 2:3, .Dimnames = structure(list(0:1,1:3), .Names = c("", "")), class = "table", meta = c(grpby.tag="r1stchildethn"))), .Names = 1:2), year2 = structure(list(`1` = structure(31:36, .Dim = 2:3, .Dimnames = structure(list(0:1,1:3), .Names = c("", "")), class = "table", meta = c(grpby.tag="r1stchildethn")),     `2` = structure(c(41:46), .Dim = 2:3, .Dimnames = structure(list(0:1,1:3), .Names = c("", "")), class = "table", meta = c(grpby.tag="r1stchildethn"))), .Names = c("1", "2"))))
-#' 
-#' flatten_mxlists_to_array(lol.mx)
-#' \dontrun{
-#' , , year1
-#' 
-#'   1 0 1 1 2 0 2 1 3 0 3 1
-#' 1   1   2   3   4   5   6
-#' 2  21  22  23  24  25  26
-#' 
-#' , , year2
-#' 
-#'   1 0 1 1 2 0 2 1 3 0 3 1
-#' 1  31  32  33  34  35  36
-#' 2  41  42  43  44  45  46
-#' }
-#' 
-#' lol.mx <- structure(list(year1 = structure(list(`2` = structure(c(1:6), .Dim = 2:3, .Dimnames = structure(list(0:1,1:3), .Names = c("", "")), class = "table", meta = c(grpby.tag="r1stchildethn")), `10`= structure(c(21:26), .Dim = 2:3, .Dimnames = structure(list(0:1,1:3), .Names = c("", "")), class = "table", meta = c(grpby.tag="r1stchildethn"))), .Names = c("2", "10")), year2 = structure(list(`2` = structure(31:36, .Dim = 2:3, .Dimnames = structure(list(0:1,1:3), .Names = c("", "")), class = "table", meta = c(grpby.tag="r1stchildethn")),     `10` = structure(c(41:46), .Dim = 2:3, .Dimnames = structure(list(0:1,1:3), .Names = c("", "")), class = "table", meta = c(grpby.tag="r1stchildethn"))), .Names = c("2", "10"))))
-#' flatten_mxlists_to_array(lol.mx)
-	
 flatten_mxlists_to_array <- function(lol.mx) {
 	# flatten each matrix into a single row then align and return each list of matrices as a single matrix
 	lol.mx.flat <- lapply(lol.mx, flatten_mxs_to_single_mx)
@@ -398,9 +301,6 @@ flatten_mxlists_to_array <- function(lol.mx) {
 #'    rownames = names of listmx 
 #' 
 #' @export
-#' @examples
-#'  listmx <- list(A=structure(matrix(c(1:6), nrow=2, dimnames=(list(1:2, 1:3))), meta=c("grpby.tag"="r1stchildethn")), B=structure( matrix(c(21:26), nrow=2, dimnames=(list(1:2, 1:3))) , meta=c("grpby.tag"="r1stchildethn")))
-#'  flatten_mxs_to_single_mx(listmx)
 flatten_mxs_to_single_mx <- function(listmx) {
 	
 	# flatten each matrix into a single row 
@@ -440,32 +340,6 @@ flatten_mxs_to_single_mx <- function(listmx) {
 #'  a single row matrix (1,c)
 #' 
 #' @export
-#' @examples
-#' 
-#' # 2 x 3 matrix
-#' mx <- matrix(c(1:6), nrow = 2, ncol = 3, dimnames=list(c("A", "B"), c("1", "2", "3")))
-#' 
-#' # 1 columned matrix (2 x 1) with no col names
-#' mx <- matrix(c(10,20), nrow = 2, ncol = 1, dimnames=list(c("0", "1"), NULL))
-#'
-#' # 1 columned matrix (3 x 1) with no dim names
-#' mx <- matrix(c(1,2,3), nrow = 3, ncol = 1)
-#'
-#' # 1 columned matrix (2 x 1) with no col names and NA in row name
-#' mx <- matrix(c(10,20), nrow = 2, ncol = 1, dimnames=list(c("0", NA), NULL))
-#'
-#' # 1 columned matrix (1 x 1) with no col names and NA in row name
-#' mx <- matrix(c(10), nrow = 1, ncol = 1, dimnames=list(c(NA), NULL))
-#' 
-#' # vector
-#' mx <- c("a"=1,"b"=2,"c"=3)
-#' 
-#' # 1 columned matrix (3 x 1) with names
-#' mx <- matrix(c(1,2,3), nrow = 3, ncol = 1, dimnames=list(c("row1", "row2", "row3"), "col1"))
-#' 
-#' flatten_mx_to_row(mx)
-#' flatten_mx_to_row(mx, row.names.first=TRUE)
-
 flatten_mx_to_row <- function (mx, row.names.first = FALSE) {
 	# if already vector, return as single row matrix
 	if (is.vector(mx)) {
@@ -508,12 +382,6 @@ flatten_mx_to_row <- function (mx, row.names.first = FALSE) {
 #' a named matrix of NA
 #' 
 #' @export
-#' @examples
-#' cols <- 2 ; rows <- 5
-#' cols <- c("Male","Female"); rows <- 5
-#' cols <- c("Male","Female"); rows <- paste("Year", 1:5)
-#' 
-#' namedMatrix(rows, cols)
 namedMatrix <- function (rows, cols) {
 	nrows <- if (is_numeric_scalar(rows)) rows else length(rows)
 	ncols <- if (is_numeric_scalar(cols)) cols else length(cols)
@@ -534,11 +402,6 @@ namedMatrix <- function (rows, cols) {
 #'  matrices, or a list of matrices after merged
 #' 
 #' @seealso merge_list_mx.by.rows
-#' @examples
-#' \dontrun{
-#' xlistm <- list(matrix(c(1:9),nrow=3,dimnames=list(c("a","b","c"),c())),matrix(c(11,15,14,18,20,21),nrow=2,dimnames=list(c("a","e"),c())),matrix(c(13,17,30,31,40,41),nrow=2,dimnames=list(c("e","f"),c())))
-#' merge_list_mx.by.cols(xlistm)
-#' }
 merge_list_mx.by.cols <- function(...) {
 	xlistm <- if (nargs() > 1) list(...) else (...)
 	merge_list_mx.by.rows(lapply(xlistm, t))
@@ -556,46 +419,6 @@ merge_list_mx.by.cols <- function(...) {
 #'  matrices, or a list of matrices after merged
 #' 
 #' @export
-#' @examples
-#'  	xlistm <- list(matrix(c(1,5,2,6,3,7,4,8),nrow=2,dimnames=list(c(),c("a","b","c","d"))),matrix(c(11,15,14,18,20,21),nrow=2,dimnames=list(c(),c("a","d","e"))),matrix(c(13,17,30,31,40,41),nrow=2,dimnames=list(c(),c("c","e","f"))))
-#'		xlistm
-#' \dontrun{
-#' 
-#'		[[1]]
-#'		a b c d
-#'		[1,] 1 2 3 4
-#'		[2,] 5 6 7 8
-#'
-#'		[[2]]
-#'		a  d  e
-#'		[1,] 11 14 20
-#'		[2,] 15 18 21
-#'
-#'		[[3]]
-#'		c  e  f
-#'		[1,] 13 30 40
-#'		[2,] 17 31 41
-#' 	
-#' (matrices = 3, cols = x*, rows = 2)
-#' 
-#' Cols in the matrices are joined on column name to produce a list of y matrices, with z cols, and a unique merged
-#' set of rows, eg: matrices = 2, cols = 3, rows = x*, eg:
-#' > merge_list_mx.by.rows(xlistm)
-#' [[1]]
-#'       a  b  c  d  e  f
-#' [1,]  1  2  3  4 NA NA
-#' [2,] 11 NA NA 14 20 NA
-#' [3,] NA NA 13 NA 30 40
-#' 
-#' [[2]]
-#'       a  b  c  d  e  f
-#' [1,]  5  6  7  8 NA NA
-#' [2,] 15 NA NA 18 21 NA
-#' [3,] NA NA 17 NA 31 41
-#' }
-#' # Another example:	
-#' xlistm <- list(first=matrix(1:6, nrow=2, dimnames=list(c("means", "errs"),c("C","A","B"))), second=matrix(11:16, nrow=2, dimnames=list(c("means", "errs"),c("C","A","B"))))
-#' merge_list_mx.by.rows(xlistm)
 merge_list_mx.by.rows <- function(...) {
 	xlistm <- if (nargs() > 1) list(...) else (...)
 
@@ -666,43 +489,6 @@ merge_list_mx.by.rows <- function(...) {
 #'  If the source matrix is a table then will also return a table.
 #' 
 #' @export
-#' @examples
-#' mx <- matrix(c(10,20,30,40,50,60), nrow = 3, ncol = 2, dimnames = list(c("a","b","c"), c(2:1)))
-#' mx <- as.table(mx)
-#' \dontrun{
-#' > mx
-#'    2  1
-#' a 10 40
-#' b 20 50
-#' c 30 60
-#' 
-#' newcols <- c(2,1,NA)
-#' newrows <- c(1,2,3,NA,NA,NA)
-#' dim.names <- list(c(LETTERS[1:6]),1:3)
-#'  
-#' > redim.mx (mx, newrows, newcols, dim.names)
-#'    1  2  3
-#' A 40 10 NA
-#' B 50 20 NA
-#' C 60 30 NA
-#' D NA NA NA
-#' E NA NA NA
-#' F NA NA NA
-#' }
-#'
-#' # mx as a table 
-#' mx <- structure(c(1L, 15L, 3L, 27L, 1029L), .Dim = c(5L, 1L), .Dimnames = structure(list(c("1", "2", "3", "4", "5"), NULL), .Names = c("", "")), class = "table")
-#' newrows = 1:5
-#' newcols = 1
-#' dim.names = list(c("1", "2", "3", "4", "5"), NULL)
-#' redim.mx(mx, newrows , newcols, dim.names)
-#' 
-#' # mx with meta
-#' mx <- structure(matrix(100, dimnames = list(1, NULL)), meta=c("grpby.tag"="r1stchildethn"))
-#' newrows = 1
-#' newcols = 1
-#' dim.names = list(1, NULL)
-#' redim.mx(mx, newrows , newcols, dim.names)
 redim.mx <- function(mx, newrows, newcols, dim.names) {
 	numrows <- length(newrows)
 	numcols <- length(newcols)
@@ -741,9 +527,6 @@ redim.mx <- function(mx, newrows, newcols, dim.names) {
 #'  matrix after removed.
 #' 
 #' @export
-#' @examples
-#' mx <- matrix(c(1:4, 0, 0), nrow=2)
-#' remove.zero.cols(mx)
 remove.zero.cols <- function(mx) {
 	col.is.non.zero <- !(colSums(mx) == 0)
 	structure(mx[, col.is.non.zero, drop = FALSE], meta=attr(mx,"meta"))
@@ -759,9 +542,6 @@ remove.zero.cols <- function(mx) {
 #'  matrix after removed.
 #'
 #' @export
-#' @examples
-#' mx <- matrix(c(1:3, 0, 0, 0), nrow=2, byrow = TRUE)
-#' remove.zero.rows(mx)
 remove.zero.rows <- function(mx) {
 	row.is.non.zero <- !(rowSums(mx) == 0)
 	structure(mx[row.is.non.zero, , drop = FALSE], meta=attr(mx,"meta"))
@@ -779,11 +559,6 @@ remove.zero.rows <- function(mx) {
 #'  Always returns a matrix.
 #' 
 #' @export
-#' @examples
-#'  mx <- matrix(1:3, nrow=1, dimnames=list(NULL, c("A","B","C")))
-#'  indices <- c(1,3)
-#'  indices <- vector(mode="integer")
-#'  remove.cols(mx, indices)
 remove.cols <- function(mx, indices) {
 	if (length(indices)==0) return(mx)
 	structure(mx[, -indices, drop=FALSE], meta=c(attr(mx, "meta")))
@@ -799,9 +574,6 @@ remove.cols <- function(mx, indices) {
 #'  matrix after removed.
 #'
 #' @export
-#' @examples
-#' mx <- matrix(c(1:4, NA, NA), nrow=2)
-#' remove.NA.cols(mx)
 remove.NA.cols <- function(mx) {
 	col.is.na <- colSums(is.na(mx)) == nrow(mx)
 	structure(mx[,!col.is.na, drop = FALSE], meta=attr(mx,"meta"))
@@ -819,14 +591,6 @@ remove.NA.cols <- function(mx) {
 #'  matrix after removed.
 #'
 #' @export
-#' @examples
-#' 
-#' x <- matrix(1:4, dimnames=list(NULL, c("A","NA (%)")), nrow = 2)
-#' x <- matrix(1:4, dimnames=list(NULL, c("A","B")), nrow = 2)
-#' cnames <- "NA (%)"
-#' remove.cols.named(x, cnames)
-#' data(mtcars); x <- cars; cnames <- "dist"
-#' remove.cols.named(x, cnames)
 remove.cols.named <- function(x, cnames) {
 	matched <- match(cnames, colnames(x))
 	if (is.na(matched)) {
@@ -848,12 +612,6 @@ remove.cols.named <- function(x, cnames) {
 #'  matrix after removed.
 #'
 #' @export
-#' @examples
-#'
-#' mx <- matrix(1:4, dimnames=list(c("A","NA (%)"), NULL), nrow = 2)
-#' mx <- matrix(1:4, dimnames=list(c("A","B"), NULL), nrow = 2)
-#' rnames <- "NA (%)"
-#' remove.rows.named(mx, rnames)
 remove.rows.named <- function(mx, rnames) {
 	matched <- match(rnames, rownames(mx))
 	if (is.na(matched)) {
@@ -878,12 +636,6 @@ remove.rows.named <- function(mx, rnames) {
 #' a list of selected row vectors
 #' 
 #' @export
-#' @examples 
-#'  mxlist <- list(mx1=matrix(1:10, nrow=2), mx2=matrix(c(1,2,NA,4), nrow=2))
-#'  mxlist <- list(mx1=matrix(1:10, nrow=2)) 
-#'  rownum <- 1
-#'  select.row.list.mx(mxlist, rownum, na.rm = FALSE)
-#'  select.row.list.mx(mxlist, rownum, na.rm = TRUE)
 select.row.list.mx <- function(mxlist, rownum, na.rm = T) {
 	
 	result <- lapply(mxlist, function (mx) {
@@ -911,10 +663,6 @@ select.row.list.mx <- function(mxlist, rownum, na.rm = T) {
 #' subset of the vector, matrix or array
 #' 
 #' @export 
-#' @examples
-#' x <- matrix(c(1:6), nrow=2)
-#' logiset <- c(TRUE,FALSE)
-#' subsetFirstDimension(x, logiset)
 subsetFirstDimension <- function (x, logiset) {
 	
 	matrixDims <- length(dim(x))

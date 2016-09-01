@@ -13,8 +13,6 @@
 #' a vector of model names
 #'  
 #' @export
-#' @examples 
-#' is.model.var("z1single0Lvl1", models)
 is.model.var <- function(varname, model.list) {
   #mods.with.var is a list of logicals (each of length 1) indicating whether varname is in that model 
   mods.with.var <- lapply(model.list, function(x) {any(names(x$coef)==varname)})
@@ -38,9 +36,6 @@ is.model.var <- function(varname, model.list) {
 #' "Estimate" = variable coeffient
 #' 
 #' @export
-#' @examples 
-#' 
-#' #m.glm <- createGLM(modeldf) 
 createGLM <- function (modeldf) {
 	
 	if (!"Variable" %in% names(modeldf)) stop ("Model must contain a column named 'Variable'")
@@ -123,13 +118,6 @@ createGLM <- function (modeldf) {
 #' @seealso See \code{\link{createGLM}} for file format.
 #' 
 #' @export 
-#' @examples
-#' \dontrun{
-#' filedir <- "D:/workspace.sim/MELC/CHDS/models/"
-#' filename <- "Burt9_10.csv"
-#' 
-#' loadGLMCSV(filedir , filename)
-#' }
 loadGLMCSV <- function (filedir, filename) {
 	modeldf <- read.csv(paste(filedir, filename, sep=""),stringsAsFactors = FALSE)
 	tryCatch(	createGLM(modeldf), 
@@ -149,10 +137,6 @@ loadGLMCSV <- function (filedir, filename) {
 #' NULL
 #' 
 #' @export
-#' @examples 
-#' \dontrun{
-#' 	model_coefs_names_unique(models)
-#' }
 model_coefs_names_unique <- function(models_list) {
 	names.all.coefs <- unlist(lapply(models_list, function(model) {
 				names(modelVariableCoefs(model))
@@ -186,18 +170,6 @@ model_coefs_names_unique <- function(models_list) {
 #'   chr named vector of coefficients
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' model <- models$z1homeownLvl1
-#' model <- c(coef(models$logit_gp0totvis), coef(models$gptotvis))
-#' model <- models.to.show$burt 
-#' model <- models$gpmorb
-#' model <- models$cond7_8
-#' model <- models$welfareLvl1
-#' combineMultipleLevels = TRUE; ignoreMultiplicativeTerms = TRUE; directionOnly = TRUE
-#' modelVariableCoefs(model) 
-#' modelVariableCoefs(model, strip.Lvl = FALSE)
-#' }
 modelVariableCoefs <- function (model, combineMultipleLevels = TRUE, ignoreMultiplicativeTerms = TRUE, directionOnly = TRUE) {
 	
 	cls <- match.arg(class(model)[1], c("glm","numeric")) 
@@ -250,12 +222,6 @@ modelVariableCoefs <- function (model, combineMultipleLevels = TRUE, ignoreMulti
 #'   chr vector of variable names
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' model <- models$z1accomLvl1
-#' modelVariableNames(model) 
-#' modelVariableNames(model, strip.Lvl = FALSE)
-#' }
 modelVariableNames <- function (model, strip.Lvl = TRUE) {
 	
 	l <- labels(terms(model))
@@ -309,16 +275,6 @@ modelVariableNames <- function (model, strip.Lvl = TRUE) {
 #'  a vector of predicted values
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#'  model <- model.glm
-#'  model <- models$gptotvis3_6 ; set <- c(T, T, rep(F, 1073))
-#'  model <- models$gptotvis2
-#'  set <- rep(F, 1075)
-#'  envir = .GlobalEnv
-#'  predictSimario(model, envir, set)
-#'  set = NULL
-#' }
 predictSimario <- function(model, envir = parent.frame(), set = NULL) {
 	
 	set_all_false <- !is.null(set) && all(!set) 
@@ -373,8 +329,6 @@ predictSimario <- function(model, envir = parent.frame(), set = NULL) {
 #'  a vector of binary values
 #'
 #' @export   
-#' @examples
-#'  #model.glm <- models$z1msmokeLvl1
 predSimBin <- function(model.glm, envir=parent.frame(), set = NULL) {
 	
 	#determine predicted values
@@ -403,11 +357,6 @@ predSimBin <- function(model.glm, envir=parent.frame(), set = NULL) {
 #' a vector of predicted probabilities
 #'  
 #' @export   
-#' @examples
-#' \dontrun{
-#' model.glm <- models$houtptot
-#' newdata <- simvalues
-#' }
 predLogistic <- function(model.glm, envir=parent.frame(), set = NULL) {
 	
 	#determine predicted values
@@ -438,13 +387,6 @@ predLogistic <- function(model.glm, envir=parent.frame(), set = NULL) {
 #' a matrix of predicted probabilities
 #'  
 #' @export   
-#' @examples
-#' \dontrun{
-#'  model.glm.list<-list(models$GP_multinomial_response_cat2,
-#' 			models$GP_multinomial_response_cat3,models$GP_multinomial_response_cat4,
-#' 						models$GP_multinomial_response_cat5)
-#' set<-still_alive_and_65plus_NOTRES
-#' }
 predMultinomial <- function(model.glm.list, envir=parent.frame(), set = NULL) {
 	
 	#determine predicted values
@@ -509,11 +451,6 @@ predSimMultinomial <-function(model.glm.list, envir=parent.frame(), set = NULL) 
 #' a vector of binary values drawn from a Binomial distribution 
 #'  
 #' @export   
-#' @examples
-#' \dontrun{
-#' model.glm <- models$houtptot
-#' newdata <- simvalues
-#' }
 predSimBinom <- function(model.glm, envir=parent.frame(), set = NULL) {
 	
 	#determine predicted values
@@ -543,11 +480,6 @@ predSimBinom <- function(model.glm, envir=parent.frame(), set = NULL) {
 #' a vector of binary values drawn from a Binomial distribution 
 #'  
 #' @export   
-#' @examples
-#' \dontrun{
-#' model.glm <- models$houtptot
-#' newdata <- simvalues
-#' }
 predSimBinomJoint <- function(model.glm, envir=parent.frame(), set = NULL) {
 	
 	#determine predicted values
@@ -575,11 +507,6 @@ predSimBinomJoint <- function(model.glm, envir=parent.frame(), set = NULL) {
 #' a vector of predicted value
 #' 
 #' @export   
-#' @examples
-#' \dontrun{
-#'  model.glm <- models$hadmtot
-#' 	newdata <- simvalues
-#' }
 predSimPois <- function(model.glm, envir=parent.frame(), set = NULL) {
 	#determine predicted values
 	predicted_logs <- predictSimario(model.glm, envir, set)
@@ -612,12 +539,6 @@ predSimPois <- function(model.glm, envir=parent.frame(), set = NULL) {
 #' a vector of predicted value
 #' 
 #' @export   
-#' @examples
-#' \dontrun{
-#' model.glm <- models$houtptot
-#' newdata <- simvalues
-#' predSimNBinom (model.glm, newdata)
-#' }
 predSimNBinom <- function(model.glm, envir=parent.frame(), set = NULL, alpha=NULL) {
 	
 	#determine predicted values
@@ -652,12 +573,6 @@ predSimNBinom <- function(model.glm, envir=parent.frame(), set = NULL, alpha=NUL
 #' a vector of predicted value
 #'
 #' @export   
-#' @examples
-#' \dontrun{
-#' model.glm <- models$gpprev12
-#' newdata <- simvalues
-#' model.glm <- model2
-#' }
 predSimNorm <- function(model.glm, envir=parent.frame(), set = NULL) {
 	#determine predicted values
 	predicted <- predictSimario(model.glm, envir, set)
@@ -688,12 +603,6 @@ predSimNorm <- function(model.glm, envir=parent.frame(), set = NULL) {
 #' a vector of predicted value
 #'
 #' @export 
-#'   
-#' @examples
-#' \dontrun{
-#' fhrswrk.cat <- bin(simframe.master$fhrswrk, binbreaks$fhrswrk)
-#' test <- predSimNormsSelect(fhrswrk.cat, catToContModels$fhrswrk, envir=simframe.master)
-#' }
 predSimNormsSelect <- function(x.cat, models, envir=parent.frame()) {
 	x.cat <- as.integer(x.cat)
 	result <- rep(NA, length(x.cat))
@@ -725,19 +634,6 @@ predSimNormsSelect <- function(x.cat, models, envir=parent.frame()) {
 #' a continuous vector that when binned by cont.bonbreaks will be the same as x.cat
 #' 
 #' @export 
-#' @examples
-#' \dontrun{
-#' x.cont = simframe.master$fhrswrk
-#' fhrs.binbreaks = attr(env.scenario$cat.adjustments$fhrswrk, "cont.binbreaks")
-#' x.cat <- bin(x.cont, fhrs.binbreaks)
-#' desired_props <- rep(1/7, 7)
-#' desired_props <-c(.05, .1, .15, .2, .25, .2, .05) 
-#' adj.x.cat <- modifyProps(x.cat, desired_props, propen=NULL, accuracy=.01)
-#' adj.x.cont <- predSimNormsSelectWithRounding(adj.x.cat, catToContModels$fhrswrk, cont.binbreaks=fhrs.binbreaks, envir=simframe.master)
-#' check <- bin(adj.x.cont, fhrs.binbreaks)
-#' table(check)
-#' table(check)/sum(table(check))
-#' }
 predSimNormsSelectWithRounding <- function(x.cat, models, cont.binbreaks, envir=parent.frame()) {
 	x.cat <- as.integer(x.cat)
 	result <- rep(NA, length(x.cat))
@@ -914,12 +810,6 @@ predictOrdinal <- function(models, numchildren, envir=parent.frame(), stochastic
 #'  environment in which to evaluate model variables.
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' 	select <- z1single_previousLvl1
-#' 	model0 <- models$z1singlePrev0 ; model1 <- models$z1singlePrev1
-#' 	predSimBinomsSelect(select, model0, model1)
-#' }
 predSimBinomsSelect <- function(select, model0, model1, envir=parent.frame()) {
   select0 <- select == 0
   select1 <- select == 1
@@ -1002,17 +892,6 @@ predSimBinomsSelect3Models_notChangeScores <- function(select, model1, model2, m
 #'  environment in which to evaluate model variables.
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' select <- mumgroup
-#' model1 <- models$mhrswrk1 ; model2 <- models$mhrswrk2; model3 <- models$mhrswrk3
-#' 
-#' select <- dadgroup
-#' model1 <- models$fhrswrk1 ; model2 <- models$fhrswrk2; model3 <- models$fhrswrk3
-#' 
-#' envir=.GlobalEnv
-#' predSimNormsSelect3Models(select, model1, model2, model3, envir)
-#' }
 predSimNormsSelect3Models <- function(select, model1, model2, model3, envir=parent.frame()) {
   select0 <- select == 0
   select1 <- select == 1

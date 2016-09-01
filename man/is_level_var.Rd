@@ -17,10 +17,4 @@ a vector of logical value
 Check if each element of a character vector has the trailing "LvlX" (if any) 
 where X is any character
 }
-\examples{
-\dontrun{
-varname <- c("fooLvl1", "bar")
-is_level_var(varname)
-}
-}
 

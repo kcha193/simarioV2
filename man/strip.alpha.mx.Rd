@@ -15,9 +15,4 @@ matrix after modify the row and col names
 \description{
 Remove any alpha from row and col names, leaving only numbers.
 }
-\examples{
-
-mx <- matrix(c(1:4), nrow=2, ncol=2, dimnames=list(c("0 (\%)", "1 (\%)"), c("0 (\%)", "1 (\%)")))
-strip.alpha.mx(mx)
-}
 

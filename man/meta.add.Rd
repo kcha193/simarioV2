@@ -22,14 +22,4 @@ x with "meta" attribute
 Add a meta attribute. Appends to existing meta attribute, if it exists, 
 overwriting any meta elements with the same name.
 }
-\examples{
-
-x <- 1:3
-x <- structure(1:3, meta=c(grpby.tag="r1stchildethn", set="females only"))
-new.meta <- c(varname="gptotvis")
-new.meta <- c(grpby.tag="newtag")
-new.meta <- c(grpby.tag=NULL)
-meta.add(x, new.meta)
-meta.add(x, new.meta)
-}
 

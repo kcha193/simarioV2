@@ -13,11 +13,6 @@
 #'  file extension, eg: "csv"
 #' 
 #' @export
-#' @examples
-#' x <- "data.txt"
-#' x <- "d:/workspace/data old.csv"
-#' x <- "d:/workspace/data.new.xlsx"
-#' file_extension(x)
 file_extension <- function(x) {
 	matched <- regexpr("\\.([^\\.]+)$", x)
 	substr(x, start=matched+1, stop=matched+attr(matched, "match.length")-1) 
@@ -42,11 +37,6 @@ file_extension <- function(x) {
 #'  a data frame
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' filedir <- "D:/workspace.sim/simario/demo/data/base"
-#' people <<- read_csv(base_dir, "Base_file_(people).csv")
-#' }
 read_csv <- function (filedir, filename, stringsAsFactors = FALSE, ...) {
 	filedir <- add_trailing_slash(filedir)		
 	read.csv(paste(filedir, filename, sep=""), stringsAsFactors = stringsAsFactors, ...)
@@ -74,13 +64,6 @@ read_csv <- function (filedir, filename, stringsAsFactors = FALSE, ...) {
 #'  a data frame
 #' 
 #' @export
-#' @examples 
-#' \dontrun{
-#' filedir <- "D:/workspace.sim/simario/demo"
-#' filename <- "Disability state transition probabilities.xlsx"
-#' filetype = file_extension(filename)
-#' read_file(filedir, filename, filetype)
-#' }
 read_file <- function (filedir, filename, filetype = file_extension(filename), stringsAsFactors = FALSE, ...) {
 	switch(filetype,
 		csv = read_csv(filedir, filename, stringsAsFactors = stringsAsFactors, ...))

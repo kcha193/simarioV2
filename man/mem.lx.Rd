@@ -17,11 +17,4 @@ num vector of bytes per element
 Return amount of memory, in bytes, used by each
 element of a list
 }
-\examples{
-\dontrun{
-mem.lx(env.base)
-prettyNum(sum(mem.lx(env.base)), big.mark=",")
-mem.lx(env.base$years1_5)
-}
-}
 

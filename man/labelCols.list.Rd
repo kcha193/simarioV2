@@ -23,12 +23,4 @@ a list with named colnames
 Set the colnames on each object in a list. By default
 will only set if no exiting colnames (see onlyIfNull param).
 }
-\examples{
-\dontrun{
-xlist <- env.base$years1_5$run_results_collated$means
-xlist <- run_results_collated$means
-x <- xlist$gptotvis
-labelCols.list(xlist, "Mean")
-}
-}
 

@@ -11,11 +11,6 @@
 #'  x with a trailing slash, if required
 #' 
 #' @export
-#' @examples
-#' x <- "d:/workspace"
-#' x <- "d:/workspace/"
-#' add_trailing_slash("d:/workspace")
-#' add_trailing_slash("d:/workspace/")
 add_trailing_slash <- function(x) {
 	if(grepl("/$", x)) {
 		x
@@ -34,10 +29,6 @@ add_trailing_slash <- function(x) {
 #'  logical vector
 #' 
 #' @export
-#' @examples 
-#' 
-#' x <- c("1", "1 (%)", "per cent")
-#' is.alpha.only(x)
 is.alpha.only <- function(x) {
 	grepl("^\\D*$", x)
 }
@@ -52,10 +43,6 @@ is.alpha.only <- function(x) {
 #' character vector without alpha
 #' 
 #' @export
-#' @examples 
-#' 
-#' x <- c("1 (%)", "-2 (%)", "2.102 (%)", "10 (%)")
-#' strip.alpha(x)
 strip.alpha <- function(x) {
 	# strip any characters that are not . 0-9 or -
 	gsub("[^\\.0-9-]", "", x)
@@ -70,10 +57,6 @@ strip.alpha <- function(x) {
 #' character vector without numbers
 #' 
 #' @export
-#' @examples 
-#' 
-#' x <- c("1 (%)", "-2 (%)", "2.102 (%)", "10 (%)")
-#' strip.numeric(x)
 strip.numeric <- function(x) {
 	# strip any characters that are . 0-9 or -
 	gsub("[\\.0-9-]", "", x)
@@ -88,10 +71,6 @@ strip.numeric <- function(x) {
 #'  matrix after modify the row and col names
 #' 
 #' @export
-#' @examples 
-#' 
-#' mx <- matrix(c(1:4), nrow=2, ncol=2, dimnames=list(c("0 (%)", "1 (%)"), c("0 (%)", "1 (%)")))
-#' strip.alpha.mx(mx)
 strip.alpha.mx <- function(mx) {
 	
 	rownames(mx) <- strip.alpha(rownames(mx))
@@ -109,9 +88,6 @@ strip.alpha.mx <- function(mx) {
 #'  character vector after remove spaces
 #' 
 #' @export
-#' @examples 
-#' x <- c(" 1 (%) ", " -2 (%) ", "2.102 (%) ", " 10 (%)")
-#' trim(x)
 trim <- function (string) {
 	#
 	gsub("^\\s+|\\s+$", "", string)

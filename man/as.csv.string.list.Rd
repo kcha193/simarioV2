@@ -18,11 +18,4 @@ a list of character vectors
 \description{
 Apply to a list using the names from the list
 }
-\examples{
-x1 <- matrix(1:8,nrow=2)
-x2 <- matrix(2:9,nrow=2)
-xlist <- list(x1, x2)
-names(xlist) <- c("x1", "x2")
-as.csv.string.list(xlist)
-}
 

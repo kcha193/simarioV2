@@ -26,13 +26,6 @@
 #' a dataframe
 #'
 #' @export 
-#' @examples
-#' \dontrun{
-#' selected_keys <- children$A0
-#' key_column_name <- "A0"
-#' filedir <- "D:/workspace.sim/MELC/CHDS/propensityFiles/"
-#' loadMergedFile(key_column_name, selected_keys, propensityfiledir)
-#' }
 loadMergedFile <- function(filedir, filename, key_column_name, selected_keys) {
 	dataframe <- read_file(filedir, filename)
 	mergeAndRemoveKeyColumn(dataframe, key_column_name, selected_keys)
@@ -56,38 +49,6 @@ loadMergedFile <- function(filedir, filename, key_column_name, selected_keys) {
 #' @return
 #'  a matrix/list of means and errs. The first row/means vector is the means from the result row, and the
 #'  second row/errs vector is the difference between each mean and it's lower value.
-#' 
-#' @examples
-#' \dontrun{
-#' 
-#' result.row <- envs$`Scenario 1`$years1_5$run_results_collated$means$kids["Total",]
-#' \dontrun{
-#' > result.row
-#'     Mean    Lower    Upper 
-#' 10.99488 10.62256 11.36721
-#'  
-#' > result.as.means.and.errs(result.row)
-#' $means
-#' 
-#' 10.99488 
-#' 
-#' $errs
-#' 
-#' 0.3723213 
-#'
-#' }
-#' result.row <- c("0%"=5,"20%"=5,"40%"=9,"60%"=11,"80%"=15,"100%"=50)
-#' result.row <- structure(c(5, 5, 5, 5, 5, 5, 9, 9, 9, 11, 11, 11, 15, 15, 15,50.5, 6.02828342338857, 94.9717165766114), .Names = c("0% Mean","0% Lower", "0% Upper", "20% Mean", "20% Lower", "20% Upper","40% Mean", "40% Lower", "40% Upper", "60% Mean", "60% Lower","60% Upper", "80% Mean", "80% Lower", "80% Upper", "100% Mean","100% Lower", "100% Upper"))
-#' 
-#' result.row <- env.base$modules$years1_5$run_results_collated$quantiles$kids["All Years",]
-#' result.row <- env.scenario$modules$years1_5$run_results_collated$quantiles$kids["All Years",]
-#' result.row <- env.scenario$modules$years1_5$run_results_collated$means$kids["All Years",]
-#' result.row <- na.omit(env.scenario$modules$years6_13$run_results_collated$histogram[["cond"]]["All Years",])
-#' 
-#' result.as.means.and.errs(result.row.scenario)
-#' 
-#' result.as.means.and.errs(result.row)
-#' }
 result.as.means.and.errs <- function(result.row, simplify = T) {
 	ind.means <- grep("Mean", names(result.row))
 	ind.lowers <- grep("Lower", names(result.row))
@@ -128,13 +89,6 @@ result.as.means.and.errs <- function(result.row, simplify = T) {
 #'  a table (proportions) with names specified by coding
 #' 
 #' @export 
-#' @examples
-#' \dontrun{
-#' table.catvar(children$SESBTH, codings$SESBTH)
-#' x <- simframe$z1singleLvl1 ; coding <- codings$z1singleLvl1
-#' table.catvar(simframe$z1singleLvl1, codings$z1singleLvl1)
-#' x <- binary.levels.combine(simframe.master$SESBTHLvl1, simframe.master$SESBTHLvl2, simframe.master$SESBTHLvl3)
-#' coding <- dict.MELC$codings$SESBTH}
 table.catvar <- function (x, coding) {
 	
 	varname <- attr(coding, "varname")
@@ -168,14 +122,6 @@ table.catvar <- function (x, coding) {
 #'  a table (proportions) with names specified by coding
 #' 
 #' @export 
-#' @examples
-#' \dontrun{
-#' table.catvar.with.CI(children$SESBTH, codings$SESBTH)
-#' x <- simframe$z1singleLvl1 ; coding <- codings$z1singleLvl1
-#' table.catvar.with.CI(simframe$z1singleLvl1, codings$z1singleLvl1)
-#' x <- binary.levels.combine(simframe.master$SESBTHLvl1, simframe.master$SESBTHLvl2, simframe.master$SESBTHLvl3)
-#' coding <- dict.MELC$codings$SESBTH}
-
 table.catvar.with.CI <- function (x, coding) {
 	
 	varname <- attr(coding, "varname")
@@ -233,13 +179,6 @@ table.catvar.with.CI <- function (x, coding) {
 #' @return 
 #'  a table (proportions) with names specified by breaks
 #' 
-#' @examples
-#' \dontrun{
-#' x <- env.scenario$simframe$bwkg
-#' breaks <- binbreaks$bwkg
-#' 
-#' table.contvar(env.scenario$simframe$bwkg, binbreaks$bwkg, "bwkg")
-#' }
 table.contvar <- function (x, breaks, varname) {
 	tbl <- prop.table(table(bin(x, breaks, breaklast=NULL), useNA='ifany')) * 100
 	attr(tbl, "meta") <- c("varname" = varname)
@@ -266,14 +205,6 @@ table.contvar <- function (x, breaks, varname) {
 #' 
 #' @return 
 #'  a table (proportions) with names specified by breaks
-#' 
-#' @examples
-#' \dontrun{
-#' x <- env.scenario$simframe$bwkg
-#' breaks <- binbreaks$bwkg
-#' 
-#' table.contvar.with.CI(env.scenario$simframe$bwkg, binbreaks$bwkg, "bwkg")
-#' }
 table.contvar.with.CI <- function (x, breaks, varname) {
 	tbl <- prop.table(table(bin(x, breaks, breaklast=NULL), useNA='ifany')) * 100
 	#calculate CIs for each group proportion

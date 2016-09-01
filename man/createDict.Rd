@@ -14,21 +14,13 @@ createDict(descriptions_dataframe, codings_dataframe = NULL)
   additional variables are ignored.}
 
 \item{codings_dataframe}{a dataframe with the variables:
-  Varname = the name of the categorical variable
-  Codings_Expr = an expression which generates the codings, eg:
-                 "c("Other"=1, "Pacific"=2, "Maori"=3)"
-                NB: Codings must be specified in numeric order
-
-  additional variables are ignored.}
+Varname = the name of the categorical variable
+Codings_Expr = an expression which generates the codings, eg:
+               "c("Other"=1, "Pacific"=2, "Maori"=3)"
+              NB: Codings must be specified in numeric order}
 }
 \value{
 a dictionary object
-}
-\description{
-Create a dictionary object.
-}
-\examples{
-
 Vector of variable desciptions.
 names(descriptions) are the variable names.
 List of codings.
@@ -43,5 +35,8 @@ Professional     Clerical Semi-skilled
        1            2            3 
 attr(,"varname")
 [1] "SESBTH"
+}
+\description{
+Create a dictionary object.
 }
 

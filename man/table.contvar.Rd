@@ -26,12 +26,4 @@ Display a vector of continuous values in a table using the
 breaks supplied.
 Attachs a meta attribute with varname
 }
-\examples{
-\dontrun{
-x <- env.scenario$simframe$bwkg
-breaks <- binbreaks$bwkg
-
-table.contvar(env.scenario$simframe$bwkg, binbreaks$bwkg, "bwkg")
-}
-}
 

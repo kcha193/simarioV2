@@ -18,10 +18,4 @@ the matrix mx with columns removed. Names and any "meta" attribute preserved.
 \description{
 Remove cols specified by indices.
 }
-\examples{
- mx <- matrix(1:3, nrow=1, dimnames=list(NULL, c("A","B","C")))
- indices <- c(1,3)
- indices <- vector(mode="integer")
- remove.cols(mx, indices)
-}
 

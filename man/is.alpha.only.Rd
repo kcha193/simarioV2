@@ -15,9 +15,4 @@ logical vector
 \description{
 TRUE for elements that only contain alpha characters, ie: have no numeric component.
 }
-\examples{
-
-x <- c("1", "1 (\%)", "per cent")
-is.alpha.only(x)
-}
 

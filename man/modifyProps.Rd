@@ -60,37 +60,6 @@ that are not in the other).  In other words, the propensity score for a
 specific child is in the same row in propens as that same child's value of 
 the variable in default.vec.
 }
-\examples{
-\dontrun{
-default.vec <- children$SESBTH
-desired_props <- c(0.1,0.1,0.8)
-propens <- data.frame(propensities$SESBTH)
-new.vec <- modifyProps(default.vec, desired_props, propens)
-table(default.vec)/sum(table(default.vec))
-table(new.vec)/sum(table(new.vec))
-
-default.vec <- env.scenario$simframe$z1accomLvl1
-desired_props <- c(0.1,0.9)
-propens <- propensities$z1accom[,,5]
-#propensities$z1accom is a 3 dimentional array so we take only the the 5th z dimension
-	#(the propensities for year 5)
- table(default.vec)/sum(table(default.vec))
-new.vec <- modifyProps(default.vec, desired_props, propens)
- table(new.vec)/sum(table(new.vec))
-
-default.vec <- env.scenario$simframe$catpregsmk2
-desired_props <- c(0.1, 0.1, 0.1, 0.5, 0.2)
-propens <- NULL
-
-prop.table(table(default.vec))
-prop.table(table(modifyProps(default.vec, desired_props, propens)))
-
-desired_props <- c(.05, .1, .2, .15, .3, .12, .08)
-fhrs.binbreaks = attr(env.scenario$cat.adjustments$fhrswrk, "cont.binbreaks")
-x.cat <- bin(x.cont,fhrs.binbreaks)
-adj.x.cat <- modifyProps(x.cat, desired_props, propens, accuracy)
-}
-}
 \seealso{
 This function calls \code{\link{change.cat}}
 }

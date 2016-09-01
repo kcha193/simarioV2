@@ -17,11 +17,4 @@ a named matrix of NA
 \description{
 Create a matrix of NA with specified col/row names/lengths.
 }
-\examples{
-cols <- 2 ; rows <- 5
-cols <- c("Male","Female"); rows <- 5
-cols <- c("Male","Female"); rows <- paste("Year", 1:5)
-
-namedMatrix(rows, cols)
-}
 

@@ -17,8 +17,4 @@ an array
 convert list of vectors to an array.
 Recycling rule will be applied.
 }
-\examples{
-mylist <- list(1:5,2:6,7)
-result <- as.arrayFromList(mylist)
-}
 

@@ -14,9 +14,4 @@ adjustCatVarSimple(x, varname, simenv = simenv, iteration = iteration)
 \description{
 Does not allow subgroup adjustments.
 }
-\examples{
- varname <- "z1msmokeLvl1"
- varname <- "z1singleLvl1"
- adjustCatVar(predSimBinomsSelect(z1single_previousLvl1, models$z1singlePrev0, models$z1singlePrev1), "z1singleLvl1")
-}
 

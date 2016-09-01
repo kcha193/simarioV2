@@ -15,9 +15,4 @@ adjustCatVarCalib(x, varname, propens = NULL, desiredProps = NULL,
 \description{
 Allows subgroup adjustment if a subgroup expression attribute is attached to the cat.adjustments.
 }
-\examples{
- varname <- "z1msmokeLvl1"
- varname <- "z1singleLvl1"
- adjustCatVar(predSimBinomsSelect(z1single_previousLvl1, models$z1singlePrev0, models$z1singlePrev1), "z1singleLvl1")
-}
 

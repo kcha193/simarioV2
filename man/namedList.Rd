@@ -15,7 +15,4 @@ a list of NULL elements
 \description{
 Create a named list of NULL elements.
 }
-\examples{
-namedList("foo","bar")
-}
 

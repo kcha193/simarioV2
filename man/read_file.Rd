@@ -24,12 +24,4 @@ a data frame
 \description{
 Read a file and return a dataframe.
 }
-\examples{
-\dontrun{
-filedir <- "D:/workspace.sim/simario/demo"
-filename <- "Disability state transition probabilities.xlsx"
-filetype = file_extension(filename)
-read_file(filedir, filename, filetype)
-}
-}
 

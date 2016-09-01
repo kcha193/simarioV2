@@ -19,11 +19,6 @@ order_by_dlookup(dict, ...)
 Order the list by the results returned applying
 dlookup to the list's elements
 }
-\examples{
- . <- dict.MELC
- xlist <- means$all.by.ethnicity
- .$order_by_dlookup(xlist)
-}
 \seealso{
 \code{\link{dlookup}}
 }

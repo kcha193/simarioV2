@@ -21,11 +21,4 @@ a vector of logical value
 \description{
 Evaluate logiset expression attribute for the variable.
 }
-\examples{
-\dontrun{
-desired_props <- structure(1, logiset="alive & residential")
-simframe <- env.base$simframe
-evaluateLogisetExprAttribute(desired_props, simframe)
-}
-}
 

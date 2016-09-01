@@ -27,15 +27,4 @@ same name as the name outcome matrix.
 Create a list of empty outcome matrix variables for a specified outcome set.
 The variables to create are those from the outcome set specified by "outcome_module_name".
 }
-\examples{
-\dontrun{
-simframe <- simframe.master
-simframe <- env.base$simframe
-outcome_module_name <- "years1_5"
-outcome_module_name <- "years6_13"
-iterations <- 8
-iterations <- c(6:13)
-outcomes <- createOutcomeMatrices(simframe, outcome_module_name, iterations)
-}
-}
 

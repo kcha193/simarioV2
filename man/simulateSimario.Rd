@@ -22,11 +22,4 @@ Simenv object with simulated results
 \description{
 NB: if it exists, uses propensities in global environment when doing adjustments for year 1
 }
-\examples{
-\dontrun{
- . <- env.base
- env.base$simulate()
- . <- env.scenario
-}
-}
 

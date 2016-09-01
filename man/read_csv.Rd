@@ -21,10 +21,4 @@ a data frame
 \description{
 Reads a CSV file.
 }
-\examples{
-\dontrun{
-filedir <- "D:/workspace.sim/simario/demo/data/base"
-people <<- read_csv(base_dir, "Base_file_(people).csv")
-}
-}
 

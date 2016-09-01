@@ -21,11 +21,4 @@ when select == 1, then result is 1 - predSimBinom using model1}
 \description{
 Predict and simulate binary value from 2 binomial models.
 }
-\examples{
-\dontrun{
-	select <- z1single_previousLvl1
-	model0 <- models$z1singlePrev0 ; model1 <- models$z1singlePrev1
-	predSimBinomsSelect(select, model0, model1)
-}
-}
 

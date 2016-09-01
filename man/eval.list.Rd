@@ -22,11 +22,4 @@ Defaults to the caller's environment (parent.frame())}
 Evaluate a list/vector of strings as expressions.
 Errors if expressions cannot be evaluated.
 }
-\examples{
-\dontrun{
-exprlist <- initial_value
-envir <- bf
-eval.list(exprlist, bf)
-}
-}
 

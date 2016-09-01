@@ -19,18 +19,6 @@
 #'  a vector
 #' 
 #' @export
-#' @examples
-#' \dontrun{
-#' simenv <- env.scenario
-#' iteration <- 3
-#' x <- 1:1017
-#' varname <- "kids"
-#' x.replaced <- selectFixedOutcomeIfSet(simenv, iteration, x, varname)
-#' 
-#' attr(env.scenario$fixed.outcomes[["kids"]], "is.fixed.iteration")[3] <- TRUE 
-#'  x.replaced2 <- selectFixedOutcomeIfSet(simenv, iteration, x, varname)
-#' table(x.replaced2)
-#' }
 selectFixedOutcomeIfSet <- function(simenv, iteration, x, varname) {
 	fixed.outcomes <- simenv$fixed.outcomes
 	

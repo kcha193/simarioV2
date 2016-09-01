@@ -85,12 +85,6 @@ createSimenv <- function (name, simframe, dict, modulesName, cat.adjustments=lis
 #' Create empty categorical variable adjustment matrices.
 #'   
 #' @export
-#' 
-#' @examples
-#' . <- SimenvMELC 
-#' simframe <- simframe.master
-#' dict <- dict
-#' cat.adjustments <- createEmptyCatAdjustments(simframe, codings, numiterations)
 createEmptyCatAdjustments <- function(simframe, dict, numiterations = NUM_ITERATIONS) {
   
   catvars <- getOutcomeVars(simframe, "categorical")
@@ -163,7 +157,6 @@ createEmptyCatAdjustments <- function(simframe, dict, numiterations = NUM_ITERAT
 #'  NULL. simframe in receiving object is modified directly.
 #'   
 #' @export
-
 applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NULL, print_adj=TRUE, 
                                              cat.adjustments=Simenv$cat.adjustments) {
   
@@ -515,13 +508,6 @@ check.subgroup.expr <- function(Simenv) {
 #'  Simenv object with simulated results
 #' 
 #' @export
-#' @examples 
-#' \dontrun{
-#'  . <- env.base
-#'  env.base$simulate()
-#'  . <- env.scenario
-#' }
-
 simulateSimario <- function(Simenv, total_runs=1, simulateFun = simulateFun, parallel = TRUE) {
   start_time <- proc.time()
   

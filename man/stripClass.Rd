@@ -15,9 +15,4 @@ x without "class" attribute
 \description{
 Remove class attribute from an object
 }
-\examples{
-x <- 1:10
-x <- structure(x, class=class(x))
-stripClass(x)
-}
 

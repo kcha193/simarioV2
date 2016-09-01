@@ -12,8 +12,4 @@ rmall(exceptions = NULL)
 \description{
 Remove all objects in global environment.
 }
-\examples{
-exceptions <- c("ov")
-rmall(exceptions)
-}
 

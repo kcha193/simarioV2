@@ -9,10 +9,4 @@ createEmptyCatAdjustments(simframe, dict, numiterations = NUM_ITERATIONS)
 \description{
 Create empty categorical variable adjustment matrices.
 }
-\examples{
-. <- SimenvMELC 
-simframe <- simframe.master
-dict <- dict
-cat.adjustments <- createEmptyCatAdjustments(simframe, codings, numiterations)
-}
 

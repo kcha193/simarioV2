@@ -24,12 +24,4 @@ Produce a proportioned table for x with confidence interval, using
 the specified coding as names and setting the "meta" attribute to "varname"
 of coding.
 }
-\examples{
-\dontrun{
-table.catvar.with.CI(children$SESBTH, codings$SESBTH)
-x <- simframe$z1singleLvl1 ; coding <- codings$z1singleLvl1
-table.catvar.with.CI(simframe$z1singleLvl1, codings$z1singleLvl1)
-x <- binary.levels.combine(simframe.master$SESBTHLvl1, simframe.master$SESBTHLvl2, simframe.master$SESBTHLvl3)
-coding <- dict.MELC$codings$SESBTH}
-}
 

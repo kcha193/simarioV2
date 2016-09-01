@@ -34,40 +34,4 @@ as a extra list element to each element of results.list}
 Execute a function over a subset of a list, and merges the results into
 an existing list.
 }
-\examples{
-\dontrun{
-X <- env.base$years6_13$outcomes
-results.list <- env.base$years6_13$runstats$summaries
-lapply.subset.append (results.list, X, .FUN=summary_mx_cols)
-
-X <- env.base$years1_5$outcomes
-lol <- env.base$years1_5$run_results$confreqs
-
-lol <- env.base$years6_13$runstats$summaries
-X <- env.base$years6_13$outcomes
-
-X <- outcomes
-.FUN=table_mx_cols
-
-lapply.subset.append (lol, X, simplify = FALSE, .FUN=wtdtablecols)
-
-
-lapply.subset.append(results.list=lol.x, X=X, simplify=simplify, .FUN=.FUN, logiset=lol.a$logiset)
-
-results.list <- run_results$freqs; X <- outcomes; indices=names(results.list); simplify = FALSE; .FUN=table_mx_cols
-lapply.subset.append (run_results$freqs, outcomes, simplify = FALSE, .FUN=table_mx_cols)
-	
-results.list <- run_results$confreqs; X <- outcomes; indices=names(results.list); simplify = FALSE; .FUN=wtdtablecols
-lapply.subset.append (run_results$confreqs, outcomes, simplify = FALSE, .FUN=wtdtablecols, wgts=outcomes[[wgtsname]])
-
-results.list <- runstats$summaries; X <- outcomes; indices=names(results.list); simplify = FALSE; .FUN=quantile_mx_cols
-lapply.subset.append (runstats$summaries, outcomes, .FUN=quantile_mx_cols, probs=seq(0.2,1,0.2))
-
-results.list <-  run_results$freqs.by.ethnicity; X <- outcomes; indices=names(results.list); simplify = FALSE; .FUN=table_mx_cols
-lapply.subset.append (run_results$freqs.by.ethnicity, outcomes, simplify = FALSE, .FUN=table_mx_cols, grpby=outcomes$r1stchildethn, grpby.tag="r1stchildethn")
-
-results.list <- mxlist; X <- xframe ; indices=names(results.list); simplify = TRUE ; .FUN = mean_mx_cols.lbl2
-lapply.subset.append (results.list, X, indices, simplify, .FUN, logiset=logiset, grpby=grpby, grpby.tag = grpby.tag)
-}
-}
 

@@ -40,12 +40,4 @@ a matrix of NAs with columns specified by codings, and rows specified by rows
 Creates an empty adjustment matrix of NAs. 
 An adjustment matrix contains cells for each categorical value across a supplied number of rows. Each row  represents an iteration.
 }
-\examples{
-\dontrun{
-varname = "z1homeownLvl1"; coding <- c('Own home'=0,'Not owned'=1)
-varname = "catpregsmk2"; coding <- c('0'=0, '1-5'=3, '6-10'=8, '11-20'=16, '>20'=27)
-rows = 5
-createAdjustmentMatrix(varname, coding, rows)
-}
-}
 

@@ -15,8 +15,4 @@ character vector after remove spaces
 \description{
 Remove leading and trailing spaces from a string
 }
-\examples{
-x <- c(" 1 (\%) ", " -2 (\%) ", "2.102 (\%) ", " 10 (\%)")
-trim(x)
-}
 

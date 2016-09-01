@@ -19,14 +19,6 @@ a glm model object
 Load and create a GLM from a csv file.
 See \code{\link{createGLM}} for file format.
 }
-\examples{
-\dontrun{
-filedir <- "D:/workspace.sim/MELC/CHDS/models/"
-filename <- "Burt9_10.csv"
-
-loadGLMCSV(filedir , filename)
-}
-}
 \seealso{
 See \code{\link{createGLM}} for file format.
 }

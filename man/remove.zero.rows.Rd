@@ -15,8 +15,4 @@ matrix after removed.
 \description{
 Remove rows that contain all zeros.
 }
-\examples{
-mx <- matrix(c(1:3, 0, 0, 0), nrow=2, byrow = TRUE)
-remove.zero.rows(mx)
-}
 

@@ -19,8 +19,4 @@ Remove columns that contain all NAs.
 
 remove.NA.cols
 }
-\examples{
-mx <- matrix(c(1:4, NA, NA), nrow=2)
-remove.NA.cols(mx)
-}
 

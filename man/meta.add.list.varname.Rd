@@ -21,11 +21,4 @@ xlist with the corresponding varname append to the meta
 Appends a "varname" meta element to the meta of each element
 in a list.
 }
-\examples{
-xlist <- list(gpmorb = 1:3, hadmtot = 10:13)
-xlist <- list(1:3, 10:13)
-varnames <- names(xlist)
-
-meta.add.list.varname(xlist, varnames) 
-}
 

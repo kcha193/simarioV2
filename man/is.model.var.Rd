@@ -18,7 +18,4 @@ a vector of model names
 \description{
 Checks which models, in a list of models, contain a specified variable
 }
-\examples{
-is.model.var("z1single0Lvl1", models)
-}
 

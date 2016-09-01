@@ -15,8 +15,4 @@ If there is FALSE, return error message.
 \description{
 Stops and displays indices of any element that is FALSE.
 }
-\examples{
-assert(c(TRUE,TRUE))
-#assert(c(TRUE,FALSE))
-}
 

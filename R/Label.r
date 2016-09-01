@@ -15,10 +15,6 @@
 #'  a list with named column
 #' 
 #' @export 
-#' @examples
-#' xlist <- list(matrix(1:8,ncol=2), matrix(1:9,ncol=3))
-#' colnameslist <- list(c("a","b"),c("c","d","e"))
-#' labelColFromVec(xlist, colnameslist)
 labelColFromVec <- function (xlist, colnameslist) {
 	labelCol <- function(x, colnames) {dimnames(x)[[COL]] <- colnames;x}
 	mapply(labelCol,
@@ -58,13 +54,6 @@ labelColTitleFromList <- function(xnamedlist) {
 #' a list with named colnames
 #' 
 #' @export 
-#' @examples
-#' \dontrun{
-#' xlist <- env.base$years1_5$run_results_collated$means
-#' xlist <- run_results_collated$means
-#' x <- xlist$gptotvis
-#' labelCols.list(xlist, "Mean")
-#' }
 labelCols.list <- function(xlist, xlabels = names(xlist), onlyIfNull = TRUE) {
 	
 	if (length(xlist) == 0) return(xlist)

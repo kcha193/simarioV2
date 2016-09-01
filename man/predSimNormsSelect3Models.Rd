@@ -26,16 +26,4 @@ when select == 3, then result is predSimNorm using model3}
 \description{
 Predict and simulate value from 3 normal models.
 }
-\examples{
-\dontrun{
-select <- mumgroup
-model1 <- models$mhrswrk1 ; model2 <- models$mhrswrk2; model3 <- models$mhrswrk3
-
-select <- dadgroup
-model1 <- models$fhrswrk1 ; model2 <- models$fhrswrk2; model3 <- models$fhrswrk3
-
-envir=.GlobalEnv
-predSimNormsSelect3Models(select, model1, model2, model3, envir)
-}
-}
 

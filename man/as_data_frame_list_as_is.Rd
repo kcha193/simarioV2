@@ -19,8 +19,4 @@ a data frame
 Convert list to dataframe simply by setting class attr
 This preserves any matrices in the list.
 }
-\examples{
-x <- list(matrix(1:4, nrow=2),c(1:4))
-x <- as_data_frame_list_as_is(x)
-}
 

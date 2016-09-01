@@ -20,11 +20,4 @@ Simenv object
 Set the subgroup expression to all cat.adjustments if the subgroup expression exists. 
 Otherwise, remove the subgroup expression.
 }
-\examples{
-\dontrun{
-subgroupExpression <- "mhrswrk < 20"
-setGlobalSubgroupFilterExpression(subgroupExpression)
-attr(env.scenario$cat.adjustments[[1]], "logisetexpr")
-}
-}
 

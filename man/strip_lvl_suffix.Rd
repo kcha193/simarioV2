@@ -15,10 +15,4 @@ a vector of characters without "LvlX"
 \description{
 Remove trailing "LvlX" (if any) where X is any character
 }
-\examples{
-\dontrun{
-varname <- c("fooLvl1", "bar")
-strip_lvl_suffix(varname)
-}
-}
 

@@ -17,9 +17,4 @@ subset of the vector, matrix or array
 \description{
 Subset the first dimension, returning the same number of dimensions
 }
-\examples{
-x <- matrix(c(1:6), nrow=2)
-logiset <- c(TRUE,FALSE)
-subsetFirstDimension(x, logiset)
-}
 
