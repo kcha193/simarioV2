@@ -234,26 +234,29 @@ tableBuilderNew <-
                     Lower = quantile(Var, c(0.025)), 
                     Upper = quantile(Var, c(0.975))) %>% data.frame()
         
-        if(any(result$Year==1)) {
+        yr <- unique(result$Year[apply(result, 1, 
+              function(x) x["Mean"] == x["Lower"] & x["Mean"] == x["Upper"])])
+        
+        for(i in yr){
           
           simulatedDataSum <- 
             simulatedData %>% group_by(Year, groupByData, Run)  %>%  summarise(Sum = n()) %>% 
-            group_by(Year, groupByData) %>% filter(Year ==1) %>% summarise(Sum = unique(Sum))
+            group_by(Year, groupByData) %>% filter(Year ==i) %>% summarise(Sum = unique(Sum))
           
           n <- simulatedDataSum[,"Sum"] %>% unlist()
           
           SD <- simulatedData %>% group_by(Year, groupByData, Run) %>% 
             summarise(SD = sd(Var)) %>% 
-            filter(Year ==1) %>%
+            filter(Year ==i) %>%
             group_by(Year, groupByData) %>% 
             summarise(SD = unique(SD))%>% 
             select(SD) 
           
           SD <- SD[,"SD"] %>% unlist()
           
-          m <- result %>% filter(Year ==1)  %>% select(Mean) %>% unlist()
+          m <- result %>% filter(Year ==i)  %>% select(Mean) %>% unlist()
           
-          result[result$Year == 1, c("Mean", "Lower", "Upper")] <- 
+          result[result$Year == i, c("Mean", "Lower", "Upper")] <- 
             t(sapply(1:length(n), function(x) 
               c(m[x],   m[x] - qt(.975, n[x]-1)*SD[x]/sqrt(n[x]), 
                 m[x] + qt(.975, n[x]-1)*SD[x]/sqrt(n[x]))))
@@ -277,10 +280,13 @@ tableBuilderNew <-
                     Lower = quantile(Var, c(0.025)), 
                     Upper = quantile(Var, c(0.975))) %>% data.frame()
         
-        if(any(result$Year==1)) {
+        yr <- unique(result$Year[apply(result, 1, 
+               function(x) x["Mean"] == x["Lower"] & x["Mean"] == x["Upper"])])
+        
+        for(i in yr){
           
           simulatedDataSum <- 
-            simulatedData %>% filter(Year ==1)  %>%   
+            simulatedData %>% filter(Year == i)  %>%   
             group_by(Run) %>% 
             summarise(Sum = n()) %>% 
             summarise(unique(Sum)) 
@@ -289,14 +295,14 @@ tableBuilderNew <-
           
           SD <- simulatedData %>% group_by(Year, Run) %>% 
             summarise(SD = sd(Var)) %>% 
-            filter(Year ==1) %>%
+            filter(Year ==i) %>%
             group_by(Year) %>% 
             summarise(Sum = unique(SD)) %>% 
             as.numeric()
           
-          m <- result[1,] %>% as.numeric()
+          m <- result[result$Year == i,] %>% as.numeric()
           
-          result[result$Year == 1, c("Mean", "Lower", "Upper")] <- 
+          result[result$Year == i, c("Mean", "Lower", "Upper")] <- 
             c(m[2],  m[2] - qt(.975, n-1)*SD[2]/sqrt(n), 
               m[2] + qt(.975, n-1)*SD[2]/sqrt(n))
         }
@@ -325,21 +331,24 @@ tableBuilderNew <-
                     Lower = quantile(Prop, c(0.025)),
                     Upper = quantile(Prop, c(0.975))) %>% data.frame() 
         
-        if(any(result$Year==1)) {
+        yr <- unique(result$Year[apply(result, 1, 
+              function(x) x["Mean"] == x["Lower"] & x["Mean"] == x["Upper"])])
+        
+        for(i in yr){
           
           simulatedDataSum <- 
             simulatedData %>% group_by(Year, groupByData, Run)  %>%  
             summarise(Sum = n()) %>% 
             group_by(Year, groupByData) %>% 
-            filter(Year ==1) %>% summarise(Sum = unique(Sum))
+            filter(Year ==i) %>% summarise(Sum = unique(Sum))
           
           n <- simulatedDataSum[,"Sum"] %>% unlist()
           
           n <- rep(n, length(unique(result$Var)))
           
-          p <- result %>% filter(Year ==1)  %>% select(Mean) %>% unlist()
+          p <- result %>% filter(Year ==i)  %>% select(Mean) %>% unlist()
           
-          result[result$Year == 1, c("Mean", "Lower", "Upper")] <- 
+          result[result$Year == i, c("Mean", "Lower", "Upper")] <- 
             t(sapply(1:length(n), 
                      function(x)  c(p[x],  p[x] - qnorm(.975)* sqrt(p[x]*(1-p[x])/n[x]),
                                     p[x] + qnorm(.975)* sqrt(p[x]*(1-p[x])/n[x]))))
@@ -369,10 +378,12 @@ tableBuilderNew <-
                     Lower = quantile(Prop, c(0.025)),
                     Upper = quantile(Prop, c(0.975))) %>% data.frame() 
         
+        yr <- unique(result$Year[apply(result, 1, 
+             function(x) x["Mean"] == x["Lower"] & x["Mean"] == x["Upper"])])   
         
-        if(any(result$Year==1)) {
+        for(i in yr){
           simulatedDataSum <- 
-            simulatedData %>% filter(Year ==1)  %>%   
+            simulatedData %>% filter(Year == i)  %>%   
             group_by(Run) %>% 
             summarise(Sum = n()) %>% 
             summarise(unique(Sum)) 
@@ -380,8 +391,8 @@ tableBuilderNew <-
           n <- simulatedDataSum%>% as.numeric()  
           
           
-          result[result$Year == 1, c("Mean", "Lower", "Upper")] <- 
-            t(sapply(result[result$Year == 1, "Mean"], 
+          result[result$Year == i, c("Mean", "Lower", "Upper")] <- 
+            t(sapply(result[result$Year == i, "Mean"], 
                      function(p)  c(p,  p - qnorm(.975)* sqrt(p*(1-p)/n),
                                     p + qnorm(.975)* sqrt(p*(1-p)/n))))
         }
