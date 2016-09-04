@@ -4,9 +4,11 @@
 \alias{simulateRun}
 \title{Simulate outomes and store them in the outcomes list.}
 \usage{
-simulateRun(simenv, simulateFun)
+simulateRun(run, simenv, simulateFun)
 }
 \arguments{
+\item{run}{numeric on current run number}
+
 \item{simenv}{simulation environment object}
 
 \item{simulateFun}{simulation function input by the user}

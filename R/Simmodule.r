@@ -38,6 +38,9 @@ createSimmodule <- function(name){
 #' 
 #' Sub-classes should extend this function.
 #' 
+#' @param run
+#'  numeric on current run number
+#' 
 #' @param simenv
 #'  simulation environment object
 #' 
@@ -48,9 +51,9 @@ createSimmodule <- function(name){
 #' a matrix contain the outcome 
 #' 
 #' @export 
-simulateRun <- function (simenv, simulateFun) {
+simulateRun <- function (run, simenv, simulateFun) {
   
-  simulateFun(simenv)
+  simulateFun(run, simenv)
 }
 
 
