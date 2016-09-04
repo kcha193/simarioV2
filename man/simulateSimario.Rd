@@ -4,8 +4,7 @@
 \alias{simulateSimario}
 \title{Perform a simulation of X runs using parallel computing.}
 \usage{
-simulateSimario(Simenv, total_runs = 1, simulateFun = simulateFun,
-  parallel = TRUE)
+simulateSimario(Simenv, total_runs = 1, simulateFun, parallel = TRUE)
 }
 \arguments{
 \item{Simenv}{Simenv receiving object}

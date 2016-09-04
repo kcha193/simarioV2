@@ -8,8 +8,6 @@ createSimmodule(name)
 }
 \arguments{
 \item{name}{name of this object}
-
-\item{.}{Simmodule receiving object.}
 }
 \value{
 a list

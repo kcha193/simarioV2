@@ -22,8 +22,6 @@
 #' 
 #' Run stats are averaged across multiple runs by collateRunStats to get a final simulation result.
 #' 
-#' @param .
-#'  Simmodule receiving object.
 #' @param name
 #'  name of this object
 #' 
@@ -40,9 +38,6 @@ createSimmodule <- function(name){
 #' 
 #' Sub-classes should extend this function.
 #' 
-#' @param Simmodule
-#'  Simmodule receiving object
-#'  
 #' @param simenv
 #'  simulation environment object
 #' 
@@ -53,9 +48,9 @@ createSimmodule <- function(name){
 #' a matrix contain the outcome 
 #' 
 #' @export 
-simulateRun <- function (Simmodule, simenv, simulateFun) {
+simulateRun <- function (simenv, simulateFun) {
   
-  simulateFun(Simmodule, simenv)
+  simulateFun(simenv)
 }
 
 

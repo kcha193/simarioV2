@@ -508,7 +508,7 @@ check.subgroup.expr <- function(Simenv) {
 #'  Simenv object with simulated results
 #' 
 #' @export
-simulateSimario <- function(Simenv, total_runs=1, simulateFun = simulateFun, parallel = TRUE) {
+simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) {
   start_time <- proc.time()
   
   cat(gettextf("Simulating %s\n", Simenv$name))
