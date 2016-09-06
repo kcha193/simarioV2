@@ -538,6 +538,7 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) 
  
   Simenv$num_runs_simulated <- total_runs
   
+  library(memoise)
   memSimulateFun <- memoise(simulateFun)
   
   if(parallel){
