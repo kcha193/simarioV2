@@ -538,6 +538,8 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) 
  
   Simenv$num_runs_simulated <- total_runs
   
+  memSimulateFun <- memoise(simulateFun)
+  
   if(parallel){
     
     library(parallel)
@@ -550,13 +552,15 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) 
     clusterEvalQ(cl, {library(simarioV2)})
     clusterSetRNGStream(cl, 1)
   
-    outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateFun)
+    outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = memSimulateFun)
     
     stopCluster(cl)
     
   } else {
-    outcomes <-lapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = simulateFun)
+    outcomes <-lapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = memSimulateFun)
   }
+  
+  forget(memSimulateFun)
   
   Simenv$modules$run_results <- outcomes
   
