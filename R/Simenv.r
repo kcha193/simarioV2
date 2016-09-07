@@ -550,7 +550,7 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) 
     clusterExport(cl, c("binbreaks", "transition_probabilities", "models", 
                         "PropensityModels", "children"))
     
-    clusterEvalQ(cl, {library(simarioV2)})
+    clusterEvalQ(cl, {library(simarioV2); library(bindata)})
     clusterSetRNGStream(cl, 1)
   
     outcomes <-parLapply(cl, 1:total_runs, simulateRun, simenv=Simenv, simulateFun = memSimulateFun)
@@ -558,6 +558,7 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) 
     stopCluster(cl)
     
   } else {
+    library(bindata)
     outcomes <-lapply(1:total_runs, simulateRun, simenv=Simenv, simulateFun = memSimulateFun)
   }
   
