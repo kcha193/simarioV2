@@ -41,6 +41,8 @@
 #' @param basePop
 #' logical which to allow the users to used the base population  
 #'  
+#' @param digits
+#' integer indicating the number of decimal places  
 #' 
 #' @return 
 #'  a summary table for the entire or subgroup of the variable of interest.
@@ -51,7 +53,7 @@
 tableBuilderNew <- 
   function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
             dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "", envBase = NULL,
-            basePop = FALSE){
+            basePop = FALSE, digits = 1){
     
     library(dplyr)
     library(tidyr)
@@ -308,7 +310,7 @@ tableBuilderNew <-
         }
       }
       
-      result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], 2)
+      result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], digits = digits)
       
     } else if (statistic == "frequencies"){
       
@@ -412,7 +414,7 @@ tableBuilderNew <-
       
       
       result[,c("Mean", "Lower", "Upper")] <-  result[,c("Mean", "Lower", "Upper")]*100
-      result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], 2)
+      result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], digits = digits)
       
     } else if (statistic == "quantiles"){
      
@@ -457,7 +459,7 @@ tableBuilderNew <-
       index <- c("Min", "X10th","X25th","X50th", "X75th","X90th", "Max")
       
       
-      result[,index] <-  round(result[,index], 2)
+      result[,index] <-  round(result[,index], digits = digits)
     }
     
     return(result)
