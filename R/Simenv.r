@@ -165,11 +165,7 @@ applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NUL
   temp <- 
   lapply(cat.adjustments, function (catadj) {
     cat_adj_vector <- catadj[iteration, ]	
-    
-    if(all(is.na(cat_adj_vector)))
-      next
-      
-    
+  
     varnames <- attr(catadj,"varnames")
     varname <- varnames[length(varnames)]
     varname <- strip_lvl_suffix(varname)
