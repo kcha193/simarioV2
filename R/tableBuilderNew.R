@@ -132,10 +132,11 @@ tableBuilderNew <-
     
     #########################################################################
     #Using logisetexpr and grpbyName
-
     if(!is.null(logisetexpr) | !is.null(grpbyName)){
       if(!is.null(logisetexpr)){
-        grpbyName1 <- unlist(strsplit(logisetexpr, " [[:punct:]]+ "))
+        grpbyName1 <- trimws(unlist(strsplit(logisetexpr,  "[[:punct:]]+")))
+        
+        grpbyName1 <- grpbyName1[grpbyName1!=""]
         
         grpbyName1 <- grpbyName1[seq(1,length(grpbyName1), 2)]
       }
@@ -161,7 +162,8 @@ tableBuilderNew <-
           groupByDataFull <- sapply(env$modules$run_results, function(x) x[[grpby]])
           
           if(grpby %in% conVar)
-            groupByDataFull <- apply(groupByDataFull,2, function(x) as.numeric(bin(x, binbreaks[[grpby]])))
+            groupByDataFull <- apply(groupByDataFull,2, function(x) 
+              as.numeric(bin(x, binbreaks[[grpby]])))
           
           groupByData <- 
             tbl_df(data.frame(Year = rep(as.numeric(colnames(env$modules$run_results$run1[[grpby]])), each = 5000), 
@@ -424,7 +426,6 @@ tableBuilderNew <-
         
         result <- 
           simulatedData %>% group_by(Year, groupByData, Run) %>% 
-          simulatedData %>% group_by(Year, Run) %>% 
           summarise(Min = quantile(Var, 0), 
                     "10th" = quantile(Var, 0.1),
                     "25th" =  quantile(Var, 0.25),
