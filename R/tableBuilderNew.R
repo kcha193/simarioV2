@@ -93,8 +93,6 @@ tableBuilderNew <-
                        env$modules$run_results, index)
     }
     
-
-    
     #Time variant variables
     timeVar <- names(env$modules$run_results$run1)
     conVar <- names(binbreaks)

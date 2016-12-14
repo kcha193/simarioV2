@@ -1,6 +1,6 @@
 Package: simarioV2
 Type: Package
-Title: Discrete-time dynamic micro-simulation framework for R
+Title: Discrete-time Dynamic Micro-simulation Framework for R
 Depends:  R (>= 3.1.0)
 Imports:
     abind, Hmisc, stringr, testthat, stringi, parallel, shiny,

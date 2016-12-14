@@ -28,15 +28,10 @@ cmatch <- function (dict, x, varname) {
 
 #' Create a dictionary object.
 #' 
-#' @param descriptions_dataframe
+#' @param dictionary_dataframe
 #'   a dataframe with the variables:
 #'   Varname = the variable name
 #'   Description = a description of the variable.
-#' 
-#'   additional variables are ignored.
-#' 
-#' @param codings_dataframe
-#'   a dataframe with the variables:
 #'   Varname = the name of the categorical variable
 #'   Codings_Expr = an expression which generates the codings, eg:
 #'  				"c("Other"=1, "Pacific"=2, "Maori"=3)"
@@ -59,20 +54,34 @@ cmatch <- function (dict, x, varname) {
 #' [1] "SESBTH"
 #'  
 #' @export
-createDict <- function (descriptions_dataframe, codings_dataframe = NULL) {
-  
-  descriptions <- createDescriptions(descriptions_dataframe)
-  
-  if (is.null(codings_dataframe)) {
-    codings <- NULL
-  } else {
-    codings <- createCodings(codings_dataframe)
-  }
-  
-  list(descriptions = descriptions,
-       codings = codings)	
+createDict <- function (dictionary_dataframe) {
+
+  list(descriptions = createDescriptions(dictionary_dataframe),
+       codings = createCodings(dictionary_dataframe), 
+       age = createAgeRange(dictionary_dataframe) )	
 }
 
+#' Create the descriptions of the dictionary object. Called by new().
+#' 
+#' @param codings_dataframe
+#'  
+#' 
+#' @return 
+#' 
+#' 
+#' @export
+
+createAgeRange <- function (descriptions_dataframe) {
+  #remove empty variables, 
+  #generally these are blank lines at the end of the file
+  descriptions_dataframe <- subset(descriptions_dataframe, (Varname!=""))
+  
+  dict <- descriptions_dataframe$Age
+  names(dict) <- descriptions_dataframe$Varname
+  
+  dict
+  
+}	
 
 #' Returns the category names for the vector of flattened codes.
 #'
