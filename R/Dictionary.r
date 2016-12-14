@@ -70,7 +70,6 @@ createDict <- function (dictionary_dataframe) {
 #' 
 #' 
 #' @export
-
 createAgeRange <- function (descriptions_dataframe) {
   #remove empty variables, 
   #generally these are blank lines at the end of the file
@@ -79,7 +78,7 @@ createAgeRange <- function (descriptions_dataframe) {
   dict <- descriptions_dataframe$Age
   names(dict) <- descriptions_dataframe$Varname
   
-  dict
+  dict[dict != ""]
   
 }	
 

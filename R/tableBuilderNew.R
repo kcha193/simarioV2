@@ -461,6 +461,10 @@ tableBuilderNew <-
       result[,index] <-  round(result[,index], digits = digits)
     }
     
+    browser()
+    
+    
+    
     return(result)
   }       
   
