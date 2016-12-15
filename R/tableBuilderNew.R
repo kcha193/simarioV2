@@ -461,8 +461,20 @@ tableBuilderNew <-
       result[,index] <-  round(result[,index], digits = digits)
     }
     
-    browser()
+
+    ageRange <- strsplit(dict$age[variableName], "--")[[1]]
     
+    if(!all(is.na(suppressWarnings(as.numeric(ageRange))))){
+      ageRange <- as.numeric(ageRange)
+    
+      if(length(ageRange) == 2)
+        result <- result %>% filter(Year >= ageRange[1] & Year <= ageRange[2])
+      else 
+        result <- result %>% filter(Year == ageRange)
+      
+    } else {
+      result$Year <- ageRange
+    }
     
     
     return(result)
