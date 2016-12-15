@@ -105,11 +105,11 @@ tableBuilderNew <-
       if(statistic == "frequencies" & variableName %in% conVar)
         simulatedDataFull <- apply(simulatedDataFull,2, function(x) 
           as.numeric(bin(x, binbreaks[[variableName]])))
-      
+        
       simulatedData <- 
         tbl_df(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[variableName]])), 
                           simulatedDataFull))
-    
+        
     }else{
       #Time invariant variables
       simulatedDataFull <- env$simframe[[variableName]]
@@ -124,6 +124,7 @@ tableBuilderNew <-
       simulatedData <- 
         tbl_df(data.frame(Year = 1, simulatedDataFull))
     }
+    
     
     simulatedData <- 
       simulatedData %>% gather(Run, Var, -Year) %>% filter(!is.na(Var))
@@ -364,7 +365,7 @@ tableBuilderNew <-
             match(result$groupByData, env$dict$codings[[grpbyName]])]
         
       } else {
-        
+
         simulatedDataSum <- 
           simulatedData %>% group_by(Year, Run) %>% 
           summarise(Sum = n()) 
@@ -400,18 +401,25 @@ tableBuilderNew <-
         }
         
       }
-      
-     
-      
+ 
       result$Var <-
         if(statistic == "frequencies" & variableName %in% conVar){  
-          names(binbreaks[[variableName]])[-1][result$Var]
+          factor(names(binbreaks[[variableName]])[-1][result$Var], 
+                 levels = names(binbreaks[[variableName]]))
         }else {
-          names(env$dict$codings[[variableName]])[
-            match(result$Var,env$dict$codings[[variableName]])]
+          factor(names(env$dict$codings[[variableName]])[
+            match(result$Var,env$dict$codings[[variableName]])], 
+            levels = names(env$dict$codings[[variableName]]))
         }
       # names(result)[names(result)=="Var"] <- variableName
       
+      temp <- result %>% select(Var, Year, Mean) %>% 
+        spread(Year, Mean, drop = FALSE, fill = 0) %>% gather(Year, Var)
+      temp$Year <- as.numeric(temp$Year)
+      names(temp)[length(names(temp))] <- "Mean"
+      result <- result %>% right_join(temp) %>% arrange(Var, Year)
+      result[is.na(result)] <- 0
+
       
       result[,c("Mean", "Lower", "Upper")] <-  result[,c("Mean", "Lower", "Upper")]*100
       result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], digits = digits)
