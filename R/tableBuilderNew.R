@@ -474,6 +474,7 @@ tableBuilderNew <-
       
     } else {
       result$Year <- ageRange
+      result <- result[1,]
     }
     
     
