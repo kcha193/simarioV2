@@ -473,8 +473,11 @@ tableBuilderNew <-
         result <- result %>% filter(Year == ageRange)
       
     } else {
+      
+      result <- result %>% filter(Year == 1)
+      
       result$Year <- ageRange
-      result <- result[1,]
+     
     }
     
     
