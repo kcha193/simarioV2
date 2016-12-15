@@ -133,8 +133,8 @@ tableBuilderNew <-
     #Using logisetexpr and grpbyName
     if(!is.null(logisetexpr) | !is.null(grpbyName)){
       if(!is.null(logisetexpr)){
-        grpbyName1 <- trimws(unlist(strsplit(logisetexpr,  "[[:punct:]]+")))
-        
+        grpbyName1 <- trimws(unlist(strsplit(logisetexpr,  "[<>=!]+")))
+
         grpbyName1 <- grpbyName1[grpbyName1!=""]
         
         grpbyName1 <- grpbyName1[seq(1,length(grpbyName1), 2)]
@@ -160,9 +160,9 @@ tableBuilderNew <-
           
           groupByDataFull <- sapply(env$modules$run_results, function(x) x[[grpby]])
           
-          if(grpby %in% conVar)
-            groupByDataFull <- apply(groupByDataFull,2, function(x) 
-              as.numeric(bin(x, binbreaks[[grpby]])))
+          # if(grpby %in% conVar)
+          #   groupByDataFull <- apply(groupByDataFull,2, function(x) 
+          #     as.numeric(bin(x, binbreaks[[grpby]])))
           
           groupByData <- 
             tbl_df(data.frame(Year = rep(as.numeric(colnames(env$modules$run_results$run1[[grpby]])), each = 5000), 
@@ -172,12 +172,12 @@ tableBuilderNew <-
             groupByData %>% gather(Run, groupByData, -Year, -A0)  %>%   filter(!is.na(groupByData))
           
         } else{
-          
+
           groupByDataFull <- env$simframe[[grpby]]
           
-          if(grpby %in% conVar)
-            groupByDataFull <- as.numeric(bin(groupByDataFull, 
-                                              binbreaks[[grpby]]))
+          # if(grpby %in% conVar)
+          #   groupByDataFull <- as.numeric(bin(groupByDataFull, 
+          #                                     binbreaks[[grpby]]))
 
           groupByData <- 
             tbl_df(data.frame(Year = rep(1:21, each = 5000), A0 = 1:5000, 
@@ -189,7 +189,7 @@ tableBuilderNew <-
         if(is.null(groupByDataAll))
           groupByDataAll <- groupByData
         else 
-          groupByDataAll <- groupByDataAll %>% left_join(groupByData)
+          groupByDataAll <- groupByDataAll %>% full_join(groupByData)
       }
       
       groupByData <- groupByDataAll
