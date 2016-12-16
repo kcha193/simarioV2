@@ -133,7 +133,7 @@ tableBuilderNew <-
     #Using logisetexpr and grpbyName
     if(!is.null(logisetexpr) | !is.null(grpbyName)){
       if(!is.null(logisetexpr)){
-        grpbyName1 <- trimws(unlist(strsplit(logisetexpr,  "[<>=!]+")))
+        grpbyName1 <- trimws(unlist(strsplit(logisetexpr,  "[()<>=!]+")))
 
         grpbyName1 <- grpbyName1[grpbyName1!=""]
         
@@ -413,13 +413,22 @@ tableBuilderNew <-
         }
       # names(result)[names(result)=="Var"] <- variableName
       
-      temp <- result %>% select(Var, Year, Mean) %>% 
-        spread(Year, Mean, drop = FALSE, fill = 0) %>% gather(Year, Var)
-      temp$Year <- as.numeric(temp$Year)
-      names(temp)[length(names(temp))] <- "Mean"
-      result <- result %>% right_join(temp) %>% arrange(Var, Year)
-      result[is.na(result)] <- 0
-
+      if("groupByData" %in% colnames(result)){
+        temp <- result %>% select(Var, groupByData, Year, Mean) %>% 
+          spread(Year, Mean, drop = FALSE, fill = 0) %>% gather(Year,  Mean, -groupByData, -Var)
+        temp$Year <- as.numeric(temp$Year)
+        names(temp)[length(names(temp))] <- "Mean"
+        result <- result %>% right_join(temp) %>% arrange(Var, groupByData, Year)
+        result[is.na(result)] <- 0
+        
+      } else {
+        temp <- result %>% select(Var, Year, Mean) %>% 
+          spread(Year, Mean, drop = FALSE, fill = 0) %>% gather(Year, Var)
+        temp$Year <- as.numeric(temp$Year)
+        names(temp)[length(names(temp))] <- "Mean"
+        result <- result %>% right_join(temp) %>% arrange(Var, Year)
+        result[is.na(result)] <- 0
+      }
       
       result[,c("Mean", "Lower", "Upper")] <-  result[,c("Mean", "Lower", "Upper")]*100
       result[,c("Mean", "Lower", "Upper")] <-  round(result[,c("Mean", "Lower", "Upper")], digits = digits)
