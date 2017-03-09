@@ -27,4 +27,3 @@ Combines and reorders (so correct original order) after modifyProps has been cal
 a logiset.
 Called in adjust.proportions().
 }
-

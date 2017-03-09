@@ -29,4 +29,3 @@ Change values in a categorical vector to a lower or higher value
 \seealso{
 This function is called by the function \code{\link{modifyProps}}
 }
-

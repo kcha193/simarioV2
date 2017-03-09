@@ -63,4 +63,3 @@ the variable in default.vec.
 \seealso{
 This function calls \code{\link{change.cat}}
 }
-

@@ -19,4 +19,3 @@ nothing if successful, otherwise errors
 Checks that the variables used in all of the models
 exist in simvalues, if not generate stop
 }
-

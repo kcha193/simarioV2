@@ -26,4 +26,3 @@ Display a vector of continuous values in a table using the
 breaks supplied.
 Attachs a meta attribute with varname
 }
-

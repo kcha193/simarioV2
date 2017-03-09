@@ -18,4 +18,3 @@ equivalent to c(fx(xlist[[1]]), fx(xlist[[2]] ... ) across every element.
 \description{
 Select inner elements of a list of lists, and return as a new list.
 }
-

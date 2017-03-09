@@ -26,4 +26,3 @@ NULL. simframe in receiving object is modified directly.
 \description{
 Adjust the proportions of a single simframe variable.
 }
-

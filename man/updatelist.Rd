@@ -18,4 +18,3 @@ the list "dest" after updated.
 Use this to update a dest list when the ordering of src is different from dest and you
 wish to preserve the dest list ordering.
 }
-

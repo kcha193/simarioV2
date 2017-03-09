@@ -23,4 +23,3 @@ Takes a categorical var specified in separate binary level variables
 and applies modifyProps and returns the result as a list of modified
 binary level variables.
 }
-

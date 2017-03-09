@@ -26,4 +26,3 @@ when select == 3, then result is predSimNorm using model3}
 \description{
 Predict and simulate value from 3 normal models.
 }
-

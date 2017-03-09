@@ -15,4 +15,3 @@ the result calculated
 \description{
 Calc the 95\% error from the t Distribution.
 }
-

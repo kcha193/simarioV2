@@ -17,4 +17,3 @@ an array
 convert list of vectors to an array.
 Recycling rule will be applied.
 }
-

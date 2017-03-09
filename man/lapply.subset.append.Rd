@@ -34,4 +34,3 @@ as a extra list element to each element of results.list}
 Execute a function over a subset of a list, and merges the results into
 an existing list.
 }
-

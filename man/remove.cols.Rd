@@ -18,4 +18,3 @@ the matrix mx with columns removed. Names and any "meta" attribute preserved.
 \description{
 Remove cols specified by indices.
 }
-

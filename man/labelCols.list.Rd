@@ -23,4 +23,3 @@ a list with named colnames
 Set the colnames on each object in a list. By default
 will only set if no exiting colnames (see onlyIfNull param).
 }
-

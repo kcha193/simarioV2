@@ -19,4 +19,3 @@ a data frame
 Convert list to dataframe simply by setting class attr
 This preserves any matrices in the list.
 }
-

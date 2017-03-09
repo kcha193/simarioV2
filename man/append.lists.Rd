@@ -37,4 +37,3 @@ a list of lists. The inner list contains the
 \description{
 NB: attributes of list.dest are replaced by list.src.
 }
-

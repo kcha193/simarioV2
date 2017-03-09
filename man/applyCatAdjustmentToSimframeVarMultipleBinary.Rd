@@ -28,4 +28,3 @@ NULL. simframe in receiving object is modified directly.
 Adjust the proportions of a simframe variable that exists in multiple binary level vectors,
 eg: SESBTHLvl1, SESBTHLvl2, SESBTHLvl3.
 }
-

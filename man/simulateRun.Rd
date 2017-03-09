@@ -19,4 +19,3 @@ a matrix contain the outcome
 \description{
 Sub-classes should extend this function.
 }
-

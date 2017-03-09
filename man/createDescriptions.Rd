@@ -15,4 +15,3 @@ createDescriptions(descriptions_dataframe)
 \description{
 Create the descriptions of the dictionary object. Called by new().
 }
-

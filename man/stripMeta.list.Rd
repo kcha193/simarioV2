@@ -15,4 +15,3 @@ xlist with elements without a "meta" attribute
 \description{
 Remove meta attribute from a list
 }
-

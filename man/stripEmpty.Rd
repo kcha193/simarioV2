@@ -15,4 +15,3 @@ a vector without empty values
 \description{
 Remove empty values from vector
 }
-

@@ -37,4 +37,3 @@ Preserves names and meta attribute.
 \seealso{
 align.by.name.list.mx
 }
-

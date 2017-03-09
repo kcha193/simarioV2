@@ -20,4 +20,3 @@ a continuous vector that when binned by cont.bonbreaks will be the same as x.cat
 \description{
 Use when all the catToCont models for a variable are negative binomial.
 }
-

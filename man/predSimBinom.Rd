@@ -24,4 +24,3 @@ a vector of binary values drawn from a Binomial distribution
 Predict and simulate binary value from binomial
 distribution with probability
 }
-

@@ -9,4 +9,3 @@ createEmptyCatAdjustments(simframe, dict, numiterations = NUM_ITERATIONS)
 \description{
 Create empty categorical variable adjustment matrices.
 }
-

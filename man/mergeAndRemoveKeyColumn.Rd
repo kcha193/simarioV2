@@ -23,4 +23,3 @@ Merges (ie: join) on a key column and returns merged rows, minus
 the key column. Merging means selecting rows from key_column_name
 that are in selected_keys, erroring if a row cannot be found.
 }
-

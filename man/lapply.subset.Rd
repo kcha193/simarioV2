@@ -22,4 +22,3 @@ results of .FUN applied to X as a list
 \description{
 Executes .FUN on the specified varnames in X and return the results as a list.
 }
-

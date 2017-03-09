@@ -15,4 +15,3 @@ vector that contains all components in the list with "try-error" class
 \description{
 Return the messages of any element that is a try-error
 }
-

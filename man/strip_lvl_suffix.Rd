@@ -15,4 +15,3 @@ a vector of characters without "LvlX"
 \description{
 Remove trailing "LvlX" (if any) where X is any character
 }
-

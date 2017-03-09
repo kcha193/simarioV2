@@ -18,4 +18,3 @@ globalNamed(varname, x, pos = 1)
 Save x into global variable, ie: top frame, not just this function
 using the supplied varname
 }
-

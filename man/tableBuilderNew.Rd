@@ -47,4 +47,3 @@ expression in tableBuilder - the logisetexpr parameter is there so it can be use
 user, in the scenario weightings screen, the distributions of the variable of interest for 
 their subgroup only so they can better choose the proportions for their subgroup scenario.
 }
-

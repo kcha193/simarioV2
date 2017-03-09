@@ -20,4 +20,3 @@ Align a list of matrices/vectors by row and column name, so all matrices have th
 same set of named rows and named cols. 
 NAs are used to pad missing rows and cols.
 }
-

@@ -18,4 +18,3 @@ Assign the values of variables (specifed by name in a source character vector)
 to another set of variables (specifed by name in a dest character vector).
 Will modify variables in enclosing environments.
 }
-

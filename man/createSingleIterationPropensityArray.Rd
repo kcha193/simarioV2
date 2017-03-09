@@ -21,4 +21,3 @@ z dim - iterations/years. Only 1 iteration.
 \description{
 Create a propensity array from a dataframe, for only a single iteration.
 }
-

@@ -19,4 +19,3 @@ Takes any number of 2D matrices, each with the same number of rows but with
 any set of named cols. Every row 1 of the matrices are combined into a new 
 matrix, as are every row 2,3 etc.
 }
-

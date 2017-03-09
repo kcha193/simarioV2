@@ -15,4 +15,3 @@ character vector after remove spaces
 \description{
 Remove leading and trailing spaces from a string
 }
-

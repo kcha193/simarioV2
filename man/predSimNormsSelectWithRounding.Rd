@@ -25,4 +25,3 @@ A function based on PredSimNormsSelect with the modification that if any simulat
 outside the binbreaks for the group, the simulated values are changed to be equal to the
 boundary value.   Use when all the catToCont models for a variable are normal.
 }
-

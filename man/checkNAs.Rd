@@ -17,4 +17,3 @@ nothing if no NAs, otherwise error message
 Check a list for any NAs, producing error if they exist, otherwise
 silently exit.
 }
-

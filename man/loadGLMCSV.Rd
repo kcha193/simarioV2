@@ -22,4 +22,3 @@ See \code{\link{createGLM}} for file format.
 \seealso{
 See \code{\link{createGLM}} for file format.
 }
-

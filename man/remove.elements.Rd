@@ -17,4 +17,3 @@ the list after removed
 \description{
 Remove named elements from list
 }
-

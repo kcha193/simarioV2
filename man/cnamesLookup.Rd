@@ -19,4 +19,3 @@ list of coding names for the variables supplied
 Returns the names of the codings for the supplied variables.
 NB: Requires codings variable to have been set in global environment.
 }
-

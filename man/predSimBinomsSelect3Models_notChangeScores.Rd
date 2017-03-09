@@ -24,4 +24,3 @@ model3}
 \description{
 Predict and simulate binary value from 3 binomial models.
 }
-

@@ -29,4 +29,3 @@ as a extra list element to each matrix elements of lol}
 Apply lapply.subset.append to each element of lol, using the arguments from 
 the parallel list lol.args and the function .FUN.
 }
-

@@ -15,4 +15,3 @@ x without "meta" attribute
 \description{
 Remove meta attribute from an object
 }
-

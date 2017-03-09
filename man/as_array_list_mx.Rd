@@ -15,4 +15,3 @@ array with dimnames and meta from listmx
 \description{
 Convert a list of matrices into an array, with each matrix in the z dimension.
 }
-

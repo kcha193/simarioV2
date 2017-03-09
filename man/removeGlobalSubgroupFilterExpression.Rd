@@ -15,4 +15,3 @@ Simenv object
 \description{
 Clear the subgroup expression for all cat.adjustments.
 }
-

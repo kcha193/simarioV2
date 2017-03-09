@@ -24,4 +24,3 @@ Produce a proportioned table for x with confidence interval, using
 the specified coding as names and setting the "meta" attribute to "varname"
 of coding.
 }
-

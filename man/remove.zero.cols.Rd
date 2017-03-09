@@ -15,4 +15,3 @@ matrix after removed.
 \description{
 Remove cols that contain all zeros.
 }
-

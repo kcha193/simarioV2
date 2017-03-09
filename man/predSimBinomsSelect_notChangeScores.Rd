@@ -22,4 +22,3 @@ when select == 1, then result is 1 - predSimBinom using model1}
 \description{
 Predict and simulate binary value from 2 binomial models.
 }
-

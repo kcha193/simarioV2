@@ -2,6 +2,7 @@
 % Please edit documentation in R/MatrixUtil.r, R/Simmodule.r
 \name{remove.NA.cols}
 \alias{remove.NA.cols}
+\alias{remove.NA.cols}
 \title{Remove columns that contain all NAs.}
 \usage{
 remove.NA.cols(collated_results_freqs, num.runs)
@@ -19,4 +20,3 @@ Remove columns that contain all NAs.
 
 remove.NA.cols
 }
-

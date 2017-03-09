@@ -62,4 +62,3 @@ This function establishes the values of the simulation frame at the start
 prior to simulation by evaluating the initial value expression specified by 
 the simframe definition.
 }
-

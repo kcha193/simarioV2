@@ -14,4 +14,3 @@ adjustContVarSimple(x, varname, simenv, iteration)
 \description{
 Does not allow subgroup adjustment
 }
-

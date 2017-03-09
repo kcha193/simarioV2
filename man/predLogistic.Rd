@@ -22,4 +22,3 @@ a vector of predicted probabilities
 \description{
 Predict probabilities from the coefficients of a logistic regression
 }
-

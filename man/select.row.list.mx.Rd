@@ -21,4 +21,3 @@ a list of selected row vectors
 Select only the specified row from each matrix in a list,
 and return a list of row vectors.
 }
-

@@ -24,4 +24,3 @@ i.e: no grping codes only varname codes.}
 \description{
 Returns the category names for the vector of flattened codes.
 }
-

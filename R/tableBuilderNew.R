@@ -93,6 +93,7 @@ tableBuilderNew <-
                        env$modules$run_results, index)
     }
     
+    
     #Time variant variables
     timeVar <- names(env$modules$run_results$run1)
     conVar <- names(binbreaks)
@@ -334,6 +335,7 @@ tableBuilderNew <-
                     Lower = quantile(Prop, c(0.025)),
                     Upper = quantile(Prop, c(0.975))) %>% data.frame() 
         
+        
         yr <- unique(result$Year[apply(result, 1, 
               function(x) x["Mean"] == x["Lower"] & x["Mean"] == x["Upper"])])
         
@@ -401,6 +403,9 @@ tableBuilderNew <-
         }
         
       }
+      
+      if(all(is.na(result$groupByData)))
+        result <- result %>% select(-groupByData)
  
       result$Var <-
         if(statistic == "frequencies" & variableName %in% conVar){  

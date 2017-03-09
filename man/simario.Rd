@@ -2,27 +2,27 @@
 % Please edit documentation in R/simario-package.r
 \docType{package}
 \name{simario}
+\alias{simario}
+\alias{package-simario}
 \alias{An}
+\alias{example}
 \alias{Dictionary}
+\alias{proto}
+\alias{object.}
 \alias{Provides}
-\alias{\item}
+\alias{descriptions}
+\alias{for}
 \alias{\itemize{}
+\alias{\item}
 \alias{age}
 \alias{age_grp}
 \alias{alive}
-\alias{codings}
-\alias{descriptions}
 \alias{disability_state}
 \alias{earnings}
-\alias{example}
-\alias{for}
-\alias{object.}
-\alias{package-simario}
-\alias{proto}
 \alias{sex}
-\alias{simario}
-\alias{simario-package}
 \alias{}}
+\alias{codings}
+\alias{simario-package}
 \title{simario is a framework for executing multi-run dynamic micro-simulations, including under different scenarios, and 
 taking measurements of the results.}
 \format{A Dictionary proto object}
@@ -58,4 +58,3 @@ Run stats are averaged across multiple runs to get a final simulation result.
 Final results can be displayed in tables or graphs, and can be compared across scenarios.
 }
 \keyword{datasets}
-

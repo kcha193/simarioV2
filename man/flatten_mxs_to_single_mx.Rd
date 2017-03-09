@@ -21,4 +21,3 @@ a single matrix with
 Takes a list of matrices, flattens them into a single row, aligns them by column name
 and then returns a single matrix.
 }
-

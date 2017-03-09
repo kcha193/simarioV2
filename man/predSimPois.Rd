@@ -22,4 +22,3 @@ a vector of predicted value
 \description{
 Predict and simulate continuous value from poisson model
 }
-

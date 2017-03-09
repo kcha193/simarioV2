@@ -16,4 +16,3 @@ lapply.args.as.list(X, FUN, FUN.args)
 \description{
 Call lapply with a list of arguments to FUN specified as the parameter FUN.args.
 }
-

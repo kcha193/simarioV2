@@ -12,4 +12,3 @@ rmall(exceptions = NULL)
 \description{
 Remove all objects in global environment.
 }
-

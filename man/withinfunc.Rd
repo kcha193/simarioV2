@@ -25,4 +25,3 @@ Unlike within, the func will be executed within data.
 Functions will read variables from data, and if <<- is used 
 then values will be assigned in data IF the variable already exists in data.
 }
-

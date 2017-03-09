@@ -15,4 +15,3 @@ If there is FALSE, return error message.
 \description{
 Stops and displays indices of any element that is FALSE.
 }
-

@@ -62,4 +62,3 @@ Uses the global environment list variable "propensities" when performing categor
 This class will be subclassed by specific simulation problems which will provide their own simframe,
 Simmodules and adjustments.
 }
-

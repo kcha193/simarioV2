@@ -27,4 +27,3 @@ Checks whether a fixed vector of values should be used instead of the just simul
 The fixed vector is that in fixed.outcomes and is based on user specified adjustments to a base
 run of the simulation.
 }
-

@@ -21,4 +21,3 @@ a matrix with the "varname" attribute set to varname
 \description{
 Create a matrix of NA with specified col/row names/lengths.
 }
-

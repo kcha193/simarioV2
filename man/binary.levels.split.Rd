@@ -23,4 +23,3 @@ Compares a vector x against a set of factors and returns
 a list for each factor which indicates whether x 
 is equal to that factor or not.
 }
-

@@ -19,4 +19,3 @@ x incremented by the factor increments
 \description{
 Increments x by factor
 }
-

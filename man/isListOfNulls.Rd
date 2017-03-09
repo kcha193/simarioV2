@@ -15,4 +15,3 @@ a logical value
 \description{
 True if all list members are NULL
 }
-

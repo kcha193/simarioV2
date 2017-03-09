@@ -27,4 +27,3 @@ NULL. simframe in receiving object is modified directly.
 \description{
 Apply categorical adjustments to simframe.
 }
-

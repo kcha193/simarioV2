@@ -25,4 +25,3 @@ a list of lists, the result of applying .FUN to lol
 \description{
 Apply a function to the inner element of a list of lists.
 }
-

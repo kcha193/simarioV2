@@ -27,4 +27,3 @@ same name as the name outcome matrix.
 Create a list of empty outcome matrix variables for a specified outcome set.
 The variables to create are those from the outcome set specified by "outcome_module_name".
 }
-

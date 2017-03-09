@@ -15,4 +15,3 @@ a list of category names for categorical variables.
 \description{
 Create the codings of the dictionary object. Called by new().
 }
-

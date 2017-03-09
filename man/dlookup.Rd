@@ -19,4 +19,3 @@ dlookup(dict, x)
 Lookup description of variable x in the dictionary
 first determines the name of variable x, then does the lookup
 }
-

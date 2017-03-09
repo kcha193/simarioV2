@@ -22,4 +22,3 @@ Defaults to the caller's environment (parent.frame())}
 Evaluate a list/vector of strings as expressions.
 Errors if expressions cannot be evaluated.
 }
-

@@ -14,4 +14,3 @@ adjustCatVarSimple(x, varname, simenv = simenv, iteration = iteration)
 \description{
 Does not allow subgroup adjustments.
 }
-

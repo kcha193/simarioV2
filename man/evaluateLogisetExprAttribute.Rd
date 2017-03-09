@@ -21,4 +21,3 @@ a vector of logical value
 \description{
 Evaluate logiset expression attribute for the variable.
 }
-

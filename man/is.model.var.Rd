@@ -18,4 +18,3 @@ a vector of model names
 \description{
 Checks which models, in a list of models, contain a specified variable
 }
-

@@ -22,4 +22,3 @@ x with "meta" attribute
 Add a meta attribute. Appends to existing meta attribute, if it exists, 
 overwriting any meta elements with the same name.
 }
-

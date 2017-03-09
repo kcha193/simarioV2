@@ -37,4 +37,3 @@ the values of x factored into bins
 \description{
 Divides x into bins specified by breaks or a bin size
 }
-

@@ -21,4 +21,3 @@ Return the variables used in the supplied terms.
 Removes "LvlX" suffix, and surrounding "I( )"
 as well as disaggregates squared variables
 }
-

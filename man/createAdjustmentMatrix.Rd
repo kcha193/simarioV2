@@ -40,4 +40,3 @@ a matrix of NAs with columns specified by codings, and rows specified by rows
 Creates an empty adjustment matrix of NAs. 
 An adjustment matrix contains cells for each categorical value across a supplied number of rows. Each row  represents an iteration.
 }
-

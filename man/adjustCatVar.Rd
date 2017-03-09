@@ -15,4 +15,3 @@ adjustCatVar(x, varname, propens = NULL, desiredProps = NULL, simenv,
 \description{
 Allows subgroup adjustment if a subgroup expression attribute is attached to the cat.adjustments.
 }
-

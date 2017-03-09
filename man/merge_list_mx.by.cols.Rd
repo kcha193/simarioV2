@@ -22,4 +22,3 @@ matrix, as are every col 2,3 etc.
 \seealso{
 merge_list_mx.by.rows
 }
-

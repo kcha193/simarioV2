@@ -48,4 +48,3 @@ Takes a continuous variable, converts it to a categorical variable using the bin
 modifyProps is then called on that categorical variable.
 The categorical variable is then converted back to a continuos variable using the catToContModels
 }
-

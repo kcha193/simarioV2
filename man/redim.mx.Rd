@@ -38,4 +38,3 @@ Re-dimension a matrix.
 Takes the matrix mx and transforms it into a length(newrows) x length(newcols) matrix
 which has the rows from mx specified in newrows and the cols from mx specified in newcols.
 }
-

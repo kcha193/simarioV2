@@ -15,4 +15,3 @@ character vector without numbers
 \description{
 Remove any numbers from character vector, leaving only alpha.
 }
-

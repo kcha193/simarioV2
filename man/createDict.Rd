@@ -4,16 +4,12 @@
 \alias{createDict}
 \title{Create a dictionary object.}
 \usage{
-createDict(descriptions_dataframe, codings_dataframe = NULL)
+createDict(dictionary_dataframe)
 }
 \arguments{
-\item{descriptions_dataframe}{a dataframe with the variables:
-  Varname = the variable name
-  Description = a description of the variable.
-
-  additional variables are ignored.}
-
-\item{codings_dataframe}{a dataframe with the variables:
+\item{dictionary_dataframe}{a dataframe with the variables:
+Varname = the variable name
+Description = a description of the variable.
 Varname = the name of the categorical variable
 Codings_Expr = an expression which generates the codings, eg:
                "c("Other"=1, "Pacific"=2, "Maori"=3)"
@@ -39,4 +35,3 @@ attr(,"varname")
 \description{
 Create a dictionary object.
 }
-

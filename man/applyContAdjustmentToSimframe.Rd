@@ -31,4 +31,3 @@ NULL. simframe in receiving object is modified directly.
 \description{
 Apply continuous adjustments to simframe.
 }
-

@@ -17,4 +17,3 @@ matrix after removed.
 \description{
 Remove cols by name.
 }
-

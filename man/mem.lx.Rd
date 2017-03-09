@@ -17,4 +17,3 @@ num vector of bytes per element
 Return amount of memory, in bytes, used by each
 element of a list
 }
-

@@ -17,4 +17,3 @@ a vector of logical value
 Check if each element of a character vector has the trailing "LvlX" (if any) 
 where X is any character
 }
-

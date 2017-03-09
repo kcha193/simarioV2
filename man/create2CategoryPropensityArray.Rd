@@ -21,4 +21,3 @@ z dim - iterations/years
 Create a propensity array from a dataframe, for a variable with only 2 categories 
 across multiple iterations.
 }
-

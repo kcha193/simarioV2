@@ -19,4 +19,3 @@ a list with named column
 set the columns names of each x in xlist to
 each char vector c in colnameslist
 }
-

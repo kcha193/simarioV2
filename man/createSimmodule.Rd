@@ -34,4 +34,3 @@ or a matrix (eg: 2 way table).
 
 Run stats are averaged across multiple runs by collateRunStats to get a final simulation result.
 }
-

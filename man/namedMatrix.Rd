@@ -17,4 +17,3 @@ a named matrix of NA
 \description{
 Create a matrix of NA with specified col/row names/lengths.
 }
-

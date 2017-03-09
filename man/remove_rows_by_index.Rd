@@ -17,4 +17,3 @@ a matrix or dataframe after remove rows
 \description{
 Remove rows specified by indices
 }
-

@@ -20,4 +20,3 @@ Simenv object
 Set the subgroup expression to all cat.adjustments if the subgroup expression exists. 
 Otherwise, remove the subgroup expression.
 }
-

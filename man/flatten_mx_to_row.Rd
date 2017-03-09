@@ -24,4 +24,3 @@ it can have a row name.
 eg: A1, A2,
     B1, B2
 }
-

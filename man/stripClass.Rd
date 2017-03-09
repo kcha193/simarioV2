@@ -15,4 +15,3 @@ x without "class" attribute
 \description{
 Remove class attribute from an object
 }
-

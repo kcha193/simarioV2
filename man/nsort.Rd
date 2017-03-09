@@ -29,4 +29,3 @@ sort numerically otherwise sort normally.
 \seealso{
 sort
 }
-

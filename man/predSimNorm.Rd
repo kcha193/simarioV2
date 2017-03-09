@@ -24,4 +24,3 @@ a vector of predicted value
 Predict and simulate continuous value from normal
 distribution of specified standard deviation
 }
-

@@ -22,4 +22,3 @@ x, is there are no codings for varname, else a vector of category names
 Return the category names for a vector of coded values.
 If no category names, returns the list as is.
 }
-

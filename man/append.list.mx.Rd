@@ -33,4 +33,3 @@ list of vector/matrix/arrays after appended.
 Append two lists of matrices by adding each element of listmx.src into 
 the corresponding element of listmx.dest in the specified dimension.
 }
-

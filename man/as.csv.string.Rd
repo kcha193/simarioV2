@@ -20,4 +20,3 @@ a character vector
 \description{
 Produces a csv string from x, returned as a length 1 chr vector.
 }
-

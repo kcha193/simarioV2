@@ -18,4 +18,3 @@ a list of character vectors
 \description{
 Apply to a list using the names from the list
 }
-

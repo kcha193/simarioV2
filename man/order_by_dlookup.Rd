@@ -22,4 +22,3 @@ dlookup to the list's elements
 \seealso{
 \code{\link{dlookup}}
 }
-

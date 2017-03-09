@@ -26,4 +26,3 @@ a matrix of predicted probabilities
 \description{
 Predict probabilities from the coefficients of a multinomial regression  (currently only works if output catgegories are 1,2,3 etc with 1 being the reference)
 }
-

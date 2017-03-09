@@ -15,4 +15,3 @@ file extension, eg: "csv"
 \description{
 Returns the file extension, i.e: everything after the final dot.
 }
-

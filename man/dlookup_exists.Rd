@@ -17,4 +17,3 @@ Useful when users specifiy their own subgroup expression.  If the expression is 
 a name in the dictionary then one can assume that the user has specified their own 
 expression to be used for subgrouping purposes.
 }
-

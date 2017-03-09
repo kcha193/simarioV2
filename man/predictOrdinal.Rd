@@ -31,4 +31,3 @@ could also be negative or greater than 1.
 Calculates the predicted probabilities (from an ordinal regression model) to be in each
 cateory for a three or more level categorical variable.
 }
-

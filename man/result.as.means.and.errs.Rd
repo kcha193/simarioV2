@@ -25,4 +25,3 @@ a matrix/list of means and errs. The first row/means vector is the means from th
 \description{
 Takes a result row and returns the means and error amounts as separate vectors in a matrix or list.
 }
-

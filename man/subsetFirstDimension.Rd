@@ -17,4 +17,3 @@ subset of the vector, matrix or array
 \description{
 Subset the first dimension, returning the same number of dimensions
 }
-

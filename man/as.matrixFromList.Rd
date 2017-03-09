@@ -22,4 +22,3 @@ Converts a list of same length vectors to a matrix.
 Unlike as.matrix.default, it unlists first and
 uses names from the first list element in the result.
 }
-

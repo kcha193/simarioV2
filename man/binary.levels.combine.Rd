@@ -23,4 +23,3 @@ a single vector
 Combine levels specified in seperate binary level variables into one
 variable.
 }
-

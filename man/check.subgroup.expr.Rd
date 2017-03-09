@@ -15,4 +15,3 @@ numeric number.
 \description{
 Check number of valid subgroup while applying cat.adjustment
 }
-

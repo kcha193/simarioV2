@@ -31,4 +31,3 @@ Before or during the simulation the user may wish to specify the proportion of c
 Create empty categorical variable adjustment matrices for specified number of iterations.
 Initial matrix values are NA (i.e: no adjustment).
 }
-

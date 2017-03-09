@@ -12,4 +12,3 @@ COL
 COL constant = 2.
 }
 \keyword{datasets}
-

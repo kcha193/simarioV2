@@ -15,4 +15,3 @@ matrix after modify the row and col names
 \description{
 Remove any alpha from row and col names, leaving only numbers.
 }
-

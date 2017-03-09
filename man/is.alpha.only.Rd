@@ -15,4 +15,3 @@ logical vector
 \description{
 TRUE for elements that only contain alpha characters, ie: have no numeric component.
 }
-

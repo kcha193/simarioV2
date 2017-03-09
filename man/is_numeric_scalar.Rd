@@ -17,4 +17,3 @@ logical value
 Returns whether x is a scalar (i.e. length 1)
 and numeric.
 }
-

@@ -15,4 +15,3 @@ matrix with prepended dimnames
 \description{
 Push row/col headers (ie: names of the rownames and colnames) into the rownames and colnames.
 }
-

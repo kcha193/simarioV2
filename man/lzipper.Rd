@@ -51,4 +51,3 @@ zipper(lol, c) is the same as the Lisp operation zip:
 		'(b1 b2 b3)
 		=> ((a1 b1) (a2 b2) (a3 b3))
 }
-

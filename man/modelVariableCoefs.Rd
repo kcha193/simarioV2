@@ -24,4 +24,3 @@ chr named vector of coefficients
 \description{
 Return the coefficients used in the supplied model.
 }
-

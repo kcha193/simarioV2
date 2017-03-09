@@ -12,4 +12,3 @@ ROW
 ROW constant = 1.
 }
 \keyword{datasets}
-

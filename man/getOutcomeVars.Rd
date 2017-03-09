@@ -22,4 +22,3 @@ a vector of simframe variables (with names the same as the vector value)
 \description{
 Get a set of outcome variables from the simframe.
 }
-
