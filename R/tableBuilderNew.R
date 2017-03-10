@@ -161,9 +161,13 @@ tableBuilderNew <-
           
           groupByDataFull <- sapply(env$modules$run_results, function(x) x[[grpby]])
           
-          # if(grpby %in% conVar)
-          #   groupByDataFull <- apply(groupByDataFull,2, function(x) 
-          #     as.numeric(bin(x, binbreaks[[grpby]])))
+          if(grpby %in% conVar & grpby %in% grpbyName){
+            
+            
+            groupByDataFull <- apply(groupByDataFull,2, function(x)
+              as.numeric(bin(x, binbreaks[[grpby]])))
+            
+          }
           
           groupByData <- 
             tbl_df(data.frame(Year = rep(as.numeric(colnames(env$modules$run_results$run1[[grpby]])), each = 5000), 
@@ -176,10 +180,12 @@ tableBuilderNew <-
 
           groupByDataFull <- env$simframe[[grpby]]
           
-          # if(grpby %in% conVar)
-          #   groupByDataFull <- as.numeric(bin(groupByDataFull, 
-          #                                     binbreaks[[grpby]]))
-
+          if(grpby %in% conVar & grpby %in% grpbyName){
+          
+            groupByDataFull <- as.numeric(bin(groupByDataFull,
+                                              binbreaks[[grpby]]))
+          }
+          
           groupByData <- 
             tbl_df(data.frame(Year = rep(1:21, each = 5000), A0 = 1:5000, 
                               groupByData = groupByDataFull))
@@ -214,7 +220,11 @@ tableBuilderNew <-
         simulatedData <- 
           with(simulatedData, simulatedData[eval(parse(text=logisetexpr)),])
         
-        simulatedData <-simulatedData %>% select(-one_of(grpbyName1))
+        if(!is.null(grpbyName))
+          grpbyName1 <- grpbyName1[grpbyName1!=grpbyName]
+        
+        if(length(grpbyName1) != 0) 
+          simulatedData <-simulatedData %>% select(-one_of(grpbyName1))
       }
       
       simulatedData <- 
@@ -404,9 +414,10 @@ tableBuilderNew <-
         
       }
       
-      if(all(is.na(result$groupByData)))
-        result <- result %>% select(-groupByData)
- 
+      if(!is.null(grpbyName))
+        if(all(is.na(result$groupByData)))
+          result <- result %>% select(-groupByData)
+        
       result$Var <-
         if(statistic == "frequencies" & variableName %in% conVar){  
           factor(names(binbreaks[[variableName]])[-1][result$Var], 
