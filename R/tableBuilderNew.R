@@ -132,9 +132,10 @@ tableBuilderNew <-
     
     #########################################################################
     #Using logisetexpr and grpbyName
+
     if(!is.null(logisetexpr) | !is.null(grpbyName)){
       if(!is.null(logisetexpr)){
-        grpbyName1 <- trimws(unlist(strsplit(logisetexpr,  "[()<>=!]+")))
+        grpbyName1 <- trimws(unlist(strsplit(logisetexpr,  "[()<>=!&|]+")))
 
         grpbyName1 <- grpbyName1[grpbyName1!=""]
         
@@ -190,6 +191,8 @@ tableBuilderNew <-
             tbl_df(data.frame(Year = rep(1:21, each = 5000), A0 = 1:5000, 
                               groupByData = groupByDataFull))
         }
+
+
         
         names(groupByData)[names(groupByData)=="groupByData"] <- grpby
         
@@ -211,6 +214,7 @@ tableBuilderNew <-
         simulatedData <- 
           tbl_df(data.frame(Year = 1, A0 = 1:5000, simulatedDataFull))
       }
+      
       
       simulatedData <- 
         simulatedData %>% gather(Run, Var, -Year, -A0) %>% left_join(groupByData) %>% select(-A0)
