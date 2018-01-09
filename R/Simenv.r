@@ -298,12 +298,15 @@ applyCatAdjustmentToSimframeVarSingle <- function(Simenv, varname, desired_props
   }
   
   if (!is.null(logiset) && sum(logiset) > 0) {
-    Simenv$simframe[varname]<-modifypropsVarSingle_on_subset(default.vec=Simenv$simframe[varname], 
-                                                             desired_props=desired_props, propens=propens,
-                                                             logiset=logiset)
+    Simenv$simframe[varname][!is.na(Simenv$simframe[varname]), ] <-
+      modifypropsVarSingle_on_subset(
+        default.vec = Simenv$simframe[varname],
+        desired_props = desired_props, propens = propens, logiset = logiset
+      )
   }
   else {
-    Simenv$simframe[varname] <- modifyProps(Simenv$simframe[[varname]], desired_props, propens)
+    Simenv$simframe[varname][!is.na(Simenv$simframe[varname]),] <- 
+      modifyProps(Simenv$simframe[[varname]], desired_props, propens)
   }
   
   if (print_adj) {

@@ -22,10 +22,10 @@
 #' @export
 change.cat <- function(num, rank.col, i, new.all.dat, n.change) {
 	if (sign(n.change[i])==1) {
-		steal=F
+		steal=FALSE
 	}
 	else if (sign(n.change[i])== -1) {
-		steal=T
+		steal=TRUE
 	}
 	#identify those in the category you want to change
 	#if giving it is category i
@@ -37,13 +37,13 @@ change.cat <- function(num, rank.col, i, new.all.dat, n.change) {
 	#add the rankings of the propensity scores as the last column
 	dat.ch.cat = cbind(dat.ch.cat, rank(dat.ch.cat[,i+(num-1)+1], 
 					ties.method="random"))
-	if (steal==F) {
+	if (steal==FALSE) {
 		#calculate cut-off for deciding which ones to change to a higher value
 		cut.off = nrow(dat.ch.cat) - n.change[i] + 1
 		#change those that are greater than or equal to the cut-off to have a higher value
 		dat.ch.cat[,1][dat.ch.cat[,rank.col]>=cut.off] <- (i+1)
 	}
-	if (steal==T) {
+	if (steal==TRUE) {
 		#calculate cut-off for deciding which ones to change to a lower value
 		cut.off = n.change[i]*(-1)
 		#change those that are below the cut-off to have a lower value

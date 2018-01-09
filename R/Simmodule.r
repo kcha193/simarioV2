@@ -255,8 +255,10 @@ adjustCatVar <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, it
   
   if (valid.subgroup==1) {
     cat("Adjusting", varname.no.lvl, ": ", desiredProps, "\n")
+    adj.x.cat <- x
     
-    adj.x.cat <- adjust.proportions(x, desiredProps, propens, logiset) 
+    adj.x.cat[!is.na(x)] <- adjust.proportions(x, desiredProps, propens, logiset) 
+    
     return(adj.x.cat)
   } else if (valid.subgroup==0) {
     expr <- paste("Scenario adjustments cannot be made for iteration ", iteration, " because the subgroup expression is not defined")
