@@ -481,6 +481,8 @@ modifypropsVarSingle_on_subset<-function(default.vec, desired_props, propens=NUL
 #' 
 #' @return
 #'  an 'adjusted' continuous variable that if binned will have the same proportions as requested in desired_props
+#'
+#' @export 
 modifyPropsContinuous <- function(x.cont, desired_props, catToContModels, cont.binbreaks, propens=NULL, logiset=NULL, accuracy=.01, envir=parent.frame()) {
 	x.cat <- bin(x.cont, cont.binbreaks)
 	adj.x.cat <- modifyProps(x.cat, desired_props, propens, accuracy)
