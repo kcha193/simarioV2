@@ -1,4 +1,3 @@
-#simarioV2
 # Simario features #
 
   * Perform discrete-time dynamic simulation, i.e.: transform a single set of micro-units
