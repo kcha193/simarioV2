@@ -7,8 +7,8 @@ Takes a continuous variable, converts it to a categorical variable using the bin
 modifyProps is then called on that categorical variable.
 The categorical variable is then converted back to a continuos variable using the catToContModels}
 \usage{
-modifyPropsContinuous(x.cont, desired_props, catToContModels, cont.binbreaks,
-  propens = NULL, logiset = NULL, accuracy = 0.01,
+modifyPropsContinuous(x.cont, desired_props, catToContModels,
+  cont.binbreaks, propens = NULL, logiset = NULL, accuracy = 0.01,
   envir = parent.frame())
 }
 \arguments{

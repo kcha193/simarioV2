@@ -10,8 +10,8 @@ This function establishes the values of the simulation frame at the start
 prior to simulation by evaluating the initial value expression specified by 
 the simframe definition.}
 \usage{
-loadSimFrame(simframe_defn, envir = .GlobalEnv, enclos = parent.frame(),
-  na_omit = FALSE)
+loadSimFrame(simframe_defn, envir = .GlobalEnv,
+  enclos = parent.frame(), na_omit = FALSE)
 }
 \arguments{
 \item{simframe_defn}{simframe definition. A dataframe of variables that define the simframe: 

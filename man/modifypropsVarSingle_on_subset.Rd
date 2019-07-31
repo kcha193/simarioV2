@@ -4,8 +4,8 @@
 \alias{modifypropsVarSingle_on_subset}
 \title{Calls modifyProps on a subset, returning the whole vector, but with the subset modified}
 \usage{
-modifypropsVarSingle_on_subset(default.vec, desired_props, propens = NULL,
-  logiset = NULL, accuracy = 0.01)
+modifypropsVarSingle_on_subset(default.vec, desired_props,
+  propens = NULL, logiset = NULL, accuracy = 0.01)
 }
 \arguments{
 \item{default.vec}{a vector after a run of the simulation. The values of this

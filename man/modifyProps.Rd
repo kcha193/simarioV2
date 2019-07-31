@@ -11,7 +11,8 @@ be given as input to the function.
 If the propensity score(s) are not provided by the user then random 
 propensity scores are generated.}
 \usage{
-modifyProps(default.vec, desired_props, propens = NULL, accuracy = 0.01)
+modifyProps(default.vec, desired_props, propens = NULL,
+  accuracy = 0.01)
 }
 \arguments{
 \item{default.vec}{a vector after a run of the simulation. The values of this

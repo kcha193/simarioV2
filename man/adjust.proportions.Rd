@@ -9,7 +9,8 @@ combine and reorder the data using combine.and.reorder().
 Called in adjustCatVar(), adjustContVar, and applyContAdjustmentToSimframe().}
 \usage{
 adjust.proportions(x, desiredProps, propens = NULL, logiset = NULL,
-  catToContModels = NULL, cont.binbreaks = NULL, envir = parent.frame())
+  catToContModels = NULL, cont.binbreaks = NULL,
+  envir = parent.frame())
 }
 \arguments{
 \item{x}{A categorical vector to be adjusted.}
