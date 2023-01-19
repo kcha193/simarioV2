@@ -30,7 +30,7 @@ An outcome matrix contains the set of values for each micro-unit during each ite
 At the end of each run a set of run stats is calculated for outcomes. A run stat is essentially a function that takes
 an outcome matrix and produces an aggregate value for each iteration. 
 This aggregate value may be a single value (eg: mean), a vector (eg: frequencies, quantiles, summary), 
-or a matrix (eg: 2 way table).
+or a matrix (eg: 2 way table). 
 
 Run stats are averaged across multiple runs by collateRunStats to get a final simulation result.
 }

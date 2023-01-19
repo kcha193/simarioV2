@@ -22,10 +22,11 @@
 \alias{sex}
 \alias{}}
 \alias{codings}
-\alias{simario-package}
 \title{simario is a framework for executing multi-run dynamic micro-simulations, including under different scenarios, and 
 taking measurements of the results.}
-\format{A Dictionary proto object}
+\format{
+A Dictionary proto object
+}
 \usage{
 dict_example
 }
@@ -51,7 +52,7 @@ for each micro-unit at each iteration.
 
 At the end of each run a series of run stats is calculated on outcomes. A run stat is essentially a function that takes
 a matrix of outcomes across multiple iterations and produces an aggregate value. Example run stats include mean,
-frequency, summary, and quantile.
+frequency, summary, and quantile. 
 
 Run stats are averaged across multiple runs to get a final simulation result.
 

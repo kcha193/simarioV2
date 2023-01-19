@@ -6,8 +6,7 @@
 distribution with mean = exp(predicted) and size=1/alpha
 where alpha is specified in the model.}
 \usage{
-predSimNBinom(model.glm, envir = parent.frame(), set = NULL,
-  alpha = NULL)
+predSimNBinom(model.glm, envir = parent.frame(), set = NULL, alpha = NULL)
 }
 \arguments{
 \item{model.glm}{model specifying variables to evaluate and coefficients

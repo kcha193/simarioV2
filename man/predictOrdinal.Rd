@@ -5,8 +5,7 @@
 \title{Calculates the predicted probabilities (from an ordinal regression model) to be in each
 cateory for a three or more level categorical variable.}
 \usage{
-predictOrdinal(models, numchildren, envir = parent.frame(),
-  stochastic = FALSE)
+predictOrdinal(models, numchildren, envir = parent.frame(), stochastic = FALSE)
 }
 \arguments{
 \item{models}{A list of models - one for each category.  The difference in the models will

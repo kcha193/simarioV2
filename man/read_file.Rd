@@ -4,8 +4,13 @@
 \alias{read_file}
 \title{Read a file and return a dataframe.}
 \usage{
-read_file(filedir, filename, filetype = file_extension(filename),
-  stringsAsFactors = FALSE, ...)
+read_file(
+  filedir,
+  filename,
+  filetype = file_extension(filename),
+  stringsAsFactors = FALSE,
+  ...
+)
 }
 \arguments{
 \item{filedir}{file directory, with or without trailing slash}

@@ -4,7 +4,9 @@
 \name{COL}
 \alias{COL}
 \title{COL constant = 2.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 COL
 }

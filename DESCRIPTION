@@ -20,6 +20,6 @@ Description: Framework for executing multi-run dynamic micro-simulation and
     aggregating results across all runs
 License: LGPL
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.2.3
 URL: https://github.com/kcha193/simarioV2
 BugReports: https://github.com/kcha193/simarioV2/issues

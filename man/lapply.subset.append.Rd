@@ -5,8 +5,14 @@
 \title{Execute a function over a subset of a list, and merges the results into
 an existing list.}
 \usage{
-lapply.subset.append(results.list, X, indices = names(results.list),
-  simplify = TRUE, .FUN, ...)
+lapply.subset.append(
+  results.list,
+  X,
+  indices = names(results.list),
+  simplify = TRUE,
+  .FUN,
+  ...
+)
 }
 \arguments{
 \item{results.list}{an existing list, eg:

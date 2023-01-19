@@ -4,8 +4,14 @@
 \alias{applyCatAdjustmentToSimframeVarSingle}
 \title{Adjust the proportions of a single simframe variable.}
 \usage{
-applyCatAdjustmentToSimframeVarSingle(Simenv, varname, desired_props,
-  propens, print_adj = T, logiset = NULL)
+applyCatAdjustmentToSimframeVarSingle(
+  Simenv,
+  varname,
+  desired_props,
+  propens,
+  print_adj = T,
+  logiset = NULL
+)
 }
 \arguments{
 \item{Simenv}{simenv receiving object. Simenv$simframe is modified.}

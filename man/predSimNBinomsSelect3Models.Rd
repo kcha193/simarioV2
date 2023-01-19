@@ -4,8 +4,13 @@
 \alias{predSimNBinomsSelect3Models}
 \title{Predict and simulate value from 3 normal models.}
 \usage{
-predSimNBinomsSelect3Models(select, model1, model2, model3,
-  envir = parent.frame())
+predSimNBinomsSelect3Models(
+  select,
+  model1,
+  model2,
+  model3,
+  envir = parent.frame()
+)
 }
 \arguments{
 \item{select}{a logical vector, or vector of 0,1,2,3which determine

@@ -4,8 +4,12 @@
 \alias{getOutcomeVars}
 \title{Get a set of outcome variables from the simframe.}
 \usage{
-getOutcomeVars(simframe, outcome_type_select = NULL,
-  outcome_module_name = NULL, sorted = FALSE)
+getOutcomeVars(
+  simframe,
+  outcome_type_select = NULL,
+  outcome_module_name = NULL,
+  sorted = FALSE
+)
 }
 \arguments{
 \item{simframe}{simframe}

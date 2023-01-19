@@ -5,8 +5,14 @@
 \title{Create new simenv object
 Simenv object - a simulation environment.}
 \usage{
-createSimenv(name, simframe, dict, modulesName, cat.adjustments = list(),
-  modules = list())
+createSimenv(
+  name,
+  simframe,
+  dict,
+  modulesName,
+  cat.adjustments = list(),
+  modules = list()
+)
 }
 \arguments{
 \item{name}{simulation name}
@@ -44,9 +50,6 @@ simulated data from the base simulation and results stored in these matrices.  A
 simulation these cont.adjustment matrices are checked and, if they contain values, they are used
 instead of the simulated values at that year.}
 }
-\value{
-
-}
 \description{
 A simulation environment contains everything required to perform a simulation. Typically 1 Simenv will be created 
 and used to run a base simulation, and additional Simenvs will be created to test different scenarios.
@@ -57,7 +60,7 @@ A Simenv consists of a:
 - one or more simulation modules (Simmodule). A Simmodule contains outcomes, run stats, and runs.averaged for a simulation
   as well as the code to generate them.
 
-Uses the global environment list variable "propensities" when performing categorical adjustment
+Uses the global environment list variable "propensities" when performing categorical adjustment  
 
 This class will be subclassed by specific simulation problems which will provide their own simframe,
 Simmodules and adjustments.

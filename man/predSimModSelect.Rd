@@ -4,8 +4,13 @@
 \alias{predSimModSelect}
 \title{Predict and simulate value from n models.}
 \usage{
-predSimModSelect(x.cat, models, cont.binbreaks, logiset = NULL,
-  envir = parent.frame())
+predSimModSelect(
+  x.cat,
+  models,
+  cont.binbreaks,
+  logiset = NULL,
+  envir = parent.frame()
+)
 }
 \arguments{
 \item{x.cat}{a categorical vector}

@@ -5,8 +5,12 @@
 \title{Predict and simulate value from n normal models with truncation/rounding to ensure simulated 
 values stay within their category bounds.}
 \usage{
-predSimNormsSelectWithRounding(x.cat, models, cont.binbreaks,
-  envir = parent.frame())
+predSimNormsSelectWithRounding(
+  x.cat,
+  models,
+  cont.binbreaks,
+  envir = parent.frame()
+)
 }
 \arguments{
 \item{x.cat}{a categorical vector}

@@ -5,8 +5,12 @@
 \title{Evaluate a list/vector of strings as expressions.
 Errors if expressions cannot be evaluated.}
 \usage{
-eval.list(exprlist, envir = .GlobalEnv, enclos = parent.frame(),
-  allowEmptyExpr = FALSE)
+eval.list(
+  exprlist,
+  envir = .GlobalEnv,
+  enclos = parent.frame(),
+  allowEmptyExpr = FALSE
+)
 }
 \arguments{
 \item{exprlist}{list/vector of strings to evaluate}

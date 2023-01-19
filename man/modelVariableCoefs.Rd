@@ -4,8 +4,12 @@
 \alias{modelVariableCoefs}
 \title{Return the coefficients used in the supplied model.}
 \usage{
-modelVariableCoefs(model, combineMultipleLevels = TRUE,
-  ignoreMultiplicativeTerms = TRUE, directionOnly = TRUE)
+modelVariableCoefs(
+  model,
+  combineMultipleLevels = TRUE,
+  ignoreMultiplicativeTerms = TRUE,
+  directionOnly = TRUE
+)
 }
 \arguments{
 \item{model}{a glm object with a coef variable, or a numeric vector of coefficients}

@@ -9,9 +9,6 @@ createDescriptions(descriptions_dataframe)
 \arguments{
 \item{codings_dataframe}{}
 }
-\value{
-
-}
 \description{
 Create the descriptions of the dictionary object. Called by new().
 }

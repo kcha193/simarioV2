@@ -18,9 +18,6 @@ i.e: no grping codes only varname codes.}
 
 \item{grpby.tag}{identifies the grping coding, or NULL if no grouping coding.}
 }
-\value{
-
-}
 \description{
 Returns the category names for the vector of flattened codes.
 }

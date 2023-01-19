@@ -5,9 +5,14 @@
 \title{Creates an empty adjustment matrix of NAs. 
 An adjustment matrix contains cells for each categorical value across a supplied number of rows. Each row  represents an iteration.}
 \usage{
-createAdjustmentMatrix(varname, coding = cont.binbreaks[-1], rows,
-  is_a_level_var = is_level_var(varname), cont.binbreaks = NULL,
-  catToContModels = NULL)
+createAdjustmentMatrix(
+  varname,
+  coding = cont.binbreaks[-1],
+  rows,
+  is_a_level_var = is_level_var(varname),
+  cont.binbreaks = NULL,
+  catToContModels = NULL
+)
 }
 \arguments{
 \item{varname}{variable name. This can be a standard variable name, eg: "catpregsmk2"

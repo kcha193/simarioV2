@@ -8,9 +8,15 @@ Subsets by the logiset call the appropriate version of modifyProps
 combine and reorder the data using combine.and.reorder(). 
 Called in adjustCatVar(), adjustContVar, and applyContAdjustmentToSimframe().}
 \usage{
-adjust.proportions(x, desiredProps, propens = NULL, logiset = NULL,
-  catToContModels = NULL, cont.binbreaks = NULL,
-  envir = parent.frame())
+adjust.proportions(
+  x,
+  desiredProps,
+  propens = NULL,
+  logiset = NULL,
+  catToContModels = NULL,
+  cont.binbreaks = NULL,
+  envir = parent.frame()
+)
 }
 \arguments{
 \item{x}{A categorical vector to be adjusted.}

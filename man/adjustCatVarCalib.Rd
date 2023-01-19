@@ -4,8 +4,14 @@
 \alias{adjustCatVarCalib}
 \title{Adjust categorical values to desired proportions in cat.adjustments (if any).}
 \usage{
-adjustCatVarCalib(x, varname, propens = NULL, desiredProps = NULL,
-  simenv = simenv, iteration = iteration)
+adjustCatVarCalib(
+  x,
+  varname,
+  propens = NULL,
+  desiredProps = NULL,
+  simenv = simenv,
+  iteration = iteration
+)
 }
 \arguments{
 \item{x}{categorical values to adjust}

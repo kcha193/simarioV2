@@ -4,8 +4,14 @@
 \alias{applyCatAdjustmentToSimframe}
 \title{Apply categorical adjustments to simframe.}
 \usage{
-applyCatAdjustmentToSimframe(Simenv, varnames, desired_props, iteration,
-  propensities, print_adj = TRUE)
+applyCatAdjustmentToSimframe(
+  Simenv,
+  varnames,
+  desired_props,
+  iteration,
+  propensities,
+  print_adj = TRUE
+)
 }
 \arguments{
 \item{Simenv}{simenv receiving object. Simenv$simframe is modified.}

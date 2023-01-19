@@ -5,8 +5,14 @@
 \title{Adjust the proportions of a simframe variable that exists in multiple binary level vectors,
 eg: SESBTHLvl1, SESBTHLvl2, SESBTHLvl3.}
 \usage{
-applyCatAdjustmentToSimframeVarMultipleBinary(Simenv, binLevelVarnames,
-  desiredProps, propens, printAdj = TRUE, logiset = NULL)
+applyCatAdjustmentToSimframeVarMultipleBinary(
+  Simenv,
+  binLevelVarnames,
+  desiredProps,
+  propens,
+  printAdj = TRUE,
+  logiset = NULL
+)
 }
 \arguments{
 \item{Simenv}{simenv receiving object. Simenv$simframe is modified.}

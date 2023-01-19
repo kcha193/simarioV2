@@ -5,8 +5,13 @@
 \title{Apply lapply.subset.append to each element of lol, using the arguments from 
 the parallel list lol.args and the function .FUN.}
 \usage{
-lapply.subset.append.lol.args(X, lol, lol.args = attr(lol, "args.list"),
-  simplify = TRUE, .FUN)
+lapply.subset.append.lol.args(
+  X,
+  lol,
+  lol.args = attr(lol, "args.list"),
+  simplify = TRUE,
+  .FUN
+)
 }
 \arguments{
 \item{X}{vector, list or dataframe on which to execute .FUN}

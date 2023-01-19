@@ -4,8 +4,13 @@
 \alias{predSimBinomsSelect3Models_notChangeScores}
 \title{Predict and simulate binary value from 3 binomial models.}
 \usage{
-predSimBinomsSelect3Models_notChangeScores(select, model1, model2, model3,
-  envir = parent.frame())
+predSimBinomsSelect3Models_notChangeScores(
+  select,
+  model1,
+  model2,
+  model3,
+  envir = parent.frame()
+)
 }
 \arguments{
 \item{select}{a logical vector, or vector of 0s and 1s, which determine

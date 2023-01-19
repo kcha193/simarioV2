@@ -4,8 +4,15 @@
 \alias{applyContAdjustmentToSimframe}
 \title{Apply continuous adjustments to simframe.}
 \usage{
-applyContAdjustmentToSimframe(Simenv, varname, iteration, desiredProps,
-  catToContModels, cont.binbreaks, propensities)
+applyContAdjustmentToSimframe(
+  Simenv,
+  varname,
+  iteration,
+  desiredProps,
+  catToContModels,
+  cont.binbreaks,
+  propensities
+)
 }
 \arguments{
 \item{Simenv}{simenv receiving object. Simenv$simframe is modified.}

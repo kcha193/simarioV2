@@ -215,9 +215,10 @@ evaluateLogisetExprAttribute <- function(desired_props, simframe, varname="") {
 #' Simenv object
 #'
 #' @export 
-setGlobalSubgroupFilterExpression <- function(env.scenario, subgroupExpression) {
+setGlobalSubgroupFilterExpression <-
+  function(env.scenario, subgroupExpression) {
   if (is.null(subgroupExpression) || subgroupExpression == "") {
-    return(removeGlobalSubgroupFilterExpression())
+    return(removeGlobalSubgroupFilterExpression(env.scenario))
   }
   
   cat("Setting global subgroup expression \"",subgroupExpression,"\"\n", sep="")

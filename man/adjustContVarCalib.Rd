@@ -4,8 +4,14 @@
 \alias{adjustContVarCalib}
 \title{Adjust continuous values to desired proportions in cat.adjustments (if any).}
 \usage{
-adjustContVarCalib(x, varname, propens = NULL, desiredProps = NULL,
-  simenv, iteration)
+adjustContVarCalib(
+  x,
+  varname,
+  propens = NULL,
+  desiredProps = NULL,
+  simenv,
+  iteration
+)
 }
 \arguments{
 \item{x}{continuous values to adjust}
