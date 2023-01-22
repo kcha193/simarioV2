@@ -108,7 +108,7 @@ tableBuilder <-
           as.numeric(bin(x, binbreaks[[variableName]])))
       
       simulatedData <- 
-        tbl_df(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[variableName]])), 
+        tibble::as_tibble(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[variableName]])), 
                           simulatedDataFull))
       
     }else{
@@ -123,7 +123,7 @@ tableBuilder <-
       colnames(simulatedDataFull) <- paste("run", 1:env$num_runs_simulated, sep = "")
       
       simulatedData <- 
-        tbl_df(data.frame(Year = 1, simulatedDataFull))
+        tibble::as_tibble(data.frame(Year = 1, simulatedDataFull))
     }
     
     
@@ -171,7 +171,7 @@ tableBuilder <-
           }
           
           groupByData <- 
-            tbl_df(data.frame(Year = rep(as.numeric(colnames(env$modules$run_results$run1[[grpby]])), 
+            tibble::as_tibble(data.frame(Year = rep(as.numeric(colnames(env$modules$run_results$run1[[grpby]])), 
                                          each = nrow(env$simframe)), 
                               A0 = 1:nrow(env$simframe), groupByDataFull))
           
@@ -191,7 +191,7 @@ tableBuilder <-
           ageRange <- as.numeric(strsplit(dict$age[variableName], "--")[[1]])
           
           groupByData <- 
-            tbl_df(data.frame(Year = rep(ageRange[1]:ageRange[2], 
+            tibble::as_tibble(data.frame(Year = rep(ageRange[1]:ageRange[2], 
                                          each = nrow(env$simframe)), A0 = 1:nrow(env$simframe), 
                                         groupByData = groupByDataFull))
         }
@@ -210,13 +210,13 @@ tableBuilder <-
       
       if(variableName %in% timeVar ){
         simulatedData <- 
-          tbl_df(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[variableName]])), 
+          tibble::as_tibble(data.frame(Year = as.numeric(colnames(env$modules$run_results$run1[[variableName]])), 
                             A0 = rep(1:nrow(env$simframe), each = 
                                        length(as.numeric(colnames(env$modules$run_results$run1[[variableName]])))) ,
                             simulatedDataFull))
       }else {
         simulatedData <- 
-          tbl_df(data.frame(Year = 1, A0 = 1:nrow(env$simframe), simulatedDataFull))
+          tibble::as_tibble(data.frame(Year = 1, A0 = 1:nrow(env$simframe), simulatedDataFull))
       }
       
       
