@@ -83,7 +83,7 @@ createSimenv <- function (name, initial_sim, modulesName, total_year,
        num_runs_simulated = 0L,
        simframe=simframe,
        cat.adjustments=cat.adjustments,
-       models_adjust = initial_sim$model_df,
+       models_adjust = initial_sim$models_df,
        modules=modules,
        dict=dict
   )
