@@ -90,7 +90,8 @@ createSimenv <- function (name, initial_sim, modulesName, total_year,
        transition_probabilities = initial_sim$transition_probabilities,
        models = initial_sim$models,
        PropensityModels = initial_sim$PropensityModels,
-       children = initial_sim$children
+       children = initial_sim$children,
+       limits = initial_sim$limits
   )
 }
 #' Create empty categorical variable adjustment matrices.
