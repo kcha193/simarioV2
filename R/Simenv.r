@@ -69,7 +69,7 @@ createSimenv <- function (name, initial_sim, modulesName, total_year,
   dict <-  initial_sim$dict
   binbreaks <- initial_sim$binbreaks
   catToContModels <- initial_sim$catToContModels
-    
+
   cat.adjustments <- 	
     createEmptyCatAdjustments(simframe, dict, binbreaks, catToContModels, 
                               numiterations = total_year)
@@ -85,7 +85,12 @@ createSimenv <- function (name, initial_sim, modulesName, total_year,
        cat.adjustments=cat.adjustments,
        models_adjust = initial_sim$models_df,
        modules=modules,
-       dict=dict
+       dict=dict,
+       binbreaks = initial_sim$binbreaks,
+       transition_probabilities = initial_sim$transition_probabilities,
+       models = initial_sim$models,
+       PropensityModels = initial_sim$PropensityModels,
+       children = initial_sim$children
   )
 }
 #' Create empty categorical variable adjustment matrices.
@@ -532,7 +537,8 @@ check.subgroup.expr <- function(Simenv) {
 #' 
 #' @export
 simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) {
-  start_time <- proc.time()
+  
+  tictoc::tic()
   
   cat(gettextf("Simulating %s\n", Simenv$name))
   
@@ -570,8 +576,8 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) 
     
     cl <- makeCluster(detectCores())
     
-    clusterExport(cl, c("binbreaks", "transition_probabilities", "models", 
-                        "PropensityModels", "children"))
+    # clusterExport(cl, c("binbreaks", "transition_probabilities", "models", 
+    #                     "PropensityModels", "children"))
     
     clusterEvalQ(cl, {library(simarioV2); library(bindata)})
     clusterSetRNGStream(cl, 1)
@@ -591,9 +597,7 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) 
   
   names(Simenv$modules$run_results) <- paste("run", 1:total_runs, sep="")
   
-  end_time <- proc.time()
-  
-  print(end_time - start_time)
+  tictoc::toc()
   
   return(Simenv)
 }
