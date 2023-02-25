@@ -558,6 +558,8 @@ simulateSimario <- function(Simenv, total_runs=1, simulateFun, parallel = TRUE) 
     stop("Check creation of valid.subgroup \n")
   }
   
+  limits <- Simenv$limits
+  
   #at this point after adjusting continuous variables some values may be higher than 
   #the limits set throughout the simulation - can fix here (rather than changing
   #more deep down simario functions)
