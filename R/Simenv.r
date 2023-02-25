@@ -62,11 +62,12 @@
 #'   
 #' @export
 #'  
-createSimenv <- function (name, simframe, dict, modulesName, n_run,
+createSimenv <- function (name, simframe, dict, modulesName, total_year,
                           cat.adjustments=list(), modules=list()) {
 
   
-  cat.adjustments <- 	createEmptyCatAdjustments(simframe, dict, numiterations=n_run)
+  cat.adjustments <- 	createEmptyCatAdjustments(simframe, dict,
+                                                numiterations = total_year)
   
   
   modules <- createSimmodule(modulesName)

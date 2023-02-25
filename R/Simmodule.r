@@ -240,11 +240,7 @@ adjustCatVar <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, it
   }
   
   if (is.null(desiredProps)) {
-    
-    if(nrow(cat.adjustments[[varname.no.lvl]]) < iteration){
-      return(x)
-    }
-    
+
     #adjustCatVar is being used for scenario testing - get from cat.adjustments
     desiredProps <- cat.adjustments[[varname.no.lvl]][iteration,]
   }
