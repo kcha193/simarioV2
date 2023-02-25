@@ -62,12 +62,17 @@
 #'   
 #' @export
 #'  
-createSimenv <- function (name, simframe, dict, modulesName, total_year,
+createSimenv <- function (name, initial_sim, modulesName, total_year,
                           cat.adjustments=list(), modules=list()) {
 
-  
-  cat.adjustments <- 	createEmptyCatAdjustments(simframe, dict,
-                                                numiterations = total_year)
+  simframe <- initial_sim$simframe
+  dict <-  initial_sim$dict
+  binbreaks <- initial_sim$binbreaks
+  catToContModels <- initial_sim$catToContModels
+    
+  cat.adjustments <- 	
+    createEmptyCatAdjustments(simframe, dict, binbreaks, catToContModels, 
+                              numiterations = total_year)
   
   
   modules <- createSimmodule(modulesName)
@@ -85,56 +90,69 @@ createSimenv <- function (name, simframe, dict, modulesName, total_year,
 #' Create empty categorical variable adjustment matrices.
 #'   
 #' @export
-createEmptyCatAdjustments <- function(simframe, dict, numiterations = NUM_ITERATIONS) {
-  
-  catvars <- getOutcomeVars(simframe, "categorical")
-  #catvars <- catvars[!names(catvars) %in% c("typeofchange", "sptype", "typnode")]	#remove
-  
-  # create per iteration cat adj matrices
-  cat.adjustments <- createAdjustmentMatrices(catvars, dict, numiterations)
-  #above line creates cat.adjustments for time-variant categorical variables 
-  #(those with the Outcome_type specified as categorical in simframedef.csv
-  #for MELC these variables are: alcabuse, depression, z1single, z1chpar, welfare.
-  #z1accom, z1homeown, z1overcrowd, mumgroup, dadgroup, and z1cond
-  
-  # create first year only cat adjs
-  
-  time_invariant_vars <- attr(simframe, "time_invariant_vars")
-  
-  if(!is.null(time_invariant_vars)){
-    for(i in 1:length(time_invariant_vars$Varname)){
-      
-      
-      if(time_invariant_vars[i,2] =="categorical"){
-        cat.adjustments$" " <-       
-          createAdjustmentMatrix(time_invariant_vars[i,1], dict$codings[[time_invariant_vars[i,1]]], 
-                               dict$descriptions[[time_invariant_vars[i,1]]], is_a_level_var=TRUE) 
-      } else {
-        cat.adjustments$" " <-       
-          createAdjustmentMatrix(time_invariant_vars[i,1], binbreaks[[time_invariant_vars[i,1]]][-1], 
-                                 dict$descriptions[[time_invariant_vars[i,1]]], is_a_level_var=FALSE,
-                                 cont.binbreaks=binbreaks[[time_invariant_vars[i,1]]], 
-                                 catToContModels=catToContModels[[time_invariant_vars[i,1]]]) 
-      }
-      
-      names(cat.adjustments)[length(cat.adjustments)] <- time_invariant_vars[i,1]
-    }
-  }
-  
-  catcontvar<- names(binbreaks)[!names(binbreaks) %in% time_invariant_vars$Varname]
-  
-    #create continuous variable cat.adjustments
-  for(i in catcontvar){
-    cat.adjustments$" " <- 
-      createAdjustmentMatrix(i, binbreaks[[i]][-1], numiterations, is_a_level_var=FALSE, 
-                             cont.binbreaks=binbreaks[[i]], catToContModels=catToContModels[[i]])
-  
-    names(cat.adjustments)[length(cat.adjustments)] <- i 
-  }
+createEmptyCatAdjustments <-
+  function(simframe, dict, binbreaks, catToContModels, numiterations = NUM_ITERATIONS) {
+    catvars <- getOutcomeVars(simframe, "categorical")
+    #catvars <- catvars[!names(catvars) %in% c("typeofchange", "sptype", "typnode")]	#remove
     
- 
-  cat.adjustments 
-}
+    # create per iteration cat adj matrices
+    cat.adjustments <-
+      createAdjustmentMatrices(catvars, dict, numiterations)
+    #above line creates cat.adjustments for time-variant categorical variables
+    #(those with the Outcome_type specified as categorical in simframedef.csv
+    #for MELC these variables are: alcabuse, depression, z1single, z1chpar, welfare.
+    #z1accom, z1homeown, z1overcrowd, mumgroup, dadgroup, and z1cond
+    
+    # create first year only cat adjs
+    
+    time_invariant_vars <- attr(simframe, "time_invariant_vars")
+    
+    if (!is.null(time_invariant_vars)) {
+      for (i in 1:length(time_invariant_vars$Varname)) {
+        if (time_invariant_vars[i, 2] == "categorical") {
+          cat.adjustments$" " <-
+            createAdjustmentMatrix(time_invariant_vars[i, 1],
+                                   dict$codings[[time_invariant_vars[i, 1]]],
+                                   dict$descriptions[[time_invariant_vars[i, 1]]],
+                                   is_a_level_var = TRUE)
+        } else {
+          cat.adjustments$" " <-
+            createAdjustmentMatrix(
+              time_invariant_vars[i, 1],
+              binbreaks[[time_invariant_vars[i, 1]]][-1],
+              dict$descriptions[[time_invariant_vars[i, 1]]],
+              is_a_level_var = FALSE,
+              cont.binbreaks = binbreaks[[time_invariant_vars[i, 1]]],
+              catToContModels = catToContModels[[time_invariant_vars[i, 1]]]
+            )
+        }
+        
+        names(cat.adjustments)[length(cat.adjustments)] <-
+          time_invariant_vars[i, 1]
+      }
+    }
+    
+    catcontvar <-
+      names(binbreaks)[!names(binbreaks) %in% time_invariant_vars$Varname]
+    
+    #create continuous variable cat.adjustments
+    for (i in catcontvar) {
+      cat.adjustments$" " <-
+        createAdjustmentMatrix(
+          i,
+          binbreaks[[i]][-1],
+          numiterations,
+          is_a_level_var = FALSE,
+          cont.binbreaks = binbreaks[[i]],
+          catToContModels = catToContModels[[i]]
+        )
+      
+      names(cat.adjustments)[length(cat.adjustments)] <- i
+    }
+    
+    
+    cat.adjustments
+  }
 
 
 #' Apply categorical adjustments to simframe.
