@@ -51,7 +51,8 @@
 #' 
 #' 
 tableBuilderNew <- 
-  function (env, statistic = c("frequencies", "means", "quantiles"), variableName, binbreaks,
+  function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
+            binbreaks,
             dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "", envBase = NULL,
             basePop = FALSE, digits = 1){
     
