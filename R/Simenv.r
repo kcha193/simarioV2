@@ -181,8 +181,11 @@ createEmptyCatAdjustments <-
 #'  NULL. simframe in receiving object is modified directly.
 #'   
 #' @export
-applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NULL, print_adj=TRUE, 
-                                             cat.adjustments=Simenv$cat.adjustments) {
+applyAllCatAdjustmentsToSimframe <- function(Simenv, iteration, propensities=NULL,
+                                             print_adj=TRUE) {
+  
+  binbreaks <- Simenv$binbreaks
+  cat.adjustments <- Simenv$cat.adjustments
   
   contvars <- getOutcomeVars(Simenv$simframe, "continuous")
 
