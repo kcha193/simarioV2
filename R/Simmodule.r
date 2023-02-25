@@ -241,7 +241,7 @@ adjustCatVar <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, it
   
   if (is.null(desiredProps)) {
     
-    if(nrow(simenv$cat.adjustments$[[varname.no.lvl]]) < iteration){
+    if(nrow(cat.adjustments[[varname.no.lvl]]) < iteration){
       return(x)
     }
     
