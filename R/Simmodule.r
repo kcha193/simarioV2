@@ -232,12 +232,19 @@ adjustCatVar <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, it
   
   varname.no.lvl <- strip_lvl_suffix(varname[1])
   
-  if (!varname.no.lvl %in% names(cat.adjustments)) stop(gettextf("No cat.adjustments for %s", varname))
+  if (!varname.no.lvl %in% names(cat.adjustments))
+    stop(gettextf("No cat.adjustments for %s", varname))
   
   if (varname %in% c("NPRESCH", "INTERACT", "PUNISH")) {
     iteration <- 1 #just makes it use the 1st (and only) row for cat.adjustments
   }
+  
   if (is.null(desiredProps)) {
+    
+    if(nrow(simenv$cat.adjustments$[[varname.no.lvl]]) < iteration){
+      return(x)
+    }
+    
     #adjustCatVar is being used for scenario testing - get from cat.adjustments
     desiredProps <- cat.adjustments[[varname.no.lvl]][iteration,]
   }
@@ -245,6 +252,7 @@ adjustCatVar <- function(x, varname, propens=NULL, desiredProps=NULL, simenv, it
   if (any(is.na(desiredProps))) {
     return(x)
   }
+  
   #attach logisetexpr attribute to desiredProps
   desiredProps <- structure(desiredProps, varname=varname, logisetexpr=attr(cat.adjustments[[varname.no.lvl]], "logisetexpr"),
                             levels=simenv$dict$codings[[varname]])
