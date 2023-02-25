@@ -118,12 +118,22 @@ createGLM <- function (modeldf) {
 #' @seealso See \code{\link{createGLM}} for file format.
 #' 
 #' @export 
-loadGLMCSV <- function (filedir, filename) {
-	modeldf <- read.csv(paste(filedir, filename, sep=""),stringsAsFactors = FALSE)
-	tryCatch(	createGLM(modeldf), 
-			error = function(e) stop(paste(filename, e$message), call. = FALSE),
-			warning = function(e) stop(paste(filename, e$message), call. = FALSE)
-	)
+loadGLMCSV <- function (filedir, filename, df = FALSE) {
+  modeldf <-
+    read.csv(paste(filedir, filename, sep = ""), stringsAsFactors = FALSE)
+  
+  if (df) {
+    return(modeldf)
+    
+  } else {
+    tryCatch(
+      createGLM(modeldf),
+      error = function(e)
+        stop(paste(filename, e$message), call. = FALSE),
+      warning = function(e)
+        stop(paste(filename, e$message), call. = FALSE)
+    )
+  }
 }
 
 
