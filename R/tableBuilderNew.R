@@ -26,14 +26,8 @@
 #' @param CI
 #'  logical indicating whether 95\% confidence intervals should be generated
 #'  
-#' @param dict
-#'  Dictionary object.
-#'  
 #' @param logisetexpr
 #'  a character expression which defines the logiset variable
-#'  
-#' @param binbreaks
-#'  The binbreaks for the outcome variable. 
 #'  
 #' @param env.base
 #'  Base simulation results
@@ -48,12 +42,10 @@
 #'  a summary table for the entire or subgroup of the variable of interest.
 #'   
 #' @export
-#' 
-#' 
+ 
 tableBuilderNew <- 
   function (env, statistic = c("frequencies", "means", "quantiles"), variableName, 
-            binbreaks,
-            dict = env$dict, grpbyName = "", CI = TRUE, logisetexpr = "", envBase = NULL,
+            grpbyName = "", CI = TRUE, logisetexpr = "", envBase = NULL,
             basePop = FALSE, digits = 1){
     
     library(dplyr)
@@ -67,6 +59,9 @@ tableBuilderNew <-
     
     nRun <- as.numeric(env$num_runs_simulated)
 
+    binbreaks <- env$binbreaks
+    dict <- env$dict
+     
     if(!is.null(envBase)){
       
       combineSimario <-
