@@ -539,10 +539,11 @@ adjust.proportions <- function(x, desiredProps, propens=NULL, logiset=NULL, catT
 		if (!is.null(catToContModels)) {
 			subset_to_change_modified <- modifyPropsContinuous(subset_to_change, desiredProps, catToContModels, cont.binbreaks, propens_subset, logiset, accuracy=.05, envir)
 		} else {
-			subset_to_change_modified <- modifyProps(subset_to_change, desiredProps, propens_subset, accuracy=.05)
+			subset_to_change_modified <- modifyProps(subset_to_change, desiredProps, propens_subset, accuracy=.05) |> as.character() |> as.numeric()
 		}
 		
 		non.modified.x <- x[!logiset]
+		non.modified.x <- non.modified.x |> as.character() |> as.numeric()
 		
 		modified.in.order <- combine.and.reorder(subset_to_change_modified, non.modified.x, logiset)
 		
